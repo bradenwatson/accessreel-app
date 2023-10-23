@@ -1,5 +1,6 @@
 using AccessReelApp.database_structures;
 using AccessReelApp.ViewModels;
+using System.Diagnostics;
 
 namespace AccessReelApp.Views;
 
@@ -30,11 +31,13 @@ public partial class InterviewsPage : ContentPage
     private void Saved_Clicked(object sender, EventArgs e)
     {
         TestDatabaseDefaultData();
+        Debug.WriteLine("saved clicked");
     }
 
     private void Load_Clicked(object sender, EventArgs e)
     {
         TestLoadFromDataBase();
+        Debug.WriteLine("load clicked");
     }
 
     void TestLoadFromDataBase()
