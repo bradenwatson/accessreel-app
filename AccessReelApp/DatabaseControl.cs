@@ -16,12 +16,17 @@ namespace AccessReelApp
     /// your data. You can see TestStructure for how to set it up. To load your data you will need to create a new function that interacts with the database using your class. You can see TestStructure for
     /// how to interact with the database
     /// </summary>
+
     public class DatabaseControl
     {
         // database
-        const string fileName = "AccessReelAppDatabase.db3";
+        const string fileName = "AccessReelAppDatabase2.db3";
         SQLiteAsyncConnection database;
-        ServerControl serverControl = new ServerControl();
+
+        List<Type> differentClassNamesForDatabase = new List<Type>
+        {
+            typeof(TestStructure), 
+        };
 
         public DatabaseControl()
         {
@@ -34,11 +39,32 @@ namespace AccessReelApp
         /// need to find each function call and fix up their errors (most likely only found in DataAccess class). Before saving you will need to add a table for your new class so it has a place
         /// to save
         /// </summary>
-        public void SaveData(List<TestStructure> testStructure)
+        public void SaveData(params object[] toInsertIntoDatabase)
         {
-            foreach (var testStructureItem in testStructure)
+            foreach (var lists in toInsertIntoDatabase)
             {
-                database.InsertAsync(testStructureItem).Wait();
+                if (toInsertIntoDatabase is IEnumerable<object> objectList)
+                {                   
+                    foreach (var item in objectList)
+                    {   
+                        //bool tableExists = database.TableMappings.Any(m => m.TableName == objectList.GetType().Name);
+                        //if (!tableExists)
+                        //{
+                        //    database.CreateTableAsync(lists.GetType()).Wait();
+                        //}                     
+                        database.InsertAsync(item);
+                    }
+                }
+                else
+                {
+                    bool tableExists = database.TableMappings.Any(m => m.TableName == lists.GetType().Name);
+                    if (!tableExists)
+                    {
+                        database.CreateTableAsync(lists.GetType()).Wait();
+                    }
+
+                    database.InsertAsync(lists).Wait();
+                }
             }            
         }
 
@@ -60,8 +86,11 @@ namespace AccessReelApp
         /// add each structure you will need as a table (will need to alter the SaveData method to include your class as an argument if you haven't already
         /// </summary>
         void CreateTablesForDatabase()
-        {
-            database.CreateTableAsync<TestStructure>();
+        {           
+            foreach (var type in differentClassNamesForDatabase)
+            {
+                database.CreateTableAsync(type).Wait();
+            }
         }
 
         /// <summary>

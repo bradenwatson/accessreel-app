@@ -4,10 +4,23 @@
              xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
              x:Class="AccessReelApp.Views.InterviewsPage"
              Title="InterviewsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Row="0" Grid.Column="0" 
+            BackgroundColor="Black"
+            Clicked="Load_Clicked" Text="load"/>
+
+        <Button Grid.Row="0" Grid.Column="1" 
+            BackgroundColor="Black"
+            Clicked="Saved_Clicked" Text="save"/>
+
+    </Grid>
 </ContentPage>

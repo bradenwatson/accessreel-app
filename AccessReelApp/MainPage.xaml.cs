@@ -20,35 +20,6 @@ namespace AccessReelApp
 				vm.Text = "Changed!";
 			}
 		}
-
-		void TestLoadFromDataBase()
-		{
-			databaseControl.LoadTestStructure();
-		}
-
-		void TestDatabaseDefaultData()
-		{	
-			List<TestStructure> testStructures = new List<TestStructure>();
-
-			for (int i = 0; i < 10; i++)
-			{
-				TestStructure newTestStructure = new TestStructure();
-				newTestStructure.name = $"test structure {i}";
-				testStructures.Add(newTestStructure);
-			}
-
-			databaseControl.SaveData(testStructures);
-		}
-
-		private void Saved_Clicked(object sender, EventArgs e)
-		{
-			TestDatabaseDefaultData();
-		}
-
-		private void Load_Clicked(object sender, EventArgs e)
-		{
-			TestLoadFromDataBase();
-		}
-	}
+    }
 }
 
