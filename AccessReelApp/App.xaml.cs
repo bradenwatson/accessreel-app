@@ -1,4 +1,6 @@
-﻿namespace AccessReelApp;
+﻿using AccessReelApp.Views;
+
+namespace AccessReelApp;
 
 public partial class App : Application
 {
@@ -8,4 +10,6 @@ public partial class App : Application
 
 		MainPage = new AppShell();
 	}
+
+	
 }

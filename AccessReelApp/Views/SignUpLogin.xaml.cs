@@ -2,11 +2,11 @@ using AccessReelApp.ViewModels;
 
 namespace AccessReelApp.Views;
 
-public partial class ReviewsPage : ContentPage
+public partial class SignUpLogin : ContentPage
 {
-	public ReviewsPage(ReviewsViewModel vm)
+	public SignUpLogin(SignUpLoginViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext = vm;
-    }
+	}
 }
