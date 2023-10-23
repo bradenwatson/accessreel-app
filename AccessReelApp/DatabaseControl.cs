@@ -9,6 +9,13 @@ using System.Threading.Tasks;
 
 namespace AccessReelApp
 {
+    /// <summary>
+    /// a class for saving and loading from a database. In future will allow for server access aswell. You will need make a class structure that holds your information. this structure will need to hold
+    /// anything you need to be saved such as movie names, user login information, location, etc. Then you will have to make an argument in SaveData so you can save your data and add in logic to interact
+    /// with that argument to save it (there is a TestStructure already made to see how to do it). You will then need to add logic into the function called CreateTablesForDatabase so it has a place to save
+    /// your data. You can see TestStructure for how to set it up. To load your data you will need to create a new function that interacts with the database using your class. You can see TestStructure for
+    /// how to interact with the database
+    /// </summary>
     public class DatabaseControl
     {
         // database
@@ -58,9 +65,9 @@ namespace AccessReelApp
         }
 
         /// <summary>
-        /// returns the data wanted from the database
+        /// A test for seeing if can retrieve data from database. Will need to implement own logic for needed class
         /// </summary>
-        public void LoadData() 
+        public void LoadTestStructure() 
         { 
             List<TestStructure> retrievedTestStructure = database.Table<TestStructure>().ToListAsync().Result;
 
