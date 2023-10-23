@@ -10,11 +10,10 @@
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center">
-            
+
             <!--Remove when creating home page-->
             <Label Text="{Binding Text}"></Label>
 
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
