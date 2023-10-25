@@ -7,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Storage.Pickers;
 
 namespace AccessReelApp
 {
@@ -21,7 +20,7 @@ namespace AccessReelApp
     public class DatabaseControl
     {
         // database
-        const string fileName = "AccessReelAppDatabase3.db3";
+        const string fileName = "TestDatabaseAccessReel1.db3";
         SQLiteAsyncConnection database;
 
         public DatabaseControl()
@@ -29,42 +28,28 @@ namespace AccessReelApp
             OpenDatabase();
         }
 
-        /// <summary>
-        /// saves your data to a database. Enter is any many arguments as you want. Works for list of class instances and single items. Will be a silent error if the table doesnt exist (need to alter my logic in the CreateTablesForDatabase method)
-        /// </summary>
-        public void SaveData(params object[] toInsertIntoDatabase)
+        public void SaveData(params object[] data)
         {
-            foreach (var lists in toInsertIntoDatabase)
+            Debug.WriteLine("save clicked ------");
+            // goes through each item entered as an argument
+            foreach (object arg in data)
             {
-                if (toInsertIntoDatabase is IEnumerable<object> objectList)
-                {                   
-                    foreach (var item in objectList)
-                    {  
-                        bool tableExists = database.TableMappings.Any(m => m.TableName == item.GetType().Name);
-                        if (!tableExists)
-                        {
-                            CreateTablesForDatabase();
-                        }  
-                        
+                Debug.WriteLine("first foreach ran");
+                if (arg is IEnumerable<object> argList)
+                {
+                    foreach (var item in argList)
+                    {
+                        Debug.WriteLine(item);
                         database.InsertAsync(item);
                     }
                 }
                 else
                 {
-                    bool tableExists = database.TableMappings.Any(m => m.TableName == lists.GetType().Name);
-                    if (!tableExists)
-                    {
-                        CreateTablesForDatabase();
-                    }
-
-                    database.InsertAsync(lists).Wait();
+                    Debug.WriteLine(arg);
                 }
-            }            
+            }
         }
 
-        /// <summary>
-        /// creates a connection to the database
-        /// </summary>
         void OpenDatabase()
         {
             var localDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -73,26 +58,21 @@ namespace AccessReelApp
             Debug.WriteLine(fullPath);
 
             database = new SQLiteAsyncConnection(fullPath);
+            CreateTablesForDatabase();
         }
 
-        /// <summary>
-        /// add each structure you will need as a table (will need to alter the SaveData method to include your class as an argument if you haven't already
-        /// </summary>
         void CreateTablesForDatabase()
         {
             database.CreateTableAsync<TestStructure>().Wait();
         }
 
-        /// <summary>
-        /// A test for seeing if can retrieve data from database. Will need to implement own logic for needed class
-        /// </summary>
         public void LoadTestStructure() 
-        { 
-            List<TestStructure> retrievedTestStructure = database.Table<TestStructure>().ToListAsync().Result;
+        {
+            List<TestStructure> contactList = database.Table<TestStructure>().ToListAsync().Result;
 
-            foreach (var testStructure in retrievedTestStructure)
+            foreach (var contact in contactList)
             {
-                Debug.WriteLine(testStructure.name);
+                Debug.WriteLine(contact.name);
             }
         }
     }
