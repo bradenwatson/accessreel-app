@@ -23,15 +23,16 @@ namespace AccessReelApp
         const string fileName = "TestDatabaseAccessReel1.db3";
         SQLiteAsyncConnection database;
 
+        Dictionary<Type, List<Type>> loadedFromDatabase = new();
+
         public DatabaseControl()
         {
             OpenDatabase();
         }
 
-        public void SaveData(params object[] data)
+        public async Task SaveData(params object[] data)
         {
             Debug.WriteLine("save clicked ------");
-            // goes through each item entered as an argument
             foreach (object arg in data)
             {
                 Debug.WriteLine("first foreach ran");
@@ -40,12 +41,15 @@ namespace AccessReelApp
                     foreach (var item in argList)
                     {
                         Debug.WriteLine(item);
-                        database.InsertAsync(item);
+                        await database.CreateTableAsync(item.GetType());
+                        await database.InsertAsync(item);                        
                     }
                 }
                 else
                 {
                     Debug.WriteLine(arg);
+                    await database.CreateTableAsync(arg.GetType());
+                    await database.InsertAsync(arg);                                       
                 }
             }
         }
@@ -58,22 +62,11 @@ namespace AccessReelApp
             Debug.WriteLine(fullPath);
 
             database = new SQLiteAsyncConnection(fullPath);
-            CreateTablesForDatabase();
         }
 
-        void CreateTablesForDatabase()
+        public List<TestStructure> LoadTestStructure()
         {
-            database.CreateTableAsync<TestStructure>().Wait();
-        }
-
-        public void LoadTestStructure() 
-        {
-            List<TestStructure> contactList = database.Table<TestStructure>().ToListAsync().Result;
-
-            foreach (var contact in contactList)
-            {
-                Debug.WriteLine(contact.name);
-            }
+            return database.Table<TestStructure>().ToListAsync().Result;
         }
     }
 }
