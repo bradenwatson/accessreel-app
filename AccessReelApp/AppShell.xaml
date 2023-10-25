@@ -8,7 +8,7 @@
     FlyoutHeaderBehavior="CollapseOnScroll"
     Shell.FlyoutBehavior="Flyout">
 
-    <!--Example "Top bar"-->
+    <!--Example "Top bars"-->
     <!--IsVisible="False" use for when creating login-->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Title="Home"
