@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:AccessReelApp"
     xmlns:view="clr-namespace:AccessReelApp.Views"
-    Shell.FlyoutBehavior="Disabled">
+    FlyoutHeaderBehavior="CollapseOnScroll"
+    Shell.FlyoutBehavior="Flyout">
 
     <!--Example "Top bar"-->
     <!--IsVisible="False" use for when creating login-->
