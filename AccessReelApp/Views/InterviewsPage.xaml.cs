@@ -40,8 +40,13 @@ public partial class InterviewsPage : ContentPage
         Debug.WriteLine("load clicked");
     }
 
-    void TestLoadFromDataBase()
+    async void TestLoadFromDataBase()
     {
-        databaseControl.LoadTestStructure();
+        var loadedData = await databaseControl.LoadDataFromDatabaseAsync<TestStructure>();
+
+        foreach (var item in loadedData)
+        {
+            Debug.WriteLine(item.name);
+        }
     }
 }

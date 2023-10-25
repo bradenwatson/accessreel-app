@@ -11,16 +11,13 @@ using System.Threading.Tasks;
 namespace AccessReelApp
 {
     /// <summary>
-    /// a class for saving and loading from a database. In future will allow for server access aswell. You will need make a class structure that holds your information. this structure will need to hold
-    /// anything you need to be saved such as movie names, user login information, location, etc. You will then need to create a table in the CreateTablesForDatabases method following the same logic as the TestStructure (trying to find a way to 
-    /// make it more dynamic). Then to save all you have to do is call the SaveData function. this function is meant to take in a list of class instances and iterate over each item and insert it but works for single items to.
-    /// doesnt work for list of lists or anything like that. still working on a way to retrieve data dynamically
+    /// use to save and load from a database. use SaveData to save to the database, creates tables on every entry (need to change). to load from database use LoadDataFromDatabaseAsync.
+    /// you will most likely need to create a new class to use the database functions since done with the sqlite-net library. the classes you can use can't contain an initiliser and
+    /// everything that is registered and saved to the database needs a get method (don't know if needs a set). the pathway the database uses should be printed via debug.writeline()
     /// </summary>
-
     public class DatabaseControl
     {
-        // database
-        const string fileName = "TestDatabaseAccessReel1.db3";
+        const string fileName = "TestDatabaseAccessReel2.db3";
         SQLiteAsyncConnection database;
 
         Dictionary<Type, List<Type>> loadedFromDatabase = new();
@@ -30,6 +27,12 @@ namespace AccessReelApp
             OpenDatabase();
         }
 
+        /// <summary>
+        /// enter in as many arguments as you want. will save to database assuming it is a valid type. still need to make error checking for if its valid or not. is a task so you can
+        /// await completion is needed
+        /// </summary>
+        /// <param name="data">what you want to be saved to the database (can enter entire lists at once aswell - does a double foreach if it can or just adds it if can't)</param>
+        /// <returns></returns>
         public async Task SaveData(params object[] data)
         {
             Debug.WriteLine("save clicked ------");
@@ -54,6 +57,9 @@ namespace AccessReelApp
             }
         }
 
+        /// <summary>
+        /// opens a link to the database and prints the pathway via debug.writeline()
+        /// </summary>
         void OpenDatabase()
         {
             var localDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -64,9 +70,14 @@ namespace AccessReelApp
             database = new SQLiteAsyncConnection(fullPath);
         }
 
-        public List<TestStructure> LoadTestStructure()
+        /// <summary>
+        /// goes through the database and returns a list of wanted type. use LoadDataFromDatabaseAsync<wantedClassName>(). can be awaited
+        /// </summary>
+        /// <typeparam name="T">the class type you are trying to recieve from the database</typeparam>
+        /// <returns>a list of every class instance saved to the database</returns>
+        public async Task<List<T>> LoadDataFromDatabaseAsync<T>() where T : new()
         {
-            return database.Table<TestStructure>().ToListAsync().Result;
+            return await database.Table<T>().ToListAsync();
         }
     }
 }
