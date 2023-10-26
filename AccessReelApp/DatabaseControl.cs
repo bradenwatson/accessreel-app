@@ -124,9 +124,30 @@ namespace AccessReelApp
             }            
         }
 
-        public async Task DeleteAlreadyCreatedItem()
+        public async Task DeleteAlreadyCreatedItem(params object[] data)
         {
-
+            foreach (var arg in data)
+            {
+                if (arg is IEnumerable<object> argList)
+                {
+                    foreach (var item in argList)
+                    {
+                        int numberOfRowsDeleted = await database.DeleteAsync(item);
+                        if (numberOfRowsDeleted == 0)
+                        {
+                            Debug.WriteLine($"wasn't deleted : {item}");
+                        }
+                    }
+                }
+                else
+                {
+                    int numberOfRowsDeleted = await database.DeleteAsync(arg);
+                    if (numberOfRowsDeleted == 0)
+                    {
+                        Debug.WriteLine($"wasn't deleted : {arg}");
+                    }
+                }
+            }
         }
     }
 }
