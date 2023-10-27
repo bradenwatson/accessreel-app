@@ -22,7 +22,6 @@
         <Button Grid.Row="0" Grid.Column="1" 
             BackgroundColor="Black"
             Clicked="Saved_Clicked" Text="save"/>
-        <Image Grid.Column="2" Source="Images/accessreel_logo.png"/>
 
     </Grid>
     
