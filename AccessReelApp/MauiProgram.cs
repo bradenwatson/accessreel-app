@@ -28,6 +28,8 @@ public static class MauiProgram
         builder.Services.AddTransient<ReviewsViewModel>();
         builder.Services.AddSingleton<InterviewsPage>();
         builder.Services.AddTransient<InterviewsViewModel>();
+		builder.Services.AddSingleton<SignUpLogin>();
+		builder.Services.AddTransient<SignUpLoginViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();
