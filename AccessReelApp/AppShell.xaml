@@ -32,7 +32,7 @@
         <ShellContent Title="Map"
                       ContentTemplate="{DataTemplate view:InterviewsPage}"/>
         <ShellContent Title="Log In"
-                      ContentTemplate="{DataTemplate view:InterviewsPage}"/>
+                      ContentTemplate="{DataTemplate view:SignUpLogin}"/>
     </FlyoutItem>
 
 </Shell>

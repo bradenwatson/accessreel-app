@@ -2,11 +2,196 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AccessReelApp.Views.SignUpLogin"
-             Title="SignUpLogin">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Title="SignUpLogin"
+             BackgroundColor="#FFFFFF">
+
+    <VerticalStackLayout 
+        VerticalOptions="StartAndExpand"
+        HorizontalOptions="Center"
+        Padding="5,5,5,5">
+
+        <!-- accessreel.com logo-->
+        <Image Source="accessreel_logo.png"
+               WidthRequest="250"
+               HeightRequest="150"
+               Scale="0.8"
+               Aspect="Center"/>
+
+        <!--username or email title-->
+        <Label
+            Text="Username or Email Address"
+            FontSize="12"
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
+            WidthRequest="250"
+            Padding="5,10,5,1"/>
+
+        <!--username input-->
+        <Entry
+            Placeholder="username"
+            TextColor="#69CCDE"
+            Keyboard="Default"
+            WidthRequest="250"
+            BackgroundColor="#EEEEEE"/>
+
+        <!--password label-->
+        <Label
+            Text="Password"
+            FontSize="12"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            WidthRequest="250"
+            Padding="5,20,5,1"/>
+
+        <!--password input-->
+        <Entry
+            Placeholder="Password"
+            TextColor="#69CCDE"
+            Keyboard="Default"
+            IsPassword="True"
+            WidthRequest="250"
+            BackgroundColor="#EEEEEE"/>
+
+        <!--connect with label-->
+        <Label
+            Text="Connect with:"
+            FontSize="12"
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
+            WidthRequest="250"
+            Padding="5,20,5,1"/>
+
+        <HorizontalStackLayout
+            Padding="5,1,5,10">
+            <!--Facebook Image Button-->
+            <ImageButton 
+                Source="facebook_logo.png"
+                Aspect="Fill"
+                WidthRequest="30"
+                HeightRequest="30"
+                Padding="5,0,0,5"/>
+
+            <!--Google Image Button-->
+            <ImageButton 
+                Source="google_logo.png"
+                Aspect="Fill"
+                WidthRequest="30"
+                HeightRequest="30"
+                Padding="5,0,0,5"/>
+        </HorizontalStackLayout>
+
+        <!--remember me checkbox-->
+        <HorizontalStackLayout
+            Padding="5,10,5,15">
+            <!--checkbox-->
+            <CheckBox>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="Color"
+                            Value="Black" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                        <VisualState x:Name="IsChecked">
+                            <VisualState.Setters>
+                                <Setter Property="Color"
+                            Value="Green" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </CheckBox>
+
+            <!--label-->
+            <Label
+                Text="Remember Me"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Padding="5,5,5,5"/>
+        </HorizontalStackLayout>
+
+        <!--Log IN Button-->
+        <Button
+            Text="Log in:"
+            BackgroundColor="#008ec2"
+            TextColor="#FFFFFF"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            WidthRequest="250"
+            HeightRequest="40"
+            Padding="5,5,5,5"/>
+
+        <!-- register link to accessreel.com-->
+        <Label
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            WidthRequest="250"
+            Padding="5,20,5,1">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span 
+                        Text="Register"
+                        TextColor="#171516"
+                        FontSize="12"
+                        TextDecorations="Underline">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer
+                                    Command="{Binding OpenUrlCommand}"
+                                    CommandParameter="https://https://accessreel.com/wp/wp-login.php?action=register"/>
+                        </Span.GestureRecognizers>
+                    </Span>
+                    <Span
+                        Text=" | "
+                        TextColor="#171516"
+                        FontSize="12"/>
+                    <Span 
+                        Text="Forgotten my Password"
+                        TextColor="#171516"
+                        FontSize="12"
+                        TextDecorations="Underline">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer
+                                    Command="{Binding OpenUrlCommand}"
+                                    CommandParameter="https://https://accessreel.com/my-account/lost-password/"/>
+                        </Span.GestureRecognizers>
+                    </Span>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label
+        VerticalOptions="Center"
+        HorizontalOptions="Center"
+        HorizontalTextAlignment="Center"
+        WidthRequest="250"
+        Padding="5,20,5,1">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span
+                        Text=" &lt; "
+                        TextColor="#171516"
+                        FontSize="12">
+                    </Span>
+                    <Span 
+                    Text="Go to Accessreel.com"
+                    TextColor="#171516"
+                    FontSize="12"
+                    TextDecorations="Underline">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding OpenUrlCommand}"
+                                CommandParameter="https://https://accessreel.com/wp/wp-login.php?action=register"/>
+                        </Span.GestureRecognizers>
+                    </Span>
+
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
     </VerticalStackLayout>
+    
 </ContentPage>
