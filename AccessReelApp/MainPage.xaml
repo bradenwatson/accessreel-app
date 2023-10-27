@@ -13,6 +13,8 @@
 
             <!--Remove when creating home page-->
             <Label Text="{Binding Text}"></Label>
+            
+
 
         </VerticalStackLayout>
     </ScrollView>

@@ -10,7 +10,16 @@
 
     <!--Example "Top bars"-->
     <!--IsVisible="False" use for when creating login-->
+
+    <!--<ShellContent>
+
+        <Image Grid.Column="2" Source="Images/accessreel_logo.png"/>
+
+    </ShellContent>-->
+
+
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+
         <ShellContent Title="Home"
                       Route="home" 
                       ContentTemplate="{DataTemplate local:MainPage}" />
@@ -20,12 +29,10 @@
                       ContentTemplate="{DataTemplate view:ReviewsPage}"/>
         <ShellContent Title="Interviews"
                       ContentTemplate="{DataTemplate view:InterviewsPage}"/>
+        <ShellContent Title="Map"
+                      ContentTemplate="{DataTemplate view:InterviewsPage}"/>
+        <ShellContent Title="Log In"
+                      ContentTemplate="{DataTemplate view:SignUpLogin}"/>
     </FlyoutItem>
-    
-    
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
 
 </Shell>
