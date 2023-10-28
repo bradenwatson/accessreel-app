@@ -6,16 +6,30 @@
     xmlns:local="clr-namespace:AccessReelApp"
     xmlns:view="clr-namespace:AccessReelApp.Views"
     FlyoutHeaderBehavior="CollapseOnScroll"
-    Shell.FlyoutBehavior="Flyout">
+    Shell.FlyoutBehavior="Flyout"
+    BackgroundColor="#FFFFFF">
 
     <!--Example "Top bars"-->
     <!--IsVisible="False" use for when creating login-->
 
-    <!--<ShellContent>
-
-        <Image Grid.Column="2" Source="Images/accessreel_logo.png"/>
-
-    </ShellContent>-->
+    <Shell.Resources>
+        <ResourceDictionary>
+            <!-- set background coloour of shell-->
+            <Color x:Key="ShellBackgroundColor">#FFFFFF</Color>
+        </ResourceDictionary>
+    </Shell.Resources>
+    
+    <Shell.TitleView>
+        <Grid HeightRequest="50">
+            <!-- accessreel.com logo-->
+            <Image Source="accessreel_logo.png"
+            WidthRequest="125"
+            HeightRequest="75"
+            HorizontalOptions="Center"
+            Scale="0.8"
+            Aspect="AspectFit"/>
+        </Grid>
+    </Shell.TitleView>
 
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
