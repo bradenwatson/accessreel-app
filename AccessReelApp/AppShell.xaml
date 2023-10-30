@@ -7,6 +7,8 @@
     xmlns:view="clr-namespace:AccessReelApp.Views"
     FlyoutHeaderBehavior="CollapseOnScroll"
     Shell.FlyoutBehavior="Flyout"
+    Shell.ForegroundColor="#171516"
+    FlyoutBackgroundColor="#FFFFFF"
     BackgroundColor="#FFFFFF">
 
     <!--Example "Top bars"-->
@@ -37,7 +39,7 @@
 
     </Shell.TitleView>
 
-    <FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         
         <ShellContent Title="Home"
                       Route="home" 
