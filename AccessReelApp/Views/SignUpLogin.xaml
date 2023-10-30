@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
+             x:DataType="viewmodel:SignUpLoginViewModel"
              x:Class="AccessReelApp.Views.SignUpLogin"
              Title="SignUpLogin"
              BackgroundColor="#FFFFFF">
@@ -29,6 +31,7 @@
         <!--username input-->
         <Entry
             Placeholder="username"
+            Text="{Binding Username}"
             TextColor="#69CCDE"
             Keyboard="Default"
             WidthRequest="250"
@@ -46,6 +49,7 @@
         <!--password input-->
         <Entry
             Placeholder="Password"
+            Text="{Binding Password}"
             TextColor="#69CCDE"
             Keyboard="Default"
             IsPassword="True"
@@ -84,7 +88,7 @@
         <HorizontalStackLayout
             Padding="5,10,5,15">
             <!--checkbox-->
-            <CheckBox>
+            <CheckBox IsChecked="{Binding RememberMe}">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualState x:Name="Normal">
@@ -116,6 +120,7 @@
         <!--Log IN Button-->
         <Button
             Text="Log in:"
+            Command="{Binding LoginCommand}"
             BackgroundColor="#008ec2"
             TextColor="#FFFFFF"
             VerticalOptions="Center"

@@ -18,10 +18,11 @@ public partial class InterviewsPage : ContentPage
     {
         List<TestStructure> testStructures = new List<TestStructure>();
 
-        for (int i = 10; i < 20; i++)
+        for (int i = 0; i < 20; i++)
         {
             TestStructure newTestStructure = new TestStructure();
-            newTestStructure.name = $"test structure {i}";
+            newTestStructure.name = $"structure {i}";
+            newTestStructure.id = i;
             testStructures.Add(newTestStructure);
         }
 

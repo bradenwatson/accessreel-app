@@ -6,33 +6,60 @@
     xmlns:local="clr-namespace:AccessReelApp"
     xmlns:view="clr-namespace:AccessReelApp.Views"
     FlyoutHeaderBehavior="CollapseOnScroll"
-    Shell.FlyoutBehavior="Flyout">
+    Shell.FlyoutBehavior="Flyout"
+    Shell.ForegroundColor="#171516"
+    FlyoutBackgroundColor="#FFFFFF"
+    BackgroundColor="#FFFFFF">
 
     <!--Example "Top bars"-->
     <!--IsVisible="False" use for when creating login-->
 
-    <!--<ShellContent>
+    <Shell.Resources>
+        <ResourceDictionary>
+            
+            <!-- set background coloour of shell-->
+            <Color x:Key="ShellBackgroundColor">#FFFFFF</Color>
+            
+        </ResourceDictionary>
+    </Shell.Resources>
 
-        <Image Grid.Column="2" Source="Images/accessreel_logo.png"/>
+    <Shell.TitleView>
 
-    </ShellContent>-->
+        <Grid HeightRequest="50">
 
+            <!-- accessreel.com logo-->
+            <Image Source="accessreel_logo.png"
+                   WidthRequest="125"
+                   HeightRequest="75"
+                   HorizontalOptions="Center"
+                   Scale="0.8"
+                   Aspect="AspectFit"/>
+
+        </Grid>
+
+    </Shell.TitleView>
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-
+        
         <ShellContent Title="Home"
                       Route="home" 
                       ContentTemplate="{DataTemplate local:MainPage}" />
-        <ShellContent Title="News" 
+
+        <ShellContent Title="News"
                       ContentTemplate="{DataTemplate view:NewsPage}" />
+
         <ShellContent Title="Reviews"
-                      ContentTemplate="{DataTemplate view:ReviewsPage}"/>
+                      ContentTemplate="{DataTemplate view:ReviewsPage}" />
+
         <ShellContent Title="Interviews"
-                      ContentTemplate="{DataTemplate view:InterviewsPage}"/>
+                      ContentTemplate="{DataTemplate view:InterviewsPage}" />
+
         <ShellContent Title="Map"
-                      ContentTemplate="{DataTemplate view:InterviewsPage}"/>
+                      ContentTemplate="{DataTemplate view:InterviewsPage}" />
+
         <ShellContent Title="Log In"
-                      ContentTemplate="{DataTemplate view:SignUpLogin}"/>
+                      ContentTemplate="{DataTemplate view:SignUpLogin}" />
+        
     </FlyoutItem>
 
 </Shell>
