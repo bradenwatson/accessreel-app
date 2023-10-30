@@ -11,9 +11,6 @@
     FlyoutBackgroundColor="#FFFFFF"
     BackgroundColor="#FFFFFF">
 
-    <!--Example "Top bars"-->
-    <!--IsVisible="False" use for when creating login-->
-
     <Shell.Resources>
         <ResourceDictionary>
             
@@ -39,7 +36,7 @@
 
     </Shell.TitleView>
 
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False">
         
         <ShellContent Title="Home"
                       Route="home" 
@@ -61,5 +58,22 @@
                       ContentTemplate="{DataTemplate view:SignUpLogin}" />
         
     </FlyoutItem>
+
+    <TabBar>
+
+        <Tab Title="Home">
+            <ShellContent Route="home" 
+                          ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
+
+        <Tab Title="George">
+            <ShellContent ContentTemplate="{DataTemplate view:NewsPage}" />
+        </Tab>
+
+        <Tab Title="Braden">
+            <ShellContent ContentTemplate="{DataTemplate view:ReviewsPage}" />
+        </Tab>
+
+    </TabBar>
 
 </Shell>
