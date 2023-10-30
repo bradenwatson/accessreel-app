@@ -79,6 +79,8 @@
 
 	<ItemGroup>
 	  <MauiImage Include="Resources\Images\Icons\accessreel_logo.png" />
+	  <MauiImage Include="Resources\Images\movies\barbie.jpg" />
+	  <MauiImage Include="Resources\Images\movies\turtles.jpg" />
 	</ItemGroup>
 
 </Project>

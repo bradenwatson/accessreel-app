@@ -20,6 +20,11 @@ namespace AccessReelApp
 				vm.Text = "Changed!";
 			}
 		}
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
