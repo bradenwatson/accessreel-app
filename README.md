@@ -15,8 +15,8 @@ git remote add new-origin <other-repository-URL>
 3. Push your local branch to the branch in the "new-origin" remote repository:
 git push new-origin <local-branch-name>:<local-branch-name>
 
-Merge branches - git merge <source-branch> <destination-branch>
+git merge <source-branch> <destination-branch>
 
-Push branch - git push <remote-name> <local-branch>:<remote-branch>
+git push <remote-name> <local-branch>:<remote-branch>
 
-Pull branch - git pull <remote-name> <source-branch>:<local-branch>
+git pull <remote-name> <source-branch>:<local-branch>
