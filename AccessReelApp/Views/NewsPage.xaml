@@ -2,15 +2,33 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AccessReelApp.Views.NewsPage"
+             xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
+             x:DataType="viewmodel:NewsViewModel"
              Title="NewsPage"
              BackgroundColor="#FFFFFF">
     <ScrollView>
-        <StackLayout>
+        <StackLayout HorizontalOptions="Center">
             <ImageButton Source="barbie.jpg"
                          WidthRequest="250"
                          HeightRequest="150"
                          Scale="1"
                          Aspect="AspectFill"/>
+
+            <CarouselView ItemsSource="{Binding MyList}" BackgroundColor="Black">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout WidthRequest="50">
+                            <Frame HasShadow="True">
+                                <StackLayout>
+                                    <Label Text="{Binding .}" FontSize="16"></Label>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+            
         </StackLayout>
     </ScrollView>
 </ContentPage>
