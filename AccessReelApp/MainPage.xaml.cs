@@ -5,8 +5,6 @@ namespace AccessReelApp
 {
 	public partial class MainPage : ContentPage
 	{
-		DatabaseControl databaseControl = new DatabaseControl();
-
 		public MainPage(MainViewModel vm)
 		{		
 			BindingContext = vm;

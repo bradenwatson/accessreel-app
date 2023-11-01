@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:AccessReelApp.ViewModels"
              x:Class="AccessReelApp.Views.NewsPage"
+             xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
+             x:DataType="viewmodel:NewsViewModel"
              Title="NewsPage"
              BackgroundColor="#FFFFFF">
     <ScrollView>
@@ -11,6 +14,23 @@
                          HeightRequest="150"
                          Scale="1"
                          Aspect="AspectFill"/>
+            <IndicatorView x:Name="indicatorView" 
+                           IndicatorColor="Gray"
+                           SelectedIndicatorColor="Black"
+                           HorizontalOptions="Center"
+                           MaximumVisible="10"/>
+            <CarouselView IndicatorView="indicatorView" ItemsSource="{Binding ButtonCollection}">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <ImageButton Source="{Binding Source}"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+               
+            
+            
         </StackLayout>
     </ScrollView>
 </ContentPage>
