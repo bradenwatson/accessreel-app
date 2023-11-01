@@ -8,8 +8,24 @@ namespace AccessReelApp
 {
     public class CarouselModel
     {
-        public Dictionary<MovieModel, MovieImageModel> movieImageDictionary;
-        int number_movies = 10;
-        public Dictionary<MovieModel, MovieImageModel>[] movieImageDictionaries;
+        Dictionary<string, string>[] movieImageDictionaries;
+
+        void AddMovieImage(MovieModel movieModel, MovieImageModel movieImageModel)
+        {
+            const int NUMBER_MOVIES = 10;
+            int currentIndex = Array.FindIndex(movieImageDictionaries, dict => dict == null);
+            if (currentIndex >= 0 && currentIndex < NUMBER_MOVIES)
+            {
+                movieImageDictionaries[currentIndex] = new Dictionary<string, string>
+                {
+                    { movieModel.Title, movieImageModel.Source }
+                };
+            }
+        }
+
+        public CarouselModel(MovieModel movieModel, MovieImageModel movieImageModel)
+        {
+            AddMovieImage(movieModel, movieImageModel);
+        }
     }
 }
