@@ -19,6 +19,11 @@
                 TextColor="White"
                 BackgroundColor="Gray"
                 Clicked="Button_Clicked"/>
+            <Button
+                Text="Send Notification"
+                TextColor="White"
+                BackgroundColor="Gray"
+                Clicked="Button_Clicked_1"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

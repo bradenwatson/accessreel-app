@@ -11,6 +11,9 @@
     based notifications for the following platforms: iOS,
     Android, Web.   
 
+    This class itself is not an object, and should be called
+    like a trigger to output messages which are defined.
+
     This class uses Firebase Cloud Messaging which is a free, 
     scalable google based service for handling notifiications
     from targeted to a wider audience.
