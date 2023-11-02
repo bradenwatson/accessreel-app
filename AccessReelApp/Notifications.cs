@@ -66,6 +66,7 @@
     * Refresh compeitions
     * Refresh deals
 **************************************************************/
+using CommunityToolkit.Mvvm.Messaging.Messages;
 using Plugin.LocalNotification;
 
 namespace AccessReelApp
@@ -73,5 +74,25 @@ namespace AccessReelApp
     internal class Notifications
     {
 
+    }
+
+    // Moved notification classes to the notification object.
+    // These classes shouldn't be in the main page (I get all was for testing :) )
+    public class PushNotificationReceived : ValueChangedMessage<string>
+    {
+        public PushNotificationReceived(string message) : base(message) { }
+    }
+
+    public class PushNotificationRequest
+    {
+        public List<string> registration_ids { get; set; } = new List<string>();
+        public NotificationMessageBody notification { get; set; }
+        public object data { get; set; }
+    }
+
+    public class NotificationMessageBody
+    {
+        public string title { get; set; }
+        public string body { get; set; }
     }
 }
