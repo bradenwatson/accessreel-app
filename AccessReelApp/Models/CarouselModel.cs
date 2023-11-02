@@ -11,7 +11,7 @@ namespace AccessReelApp
     public static class CarouselModel
     {
         static Dictionary<string, string>[] movieImageDictionaries;
-        static ImageButton[] ButtonCollection = new ImageButton[1];
+        public static ImageButton[] ButtonCollection = new ImageButton[1];
 
         public static void SetImageSource(string source)
         {
