@@ -14,17 +14,6 @@ using System.Diagnostics;
 
 namespace AccessReelApp
 {
-    public class PushNotificationReceived : ValueChangedMessage<string>
-    {
-        public PushNotificationReceived(string message) : base(message) { }
-    }
-
-    public class PushNotificationRequest
-    {
-        public List<string> registration_ids { get; set; } = new List<string>();
-        public NotificationMessageBody notification { get; set; }
-        public object data { get; set; }
-    }
 
     public class NotificationMessageBody
     {
@@ -34,8 +23,9 @@ namespace AccessReelApp
 
     public partial class MainPage : ContentPage
 	{
-		DatabaseControl databaseControl = new DatabaseControl();
-		int count = 0;
+        // Unused?
+        int count = 0;
+        DatabaseControl databaseControl = new DatabaseControl();
 		private string _deviceToken;
 
 		public MainPage(MainViewModel vm)
@@ -48,10 +38,16 @@ namespace AccessReelApp
 				string msg = m.Value;
 			});
 
-			if(Preferences.ContainsKey("DeviceToken"))
-			{
-				_deviceToken = Preferences.Get("DeviceToken", "");
-			}
+            RootTests();
+            ReadFireBaseAdminSDK();
+        }
+
+        private void RootTests() // seperates code a little bit
+        {
+            if (Preferences.ContainsKey("DeviceToken"))
+            {
+                _deviceToken = Preferences.Get("DeviceToken", "");
+            }
 
             string rootDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string relativePath = Path.Combine("Platforms", "Android", "Resources", "admin_sdk.json");
@@ -62,7 +58,6 @@ namespace AccessReelApp
             Debug.WriteLine($"rel path = {relativePath}");
             Debug.WriteLine($"full path = {fullPath}");
             Debug.WriteLine("**************************************************************");
-            ReadFireBaseAdminSDK();
         }
 
 		protected override void OnAppearing()
@@ -74,8 +69,10 @@ namespace AccessReelApp
 			}
 		}
 
-        //THIS WORKS!!!!
-		private void Button_Clicked(object sender, EventArgs e)
+        // Testing methods ------>
+
+        //THIS WORKS!!!! -> Does the bottom event not work?
+        private void Button_Clicked(object sender, EventArgs e)
         {
 
 			//DOES THIS PLUGIN WORK FOR FIREBASE
@@ -114,49 +111,47 @@ namespace AccessReelApp
 
         private async void Button_Clicked_1(object sender, EventArgs e)
         {
+            var androidNotificationObject = new Dictionary<string, string>();
+            androidNotificationObject.Add("NavigationID", "2");
+
+            var iosNotificationObject = new Dictionary<string, object>();
+            iosNotificationObject.Add("NavigationID", "2");
+
+            var pushNotificationRequest = new PushNotificationRequest
             {
-                var androidNotificationObject = new Dictionary<string, string>();
-                androidNotificationObject.Add("NavigationID", "2");
-
-                var iosNotificationObject = new Dictionary<string, object>();
-                iosNotificationObject.Add("NavigationID", "2");
-
-                var pushNotificationRequest = new PushNotificationRequest
+                notification = new NotificationMessageBody
                 {
-                    notification = new NotificationMessageBody
-                    {
-                        title = "Notification Title",
-                        body = "Notification body"
-                    },
-                    data = androidNotificationObject,
-                    registration_ids = new List<string> { _deviceToken }
-                };
+                    title = "Notification Title",
+                    body = "Notification body"
+                },
+                data = androidNotificationObject,
+                registration_ids = new List<string> { _deviceToken }
+            };
 
-                var messageList = new List<Message>();
+            var messageList = new List<Message>();
 
-                var obj = new Message
+            var obj = new Message
+            {
+                Token = _deviceToken,
+                Notification = new Notification
                 {
-                    Token = _deviceToken,
-                    Notification = new Notification
+                    Title = "Tilte",
+                    Body = "message body"
+                },
+                Data = androidNotificationObject,
+                Apns = new ApnsConfig()
+                {
+                    Aps = new Aps
                     {
-                        Title = "Tilte",
-                        Body = "message body"
-                    },
-                    Data = androidNotificationObject,
-                    Apns = new ApnsConfig()
-                    {
-                        Aps = new Aps
-                        {
-                            Badge = 15,
-                            CustomData = iosNotificationObject,
-                        }
+                        Badge = 15,
+                        CustomData = iosNotificationObject,
                     }
-                };
+                }
+            };
 
-                messageList.Add(obj);
+            messageList.Add(obj);
 
-                var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messageList);
-            }
+            var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messageList);
         }
     }
 }
