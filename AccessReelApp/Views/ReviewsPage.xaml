@@ -2,12 +2,24 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
+             x:DataType="viewmodel:ReviewsViewModel"
              x:Class="AccessReelApp.Views.ReviewsPage"
              Title="ReviewsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI! REVIEWS"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout 
+        Spacing="25"
+        Padding="30,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="148"/>
+                <ColumnDefinition Width="160"/>
+            </Grid.ColumnDefinitions>
+
+            <Picker Grid.Column="0" ItemsSource="{Binding FilterList}" Title="Newest" />
+            <Picker Grid.Column="1" ItemsSource="{Binding DateFilterList}" Title="Posted any date" />
+        </Grid>
+        
     </VerticalStackLayout>
 </ContentPage>
