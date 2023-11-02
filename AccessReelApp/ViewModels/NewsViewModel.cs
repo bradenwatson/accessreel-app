@@ -12,16 +12,26 @@ namespace AccessReelApp.ViewModels
     public partial class NewsViewModel : ObservableObject
     {
         public ObservableCollection<ImageButton> ButtonCollection { get; set; }
-        
-        public NewsViewModel() 
+
+        void Initialise()
         {
-            ButtonCollection = new ObservableCollection<ImageButton>
+            if (ButtonCollection == null)
             {
-                new ImageButton
-                {
-                    Source = "barbie.jpg"
-                }
-            };
+                ButtonCollection = new ObservableCollection<ImageButton>();
+            }
+        }
+
+        void AddImageButton(string source)
+        {
+            Initialise();
+            CarouselModel.SetImageSource(source);
+            ButtonCollection.Add(CarouselModel.ButtonCollection[0]);
+        }
+
+        public NewsViewModel()
+        {
+            
+            AddImageButton("turtles.jpg");
         }
     }
 }
