@@ -2,6 +2,7 @@
 using AccessReelApp.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Plugin.LocalNotification;
 
 namespace AccessReelApp;
 
@@ -12,6 +13,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.UseLocalNotification()		//ADDED FOR LOCAL NOTIFICATIONS
             .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
 			{

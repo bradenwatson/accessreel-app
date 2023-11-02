@@ -6,11 +6,24 @@
              x:Class="AccessReelApp.MainPage">
 
     <ScrollView>
+        
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
-            VerticalOptions="Center">
-            
+            VerticalOptions="Center" BackgroundColor="Black">
+
+            <!--Remove when creating home page-->
+            <Label Text="{Binding Text}"></Label>
+            <Button
+                Text="Send Notification"
+                TextColor="White"
+                BackgroundColor="Gray"
+                Clicked="Button_Clicked"/>
+            <Button
+                Text="Send Notification"
+                TextColor="White"
+                BackgroundColor="Gray"
+                Clicked="Button_Clicked_1"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
