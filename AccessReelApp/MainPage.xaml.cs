@@ -6,6 +6,7 @@ using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
+using System.Diagnostics;
 
 //Firebase https://firebase.google.com/docs/reference/admin
 //Android Setup https://firebase.google.com/docs/cloud-messaging/android/client
@@ -52,8 +53,17 @@ namespace AccessReelApp
 				_deviceToken = Preferences.Get("DeviceToken", "");
 			}
 
-			ReadFireBaseAdminSDK();
-		}
+            string rootDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string relativePath = Path.Combine("Platforms", "Android", "Resources", "admin_sdk.json");
+            string fullPath = Path.Combine(rootDirectory, relativePath);
+
+            Debug.WriteLine("**************************************************************");
+            Debug.WriteLine($"root dir = {rootDirectory}");
+            Debug.WriteLine($"rel path = {relativePath}");
+            Debug.WriteLine($"full path = {fullPath}");
+            Debug.WriteLine("**************************************************************");
+            ReadFireBaseAdminSDK();
+        }
 
 		protected override void OnAppearing()
 		{
@@ -64,6 +74,7 @@ namespace AccessReelApp
 			}
 		}
 
+        //THIS WORKS!!!!
 		private void Button_Clicked(object sender, EventArgs e)
         {
 
@@ -86,7 +97,8 @@ namespace AccessReelApp
 
 		private async void ReadFireBaseAdminSDK()
 		{
-			var stream = await FileSystem.OpenAppPackageFileAsync("admin_sdk.json");
+            string relativePath = "Platforms/Android/admin_sdk.json";
+            var stream = await FileSystem.OpenAppPackageFileAsync(relativePath);
 			var reader = new StreamReader(stream);
 
 			var jsonContent = reader.ReadToEnd();

@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "1043077197201",
-    "project_id": "access-reel",
-    "storage_bucket": "access-reel.appspot.com"
+    "project_number": "734530391348",
+    "project_id": "sample-afe7a",
+    "storage_bucket": "sample-afe7a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1043077197201:android:392862f4613916f65bfe30",
+        "mobilesdk_app_id": "1:734530391348:android:c17ba1e623401e3b1c6961",
         "android_client_info": {
-          "package_name": "push.notification.sample"
+          "package_name": "com.companyname.accessreelapp"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCPC5xmR1UyFKjNu2gvhk0JmBxOQvBrOs4"
+          "current_key": "AIzaSyD5IEo83URv4pNBy9mkPy0pwnbhzsol2Oo"
         }
       ],
       "services": {
