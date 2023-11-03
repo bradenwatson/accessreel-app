@@ -7,7 +7,43 @@
              x:DataType="viewmodel:NewsViewModel"
              Title="NewsPage"
              BackgroundColor="#FFFFFF">
+<<<<<<< HEAD
   
+=======
+    <ContentPage.Resources>
+        <!--<Style x:Key="innerBoarder" TargetType="Boarder">
+            <Setter Property="StrokeShape" Value="RoundRectangle 50"/>
+            <Setter Property="Padding" Value=""/>
+        </Style>-->
+        <!--<Style x:Key="outerBoarder" TargetType="Boarder">
+            <Setter Property="StrokeShape" Value="RoundRectangle 20"/>
+            <Setter Property="Padding" Value=""/>
+        </Style>
+        <Style x:Key="widthHeightInnerBoarder" BasedOn="{StaticResource innerBoarder}"> 
+            <Setter Property="WidthRequest" Value=""/>
+            <Setter Property="HightRequest" Value=""/>
+            <Setter Property="BackgroundColour" Value=""/>
+        </Style>
+        <Style x:Key="widthHeightOuterBoarder" TargetType="Boarder" BasedOn="{StaticResource outerBoarder}"> 
+            <Setter Property="WidthRequest" Value=""/>
+            <Setter Property="HightRequest" Value=""/>
+            <Setter Property="BackgroundColour" Value=""/>
+        </Style>
+        <Style x:Key="textlabel" TargetType="Label">
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontSize" Value=""/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+        <Style x:Key="compositeBoarder" TargetType="Border" BasedOn="{StaticResource outerBoarder}">
+            <Setter Property="Content">
+                <Border Style="{StaticResource innerBoard}">
+                    <Label Style="{StaticResource textlabel}"/>
+                </Border>
+            </Setter>
+        </Style>-->
+            
+    </ContentPage.Resources>
+>>>>>>> 9dcc4268ca6b8dec5bff8cfd55732a32f0c22031
     <ScrollView>
         <StackLayout>
             <Label x:Name="topBanner"/>
