@@ -28,6 +28,7 @@
                                 <RowDefinition Height="45" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="20" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -52,6 +53,11 @@
                                    FontSize="14"
                                    FontFamily="OxygenRegular"
                                    HorizontalOptions="Start" />
+                            <Line  Grid.Row="3" Grid.ColumnSpan="2" 
+                                   Stroke="#BBBBBB" 
+                                   X2="250" Y1="0" Y2="0" 
+                                   StrokeThickness="2" 
+                                   VerticalOptions="Center" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

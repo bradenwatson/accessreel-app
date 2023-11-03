@@ -45,6 +45,12 @@ namespace AccessReelApp.ViewModels
                 MovieTitle = "Teenage Mutant Ninja Turtles: Mutant Mayhem Review",
                 MovieDescription = "Paramount Pictures and Nickelodeon Films presents their most radical movie this year - Teenage Mutant Ninja Turtles: Mutant Mayhem.",
                 PosterUrl = "turtles.jpg",
+            },
+            new ReviewCell
+            {
+                MovieTitle = "Teenage Mutant Ninja Turtles: Mutant Mayhem Review",
+                MovieDescription = "Paramount Pictures and Nickelodeon Films presents their most radical movie this year - Teenage Mutant Ninja Turtles: Mutant Mayhem.",
+                PosterUrl = "turtles.jpg",
             }
         };
     }
