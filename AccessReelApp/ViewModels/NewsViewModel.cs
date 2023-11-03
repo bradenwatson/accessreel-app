@@ -30,7 +30,6 @@ namespace AccessReelApp.ViewModels
 
         public NewsViewModel()
         {
-            
             AddImageButton("turtles.jpg");
         }
     }
