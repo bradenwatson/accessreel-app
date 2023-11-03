@@ -79,10 +79,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Headers\latest_interviews.png" />
+	  <MauiImage Include="Resources\Images\Headers\latest_news.png" />
+	  <MauiImage Include="Resources\Images\Headers\latest_reviews.png" />
+	  <MauiImage Include="Resources\Images\Headers\new_trailers.png" />
 	  <MauiImage Include="Resources\Images\Icons\accessreel_logo.png" />
 	  <MauiImage Include="Resources\Images\movies\barbie.jpg" />
 	  <MauiImage Include="Resources\Images\movies\turtles.jpg" />
-	  <MauiImage Include="Resources\Images\Headers\NewTrailers.png" />
 	</ItemGroup>
 
 </Project>
