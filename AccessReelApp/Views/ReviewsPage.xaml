@@ -25,27 +25,33 @@
                     <ViewCell>
                         <Grid Padding="10">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="45" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" 
                                    Grid.ColumnSpan="2"
                                    Text="{Binding MovieTitle}"
-                                   FontAttributes="Bold" />
+                                   FontSize="16"
+                                   FontFamily="OxygenBold"
+                                   HorizontalOptions="Start" />
                             <Image Grid.Row="1"
                                    Grid.Column="0"
                                    Source="{Binding PosterUrl}"
                                    Aspect="AspectFill"
                                    HeightRequest="130"
-                                   WidthRequest="250" />
+                                   WidthRequest="250"
+                                   HorizontalOptions="Start" />
                             <Label Grid.Row="2"
                                    Grid.ColumnSpan="2"
-                                   Text="{Binding MovieDescription}" />
+                                   Text="{Binding MovieDescription}"
+                                   FontSize="14"
+                                   FontFamily="OxygenRegular"
+                                   HorizontalOptions="Start" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

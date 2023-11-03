@@ -8,11 +8,11 @@
              Title="NewsPage"
              BackgroundColor="#FFFFFF">
     <ContentPage.Resources>
-        <Style x:Key="innerBoarder" TargetType="Boarder">
+        <!--<Style x:Key="innerBoarder" TargetType="Boarder">
             <Setter Property="StrokeShape" Value="RoundRectangle 50"/>
             <Setter Property="Padding" Value=""/>
-        </Style>
-        <Style x:Key="outerBoarder" TargetType="Boarder">
+        </Style>-->
+        <!--<Style x:Key="outerBoarder" TargetType="Boarder">
             <Setter Property="StrokeShape" Value="RoundRectangle 20"/>
             <Setter Property="Padding" Value=""/>
         </Style>
@@ -37,7 +37,7 @@
                     <Label Style="{StaticResource textlabel}"/>
                 </Border>
             </Setter>
-        </Style>
+        </Style>-->
             
     </ContentPage.Resources>
     <ScrollView>

@@ -17,6 +17,9 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+				fonts.AddFont("Oxygen-Light.ttf", "OxygenLight");
+				fonts.AddFont("Oxygen-Regular.ttf", "OxygenRegular");
+				fonts.AddFont("Oxygen-Bold.ttf", "OxygenBold");
 			});
 
 		// Setup for pages *required for both the page and the view models*
