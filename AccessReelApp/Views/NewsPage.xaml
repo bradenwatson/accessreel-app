@@ -7,9 +7,7 @@
              x:DataType="viewmodel:NewsViewModel"
              Title="NewsPage"
              BackgroundColor="#FFFFFF">
-<<<<<<< HEAD
-  
-=======
+
     <ContentPage.Resources>
         <!--<Style x:Key="innerBoarder" TargetType="Boarder">
             <Setter Property="StrokeShape" Value="RoundRectangle 50"/>
@@ -43,7 +41,7 @@
         </Style>-->
             
     </ContentPage.Resources>
->>>>>>> 9dcc4268ca6b8dec5bff8cfd55732a32f0c22031
+
     <ScrollView>
         <StackLayout>
             <Label x:Name="topBanner"/>
