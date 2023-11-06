@@ -54,12 +54,62 @@
                                 </StackLayout>
                             </Grid>
                         </StackLayout>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="45" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                          
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            <Grid.ColumnDefinitions>
+                              
+                            </Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                          
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" 
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding MovieTitle}"
+                                   FontSize="16"
+                                   FontFamily="OxygenBold"
+                                   HorizontalOptions="Start" 
+                                   FontAttributes="Bold" />
+                            <Image Grid.Row="1"
+                                   Grid.Column="0"
+                                   Source="{Binding PosterUrl}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="130"
+                                   WidthRequest="250"
+                                   HorizontalOptions="Start" />
+                            <Label Grid.Row="2"
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding MovieDescription}"
+                                   FontSize="14"
+                                   FontFamily="OxygenRegular"
+                                   HorizontalOptions="Start" />
+                            <Line  Grid.Row="3" Grid.ColumnSpan="2" 
+                                   Stroke="#BBBBBB" 
+                                   X2="250" Y1="0" Y2="0" 
+                                   StrokeThickness="2" 
+                                   VerticalOptions="Center" 
+                                   WidthRequest="250" />
+                            <Label Grid.Row="2"
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding MovieDescription}" />
+                        </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
-
-
     </VerticalStackLayout>
 </ContentPage>

@@ -11,7 +11,7 @@ namespace AccessReelApp.ViewModels
 {
     public partial class NewsViewModel : ObservableObject
     {
-        public ObservableCollection<ImageButton> ButtonCollection { get; set; }
+        [ObservableProperty] ObservableCollection<ImageButton> buttonCollection;
 
         void Initialise()
         {
@@ -23,7 +23,8 @@ namespace AccessReelApp.ViewModels
         {
             Initialise();
             CarouselModel.SetImageSource(source);
-            ButtonCollection.Add(CarouselModel.ButtonCollection[0]);
+            ButtonCollection.Add(CarouselModel.ButtonCollection[0]); // wasn't public 
+            // Careful not to get confused as you have a ButtonCollection here as well
         }
 
         public NewsViewModel()

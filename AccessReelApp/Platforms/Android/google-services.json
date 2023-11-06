@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "734530391348",
+    "project_id": "sample-afe7a",
+    "storage_bucket": "sample-afe7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734530391348:android:c17ba1e623401e3b1c6961",
+        "android_client_info": {
+          "package_name": "com.companyname.accessreelapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5IEo83URv4pNBy9mkPy0pwnbhzsol2Oo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

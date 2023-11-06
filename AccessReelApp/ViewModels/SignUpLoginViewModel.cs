@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using CommunityToolkit.Mvvm.Messaging;
+using AccessReelApp.Messages;
 
 namespace AccessReelApp.ViewModels
 {
@@ -20,16 +23,25 @@ namespace AccessReelApp.ViewModels
         [RelayCommand]
         public async Task OpenUrl(object parameter)
         {
-            if(parameter is string paramValue)
+            try
             {
-                await Task.Delay(2); // replace with code.
+                await Launcher.OpenAsync(parameter.ToString());
+            } 
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
             }
         }
 
         [RelayCommand]
-        public async Task Login()
+        public Task Login()
         {
-            await Task.Delay(2); // replace with code.
+            if(Username == null | Password == null)
+            {
+                WeakReferenceMessenger.Default.Send(new OpenPageMessage("Invalid Details"));
+                return Task.CompletedTask;
+            }
+            return Task.CompletedTask;
         }
     }
 }
