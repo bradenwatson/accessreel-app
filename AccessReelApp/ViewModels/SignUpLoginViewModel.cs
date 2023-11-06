@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using CommunityToolkit.Mvvm.Messaging;
+using AccessReelApp.Messages;
 
 namespace AccessReelApp.ViewModels
 {
@@ -32,14 +34,14 @@ namespace AccessReelApp.ViewModels
         }
 
         [RelayCommand]
-        public async Task Login()
+        public Task Login()
         {
             if(Username == null | Password == null)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Please enter username and password", "Cancel");
-                return;
+                WeakReferenceMessenger.Default.Send(new OpenPageMessage("Invalid Details"));
+                return Task.CompletedTask;
             }
-
+            return Task.CompletedTask;
         }
     }
 }
