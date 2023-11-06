@@ -76,6 +76,9 @@
 	  <MauiXaml Update="Views\ReviewsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\AccountsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\SignUpLogin.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -89,6 +92,12 @@
 	  <MauiImage Include="Resources\Images\Icons\accessreel_logo.png" />
 	  <MauiImage Include="Resources\Images\movies\barbie.jpg" />
 	  <MauiImage Include="Resources\Images\movies\turtles.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\AccountsPage.xaml.cs">
+	    <DependentUpon>AccountsPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>
