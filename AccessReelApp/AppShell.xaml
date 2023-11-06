@@ -51,6 +51,10 @@
             <ShellContent ContentTemplate="{DataTemplate view:ReviewsPage}" />
         </Tab>
 
+        <Tab Title="Accounts">
+            <ShellContent ContentTemplate="{DataTemplate view:AccountsPage}" />
+        </Tab>
+
     </TabBar>
 
     <FlyoutItem Title="Home">

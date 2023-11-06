@@ -35,6 +35,8 @@ public static class MauiProgram
         builder.Services.AddTransient<InterviewsViewModel>();
 		builder.Services.AddSingleton<SignUpLogin>();
 		builder.Services.AddTransient<SignUpLoginViewModel>();
+		builder.Services.AddSingleton<AccountsPage>();
+		builder.Services.AddTransient<AccountsPageViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();
