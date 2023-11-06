@@ -9,13 +9,22 @@ using System.Text;
 using System.Threading.Tasks;
 //using static Android.Content.ClipData;
 
+/*
+ * created by George Dinnison
+ * date last edited 6/Nov/2023
+ * 
+ * allowing for saving, updating and deleting from a local sqlite database
+*/
+
+
 namespace AccessReelApp
 {
     /// <summary>
     /// use to save and load from a database. use SaveData to save to the database, creates tables on every entry (need to change). to load from database use LoadDataFromDatabaseAsync.
     /// you will most likely need to create a new class to use the database functions since done with the sqlite-net library. the classes you can use can't contain an initiliser and
     /// everything that is registered and saved to the database needs a get method (don't know if needs a set). the pathway the database uses should be printed via debug.writeline().
-    /// you will also need a primary key that isn't null. you can autoincrement
+    /// you will also need a primary key that isn't null. you can autoincrement but will be a problem if you wish to access those items later on through updating (won't matter if not updating
+    /// since the primary key will be attached to the class instance when loading)
     /// </summary>
     public class DatabaseControl
     {
