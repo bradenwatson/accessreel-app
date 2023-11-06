@@ -12,5 +12,6 @@ namespace AccessReelApp
         public string MovieDescription { get; set; }
         public string PosterUrl { get; set; }
         public string CriticUrl { get; set; }
+        public float MovieRating { get; set; }
     }
 }
