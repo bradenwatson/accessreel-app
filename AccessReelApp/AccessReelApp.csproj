@@ -83,6 +83,9 @@
 	  <MauiXaml Update="Views\ReviewsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\AccountsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\SignUpLogin.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -108,6 +111,12 @@
 	  <PackageReference Include="Xamarin.GooglePlayServices.Base">
 	    <Version>118.2.0.3</Version>
 	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\AccountsPage.xaml.cs">
+	    <DependentUpon>AccountsPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>
