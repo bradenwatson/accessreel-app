@@ -22,8 +22,6 @@ namespace AccessReelApp
         const string fileName = "TestDatabaseAccessReel1.db3";
         SQLiteAsyncConnection database;
 
-        Dictionary<Type, List<Type>> loadedFromDatabase = new();
-
         public DatabaseControl()
         {
             OpenDatabase();
@@ -31,21 +29,18 @@ namespace AccessReelApp
 
         /// <summary>
         /// enter in as many arguments as you want. will save to database assuming it is a valid type. still need to make error checking for if its valid or not. is a task so you can
-        /// await completion is needed
+        /// await completion is needed. is the item wasn't saved it will debug.writeline that item as 'wasn't saved : {item}' 
         /// </summary>
         /// <param name="data">what you want to be saved to the database (can enter entire lists at once aswell - does a double foreach if it can or just adds it if can't)</param>
-        /// <returns></returns>
+        /// <returns>Task</returns>
         public async Task SaveData(params object[] data)
         {
-            Debug.WriteLine("save clicked ------");
             foreach (object arg in data)
             {
-                Debug.WriteLine("first foreach ran");
                 if (arg is IEnumerable<object> argList)
                 {
                     foreach (var item in argList)
                     {
-                        Debug.WriteLine(item);
                         await database.CreateTableAsync(item.GetType());
 
                         int numberOfRowsAdded = await database.InsertAsync(item);
@@ -57,7 +52,6 @@ namespace AccessReelApp
                 }
                 else
                 {
-                    Debug.WriteLine(arg);
                     await database.CreateTableAsync(arg.GetType());
 
                     int numberOfRowsAdded = await database.InsertAsync(arg);
@@ -94,7 +88,7 @@ namespace AccessReelApp
 
         /// <summary>
         /// allows you to enter any item as argument and it will update the item in the database. the way it works is it grabs the primary key associated with the class, finds the
-        /// table and updates that entry. this could be problamatic if you are autoincrementing each primary key. up to each user to handle that issue
+        /// table and updates that entry. this could be problamatic if you are autoincrementing each primary key. if the item was updated will debug.writeline that item.
         /// </summary>
         /// <param name="data">each item you wish to update that exists in the database. wont do anything if doesn't exist. it uses the primary key to find each item</param>
         /// <returns>Task</returns>
@@ -124,6 +118,12 @@ namespace AccessReelApp
             }            
         }
 
+        /// <summary>
+        /// add any item you want to delete from the database and deletes the item with the same primary key. uses the class type as the table name to delete from. will be problimatic if using auto
+        /// increment for a primary key. debug.writelines 'wasnt deleted : {item}' if the item wasn't deleted
+        /// </summary>
+        /// <param name="data">what you wish to be deleted</param>
+        /// <returns></returns>
         public async Task DeleteAlreadyCreatedItem(params object[] data)
         {
             foreach (var arg in data)

@@ -9,4 +9,6 @@ public partial class ReviewsPage : ContentPage
 		InitializeComponent();
 		BindingContext = vm;
     }
+
+   
 }
