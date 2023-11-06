@@ -36,13 +36,13 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Row="0" Grid.ColumnSpan="1" Text="{Binding MovieTitle}" FontSize="16" FontFamily="OxygenBold" HorizontalOptions="Start" />
-                                <Image Grid.Row="1" Grid.Column="0" Source="{Binding PosterUrl}" Aspect="AspectFill" HeightRequest="130" WidthRequest="250" HorizontalOptions="Start" />
+                                <Image Grid.Row="1" Grid.Column="0" Source="{Binding PosterUsssssrl}" Aspect="AspectFill" HeightRequest="130" WidthRequest="250" HorizontalOptions="Start" />
                                 <Label Grid.Row="2" Grid.Column="0" Text="{Binding MovieDescription}" FontSize="14" FontFamily="OxygenRegular" HorizontalOptions="Start" />
 
                                 <!-- Bubble for score/rating (positioned in the middle-right) -->
                                 <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center">
-                                    <BoxView WidthRequest="10" Color="Transparent" />
-                                    <Frame BackgroundColor="#b30839" CornerRadius="90" Padding="5">
+                                    <BoxView WidthRequest="30" Color="Transparent" />
+                                    <Frame WidthRequest="90" BackgroundColor="#b30839" CornerRadius="90" Padding="5">
                                         <Frame BackgroundColor="#f61e5b" CornerRadius="90">
                                             <Label Text="{Binding MovieRating}" FontSize="26" FontAttributes="Bold" FontFamily="OxygenRegular" HorizontalOptions="Center" VerticalOptions="Center" TextColor="GhostWhite" />
                                         </Frame>
