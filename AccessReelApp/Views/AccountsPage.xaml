@@ -122,6 +122,7 @@
                         FontSize="12"/>
                     <Span 
                         Text="Forgot my Password"
+                        Text="Forgotten my Password"
                         TextColor="#171516"
                         FontSize="12"
                         TextDecorations="Underline">

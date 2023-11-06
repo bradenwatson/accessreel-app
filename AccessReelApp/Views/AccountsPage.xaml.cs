@@ -9,4 +9,9 @@ public partial class AccountsPage : ContentPage
 		InitializeComponent();
 		BindingContext = vm;
 	}
+	/*public SignUpLogin(AccountsPageViewModel vm)
+	{
+		InitializeComponent();
+		BindingContext = vm;
+	}*/
 }
