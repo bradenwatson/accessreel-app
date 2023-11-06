@@ -15,10 +15,8 @@ namespace AccessReelApp.ViewModels
 
         void Initialise()
         {
-            if (ButtonCollection == null)
-            {
-                ButtonCollection = new ObservableCollection<ImageButton>();
-            }
+            // if null -> use compound assign
+            ButtonCollection ??= new ObservableCollection<ImageButton>();
         }
 
         void AddImageButton(string source)

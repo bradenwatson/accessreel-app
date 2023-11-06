@@ -8,39 +8,6 @@
              Title="NewsPage"
              BackgroundColor="#FFFFFF">
 
-    <ContentPage.Resources>
-        <!--<Style x:Key="innerBoarder" TargetType="Boarder">
-            <Setter Property="StrokeShape" Value="RoundRectangle 50"/>
-            <Setter Property="Padding" Value=""/>
-        </Style>-->
-        <!--<Style x:Key="outerBoarder" TargetType="Boarder">
-            <Setter Property="StrokeShape" Value="RoundRectangle 20"/>
-            <Setter Property="Padding" Value=""/>
-        </Style>
-        <Style x:Key="widthHeightInnerBoarder" BasedOn="{StaticResource innerBoarder}"> 
-            <Setter Property="WidthRequest" Value=""/>
-            <Setter Property="HightRequest" Value=""/>
-            <Setter Property="BackgroundColour" Value=""/>
-        </Style>
-        <Style x:Key="widthHeightOuterBoarder" TargetType="Boarder" BasedOn="{StaticResource outerBoarder}"> 
-            <Setter Property="WidthRequest" Value=""/>
-            <Setter Property="HightRequest" Value=""/>
-            <Setter Property="BackgroundColour" Value=""/>
-        </Style>
-        <Style x:Key="textlabel" TargetType="Label">
-            <Setter Property="TextColor" Value="White"/>
-            <Setter Property="FontSize" Value=""/>
-            <Setter Property="FontAttributes" Value="Bold"/>
-        </Style>
-        <Style x:Key="compositeBoarder" TargetType="Border" BasedOn="{StaticResource outerBoarder}">
-            <Setter Property="Content">
-                <Border Style="{StaticResource innerBoard}">
-                    <Label Style="{StaticResource textlabel}"/>
-                </Border>
-            </Setter>
-        </Style>-->
-            
-    </ContentPage.Resources>
 
     <ScrollView>
         <StackLayout>
@@ -52,28 +19,97 @@
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
+
             <IndicatorView x:Name="indicatorView" 
                            IndicatorColor="Gray"
                            SelectedIndicatorColor="Black"
                            MaximumVisible="10"
                            IndicatorsShape="Circle"/>
-            <HorizontalStackLayout>
+
+            <!--<HorizontalStackLayout
+                Spacing="25"
+                Padding="30,0">
                 <Label x:Name="movieTitle" Text="text"/>
                 <Border x:Name="critic" Style="{x:StaticResource compositeBorderCritic}"/>
-            </HorizontalStackLayout>
-            <Image Source="latest_news.png"/>
+            </HorizontalStackLayout>-->
+
+            <!-- Latest News Header Banner-->
+            <VerticalStackLayout Padding="30,20,30,0">
+                <Image Source="latest_news.png"/>
+            </VerticalStackLayout>
+
+            <!-- 1st Image for layout make as a templaet for all news feed items -->
             <StackLayout>
-                <HorizontalStackLayout>
+                <VerticalStackLayout Padding="30,10">
+                    <ImageButton Source="turtles.jpg" HorizontalOptions="StartAndExpand"/>
+                    <Label
+                        Text="Daisy Ridley set to star in Zak Hilditch’s new film We Bury the Dead in WA"
+                        Padding="5,5"
+                        FontAttributes="Bold">
+                    </Label>
+                    <Label Text="Screenwest and Screen Australia are pleased to announce Daisy Ridley (Star Wars sequel trilogy) is set to star in Zak Hilditch’s new survival-thriller film, We ..."
+                           Padding="5,5"/>
+                    <HorizontalStackLayout>
+                        <Label
+                            Text="AccessReel"
+                            TextColor="DarkGrey"
+                            Padding="10,0,10,0">
+                        </Label>
+                        <Label
+                            Text="1 November, 2023"
+                            TextColor="DarkGrey"
+                            Padding="10,0,10,0">
+                        </Label>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- 2nd News Image for Layout only will be removed when feeds populate the scrollview-->
+                <VerticalStackLayout Padding="30,10">
                     <ImageButton Source="turtles.jpg"/>
-                    <Label Text="The current british"/>
-                </HorizontalStackLayout>
+                    <Label
+                        Text="Healing Doc About To Drop"
+                        Padding="5,5"
+                        FontAttributes="Bold">
+                    </Label>
+                    <Label Text="THE HEALING is a documentary about to make its way around Australia.It tells an inspiring tale of recovery from two very different worlds. Set against the bac..."
+                           Padding="5,5"
+                           HorizontalTextAlignment="Start"
+                           HorizontalOptions="Fill"/>
+                    <HorizontalStackLayout>
+                        <Label
+                            Text="AccessReel"
+                            TextColor="DarkGrey"
+                            Padding="10,0,10,0">
+                        </Label>
+                        <Label
+                            Text="1 November, 2023"
+                            TextColor="DarkGrey"
+                            Padding="10,0,10,0">
+                        </Label>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+            </StackLayout>
+            <StackLayout>
+
+                <!-- Latest Trailers Header Banner-->
+                <VerticalStackLayout Padding="30,20,30,0">
+                    <Image Source="new_trailers.png"/>
+                </VerticalStackLayout>
+
+                <!-- 1st Image for trailers for layout only -->
                 <HorizontalStackLayout>
-                    <ImageButton Source="turtles.jpg"/>
-                    <Label Text="The current british"/>
+                    <VerticalStackLayout Padding="30,10">
+                        <ImageButton Source="turtles.jpg" HorizontalOptions="StartAndExpand"/>
+                        <Label
+                        Text="Teenage Mutant Ninja Turtles"
+                        Padding="5,5"
+                        FontAttributes="Bold">
+                        </Label>
+                    </VerticalStackLayout>
+
                 </HorizontalStackLayout>
             </StackLayout>
-            <Image Source="new_trailers.png"/>
-            <ImageButton Source="turtles.jpg"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>
