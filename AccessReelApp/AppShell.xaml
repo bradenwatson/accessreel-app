@@ -11,9 +11,6 @@
     FlyoutBackgroundColor="#FFFFFF"
     BackgroundColor="#FFFFFF">
 
-    <!--Example "Top bars"-->
-    <!--IsVisible="False" use for when creating login-->
-
     <Shell.Resources>
         <ResourceDictionary>
             
@@ -39,27 +36,45 @@
 
     </Shell.TitleView>
 
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        
-        <ShellContent Title="Home"
-                      Route="home" 
-                      ContentTemplate="{DataTemplate local:MainPage}" />
+    <TabBar>
 
-        <ShellContent Title="News"
-                      ContentTemplate="{DataTemplate view:NewsPage}" />
+        <Tab Title="Home">
+            <ShellContent Route="home" 
+              ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
 
-        <ShellContent Title="Reviews"
-                      ContentTemplate="{DataTemplate view:ReviewsPage}" />
+        <Tab Title="News">
+            <ShellContent ContentTemplate="{DataTemplate view:NewsPage}" />
+        </Tab>
 
-        <ShellContent Title="Interviews"
-                      ContentTemplate="{DataTemplate view:InterviewsPage}" />
+        <Tab Title="Reviews">
+            <ShellContent ContentTemplate="{DataTemplate view:ReviewsPage}" />
+        </Tab>
 
-        <ShellContent Title="Map"
-                      ContentTemplate="{DataTemplate view:InterviewsPage}" />
+    </TabBar>
 
-        <ShellContent Title="Log In"
-                      ContentTemplate="{DataTemplate view:SignUpLogin}" />
-        
+    <FlyoutItem Title="Home">
+        <ShellContent ContentTemplate="{DataTemplate view:ReviewsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="News">
+        <ShellContent ContentTemplate="{DataTemplate view:NewsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Reviews">
+        <ShellContent ContentTemplate="{DataTemplate view:ReviewsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Interviews">
+        <ShellContent ContentTemplate="{DataTemplate view:InterviewsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Map">
+        <ShellContent ContentTemplate="{DataTemplate view:InterviewsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Log In">
+        <ShellContent ContentTemplate="{DataTemplate view:SignUpLogin}" />
     </FlyoutItem>
 
 </Shell>

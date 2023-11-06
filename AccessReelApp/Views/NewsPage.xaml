@@ -1,34 +1,79 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:AccessReelApp.ViewModels"
              x:Class="AccessReelApp.Views.NewsPage"
              xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
              x:DataType="viewmodel:NewsViewModel"
              Title="NewsPage"
              BackgroundColor="#FFFFFF">
-    <ScrollView>
-        <StackLayout HorizontalOptions="Center">
-            <ImageButton Source="barbie.jpg"
-                         WidthRequest="250"
-                         HeightRequest="150"
-                         Scale="1"
-                         Aspect="AspectFill"/>
 
-            <CarouselView ItemsSource="{Binding MyList}" BackgroundColor="Black">
+    <ContentPage.Resources>
+        <!--<Style x:Key="innerBoarder" TargetType="Boarder">
+            <Setter Property="StrokeShape" Value="RoundRectangle 50"/>
+            <Setter Property="Padding" Value=""/>
+        </Style>-->
+        <!--<Style x:Key="outerBoarder" TargetType="Boarder">
+            <Setter Property="StrokeShape" Value="RoundRectangle 20"/>
+            <Setter Property="Padding" Value=""/>
+        </Style>
+        <Style x:Key="widthHeightInnerBoarder" BasedOn="{StaticResource innerBoarder}"> 
+            <Setter Property="WidthRequest" Value=""/>
+            <Setter Property="HightRequest" Value=""/>
+            <Setter Property="BackgroundColour" Value=""/>
+        </Style>
+        <Style x:Key="widthHeightOuterBoarder" TargetType="Boarder" BasedOn="{StaticResource outerBoarder}"> 
+            <Setter Property="WidthRequest" Value=""/>
+            <Setter Property="HightRequest" Value=""/>
+            <Setter Property="BackgroundColour" Value=""/>
+        </Style>
+        <Style x:Key="textlabel" TargetType="Label">
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontSize" Value=""/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+        <Style x:Key="compositeBoarder" TargetType="Border" BasedOn="{StaticResource outerBoarder}">
+            <Setter Property="Content">
+                <Border Style="{StaticResource innerBoard}">
+                    <Label Style="{StaticResource textlabel}"/>
+                </Border>
+            </Setter>
+        </Style>-->
+            
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout>
+            <Label x:Name="topBanner"/>
+            <CarouselView ItemsSource="{Binding ButtonCollection}" IndicatorView="indicatorView">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout WidthRequest="50">
-                            <Frame HasShadow="True">
-                                <StackLayout>
-                                    <Label Text="{Binding .}" FontSize="16"></Label>
-                                </StackLayout>
-                            </Frame>
-                        </StackLayout>
+                        <ImageButton Source="turtles.jpg" />
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
-
-            
+            <IndicatorView x:Name="indicatorView" 
+                           IndicatorColor="Gray"
+                           SelectedIndicatorColor="Black"
+                           MaximumVisible="10"
+                           IndicatorsShape="Circle"/>
+            <HorizontalStackLayout>
+                <Label x:Name="movieTitle" Text="text"/>
+                <Border x:Name="critic" Style="{x:StaticResource compositeBorderCritic}"/>
+            </HorizontalStackLayout>
+            <Image Source="latest_news.png"/>
+            <StackLayout>
+                <HorizontalStackLayout>
+                    <ImageButton Source="turtles.jpg"/>
+                    <Label Text="The current british"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <ImageButton Source="turtles.jpg"/>
+                    <Label Text="The current british"/>
+                </HorizontalStackLayout>
+            </StackLayout>
+            <Image Source="new_trailers.png"/>
+            <ImageButton Source="turtles.jpg"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -5,20 +5,32 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace AccessReelApp.ViewModels
 {
     public partial class NewsViewModel : ObservableObject
     {
-        // Implement view model properties and funcs
+        public ObservableCollection<ImageButton> ButtonCollection { get; set; }
 
-        [ObservableProperty]
-        ObservableCollection<string> myList = new()
+        void Initialise()
         {
-            "Item A",
-            "Item B",
-            "Item C",
-            "Item D",
-        };
+            if (ButtonCollection == null)
+            {
+                ButtonCollection = new ObservableCollection<ImageButton>();
+            }
+        }
+
+        void AddImageButton(string source)
+        {
+            Initialise();
+            CarouselModel.SetImageSource(source);
+            ButtonCollection.Add(CarouselModel.ButtonCollection[0]);
+        }
+
+        public NewsViewModel()
+        {
+            AddImageButton("turtles.jpg");
+        }
     }
 }
