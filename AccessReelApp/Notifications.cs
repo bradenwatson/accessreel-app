@@ -86,7 +86,7 @@ namespace AccessReelApp
     public class PushNotificationRequest
     {
         public List<string> registration_ids { get; set; } = new List<string>();
-        public NotificationMessageBody notification { get; set; }
+        public NotificationMessageBody1 notification { get; set; }
         public object data { get; set; }
     }
 

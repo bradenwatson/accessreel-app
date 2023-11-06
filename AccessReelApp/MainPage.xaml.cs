@@ -15,7 +15,7 @@ using System.Diagnostics;
 namespace AccessReelApp
 {
 
-    public class NotificationMessageBody
+    public class NotificationMessageBody1
     {
         public string title { get; set; }
         public string body { get; set; }
@@ -40,6 +40,8 @@ namespace AccessReelApp
 
             RootTests();
             ReadFireBaseAdminSDK();
+
+            var serverControl = new ServerControl();
         }
 
         private void RootTests() // seperates code a little bit
@@ -119,7 +121,7 @@ namespace AccessReelApp
 
             var pushNotificationRequest = new PushNotificationRequest
             {
-                notification = new NotificationMessageBody
+                notification = new NotificationMessageBody1
                 {
                     title = "Notification Title",
                     body = "Notification body"
