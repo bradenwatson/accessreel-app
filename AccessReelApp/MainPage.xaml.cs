@@ -119,7 +119,7 @@ namespace AccessReelApp
 
             var pushNotificationRequest = new PushNotificationRequest
             {
-                notification = new NotificationMessageBody
+                notification = new NotificationMessageBody1
                 {
                     title = "Notification Title",
                     body = "Notification body"
