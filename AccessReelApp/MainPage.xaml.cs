@@ -14,13 +14,6 @@ using System.Diagnostics;
 
 namespace AccessReelApp
 {
-
-    public class NotificationMessageBody
-    {
-        public string title { get; set; }
-        public string body { get; set; }
-    }
-
     public partial class MainPage : ContentPage
 	{
         // Unused?
@@ -38,7 +31,7 @@ namespace AccessReelApp
 				string msg = m.Value;
 			});
 
-            //RootTests();
+            RootTests();
             //ReadFireBaseAdminSDK();
         }
 
