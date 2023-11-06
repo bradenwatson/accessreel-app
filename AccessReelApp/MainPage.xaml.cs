@@ -38,8 +38,8 @@ namespace AccessReelApp
 				string msg = m.Value;
 			});
 
-            RootTests();
-            ReadFireBaseAdminSDK();
+            //RootTests();
+            //ReadFireBaseAdminSDK();
         }
 
         private void RootTests() // seperates code a little bit
