@@ -72,6 +72,7 @@ namespace AccessReelApp
             GetPopularFilms();
             GetFilmByName("The Matrix");
             GetReviewsByName("Five Nights at Freddy's");
+            GetPopularFilmReviews();
         }
 
         // Testing methods ------>
@@ -127,6 +128,14 @@ namespace AccessReelApp
         {
             string movieName = name; // Replace with the movie name you want to search for
             await movieClient.GetMovieReviewsByName(movieName);
+        }
+
+
+        // get reviews from most recent/popular movies
+
+        private async void GetPopularFilmReviews()
+        {
+            await movieClient.GetReviewsForPopularMovies(1);
         }
 
         private void Button_Clicked(object sender, EventArgs e)

@@ -157,15 +157,14 @@ namespace AccessReelApp.Prototypes
             }
         }
 
-        public async Task GetReviewsFromPopularMovies()
+        public async Task GetReviewsForPopularMovies(int maxReviewsPerMovie)
         {
-            // Step 1: Get the list of popular movies
             var popularMoviesClient = new RestClient("https://api.themoviedb.org/3/movie/popular");
             var popularMoviesRequest = new RestRequest("");
             popularMoviesRequest.AddHeader("accept", "application/json");
             popularMoviesRequest.AddHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZWEzNjQwN2E5YzcyNWM4ZjgyMzkwZjdmMzAwNjRhMSIsInN1YiI6IjY1MDFlMGMwNmEyMjI3MDEzNzJkZTI2MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BWcS2MB1VOSfsN5-cQgmAV288mJSzZpxxj20jlfc5SE"); // Replace with your API key
             popularMoviesRequest.AddParameter("language", "en-US");
-            popularMoviesRequest.AddParameter("page", 1);
+            popularMoviesRequest.AddParameter("page", 1); // Start with page 1
 
             var popularMoviesResponse = await popularMoviesClient.GetAsync(popularMoviesRequest);
 
@@ -178,49 +177,85 @@ namespace AccessReelApp.Prototypes
                     var results = popularMoviesJson["results"];
                     foreach (var result in results)
                     {
-                        // Step 2: Extract movie details, including the movie ID
                         int movieId = result.Value<int>("id");
                         string movieTitle = result.Value<string>("title");
+                        string posterPath = result.Value<string>("poster_path");
 
-                        // Step 3: Retrieve movie reviews using the ID
+                        string posterBaseUrl = "https://image.tmdb.org/t/p/w500"; // Adjust the size if needed
+                        string posterUrl = posterPath != null ? posterBaseUrl + posterPath : "No poster available";
+
+                        // Retrieve movie reviews
                         var reviewsClient = new RestClient($"https://api.themoviedb.org/3/movie/{movieId}/reviews");
-                        var reviewsRequest = new RestRequest("");
-                        reviewsRequest.AddHeader("accept", "application/json");
-                        reviewsRequest.AddHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZWEzNjQwN2E5YzcyNWM4ZjgyMzkwZjdmMzAwNjRhMSIsInN1YiI6IjY1MDFlMGMwNmEyMjI3MDEzNzJkZTI2MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BWcS2MB1VOSfsN5-cQgmAV288mJSzZpxxj20jlfc5SE"); // Replace with your API key
-                        reviewsRequest.AddParameter("language", "en-US");
-                        reviewsRequest.AddParameter("page", 1);
+                        int page = 1; // Start with page 1
+                        int reviewsFetched = 0; // Track the number of reviews fetched for the movie
 
-                        var reviewsResponse = await reviewsClient.GetAsync(reviewsRequest);
-
-                        if (reviewsResponse.IsSuccessful)
+                        while (reviewsFetched < maxReviewsPerMovie)
                         {
-                            JObject reviewsJson = JObject.Parse(reviewsResponse.Content);
+                            var reviewsRequest = new RestRequest("");
+                            reviewsRequest.AddHeader("accept", "application/json");
+                            reviewsRequest.AddHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZWEzNjQwN2E5YzcyNWM4ZjgyMzkwZjdmMzAwNjRhMSIsInN1YiI6IjY1MDFlMGMwNmEyMjI3MDEzNzJkZTI2MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BWcS2MB1VOSfsN5-cQgmAV288mJSzZpxxj20jlfc5SE"); // Replace with your API key
+                            reviewsRequest.AddParameter("language", "en-US");
+                            reviewsRequest.AddParameter("page", page);
 
-                            // Step 4: Extract ratings and content from reviews
-                            if (reviewsJson.ContainsKey("results") && reviewsJson["results"].HasValues)
+                            var reviewsResponse = await reviewsClient.GetAsync(reviewsRequest);
+
+                            if (reviewsResponse.IsSuccessful)
                             {
-                                var reviewResults = reviewsJson["results"];
-                                foreach (var reviewResult in reviewResults)
-                                {
-                                    var author = reviewResult.Value<string>("author");
-                                    var rating = reviewResult["author_details"]?["rating"];
-                                    var content = reviewResult.Value<string>("content");
+                                JObject reviewsJson = JObject.Parse(reviewsResponse.Content);
 
-                                    if (rating != null)
+                                if (reviewsJson.ContainsKey("results") && reviewsJson["results"].HasValues)
+                                {
+                                    var reviewResults = reviewsJson["results"];
+
+                                    foreach (var reviewResult in reviewResults)
                                     {
+                                        var author = reviewResult.Value<string>("author");
+                                        var rating = reviewResult["author_details"]?["rating"];
+                                        var content = reviewResult.Value<string>("content");
+
                                         Debug.WriteLine($"-------------------------------------------------------");
                                         Debug.WriteLine($"Movie: {movieTitle}");
+                                        Debug.WriteLine($"Poster URL: {posterUrl}");
                                         Debug.WriteLine($"Author: {author}, Rating: {rating}, Content: {content}");
                                         Debug.WriteLine($"-------------------------------------------------------");
+
+                                        reviewsFetched++;
+
+                                        if (reviewsFetched >= maxReviewsPerMovie)
+                                        {
+                                            break; // Reached the maximum number of reviews for this movie
+                                        }
+                                    }
+
+                                    // Check if there are more pages of reviews
+                                    if (reviewsJson.ContainsKey("page") && reviewsJson.ContainsKey("total_pages"))
+                                    {
+                                        int currentPage = reviewsJson.Value<int>("page");
+                                        int totalPages = reviewsJson.Value<int>("total_pages");
+
+                                        if (currentPage < totalPages)
+                                        {
+                                            page++; // Move to the next page of reviews
+                                        }
+                                        else
+                                        {
+                                            break; // No more pages of reviews for this movie
+                                        }
                                     }
                                     else
                                     {
-                                        Debug.WriteLine($"-------------------------------------------------------");
-                                        Debug.WriteLine($"Movie: {movieTitle}");
-                                        Debug.WriteLine($"Author: {author}, Content: {content}");
-                                        Debug.WriteLine($"-------------------------------------------------------");
+                                        break; // Unable to determine pagination information, exit loop
                                     }
                                 }
+                                else
+                                {
+                                    break; // No reviews available for this movie, exit loop
+                                }
+                            }
+                            else
+                            {
+                                // Handle the case where the reviews API request is not successful
+                                break;
                             }
                         }
                     }
