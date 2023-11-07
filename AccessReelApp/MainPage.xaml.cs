@@ -23,7 +23,7 @@ namespace AccessReelApp
         // Unused?
         int count = 0;
         bool isApiKeyValid;
-        TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
+        public TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
         DatabaseControl databaseControl = new DatabaseControl();
 		private string _deviceToken;
 
@@ -72,7 +72,7 @@ namespace AccessReelApp
             GetPopularFilms();
             GetFilmByName("The Matrix");
             GetReviewsByName("Five Nights at Freddy's");
-            GetPopularFilmReviews();
+            //GetPopularFilmReviews();
         }
 
         // Testing methods ------>

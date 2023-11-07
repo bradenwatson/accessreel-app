@@ -157,6 +157,7 @@ namespace AccessReelApp.Prototypes
             }
         }
 
+        public event Action<ReviewCell> ReviewFetched;
         public async Task GetReviewsForPopularMovies(int maxReviewsPerMovie)
         {
             var popularMoviesClient = new RestClient("https://api.themoviedb.org/3/movie/popular");
@@ -211,7 +212,23 @@ namespace AccessReelApp.Prototypes
                                     {
                                         var author = reviewResult.Value<string>("author");
                                         var rating = reviewResult["author_details"]?["rating"];
+                                        float? movieRating = null;
                                         var content = reviewResult.Value<string>("content");
+
+                                        if (rating != null && float.TryParse(rating.ToString(), out float parsedRating))
+                                        {
+                                            movieRating = parsedRating;
+                                        }
+
+                                        var reviewCell = new ReviewCell
+                                        {
+                                            MovieTitle = movieTitle,
+                                            MovieDescription = content,
+                                            PosterUrl = posterUrl,
+                                            MovieRating = movieRating,
+                                        };
+
+                                        ReviewFetched?.Invoke(reviewCell);
 
                                         Debug.WriteLine($"-------------------------------------------------------");
                                         Debug.WriteLine($"Movie: {movieTitle}");
