@@ -99,7 +99,7 @@
 	  <MauiImage Include="Resources\Images\Icons\accessreel_logo.png" />
 	  <MauiImage Include="Resources\Images\movies\barbie.jpg" />
 	  <MauiImage Include="Resources\Images\movies\turtles.jpg" />
-   <ItemGroup>
+   </ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
 	  <PackageReference Include="Xamarin.Firebase.Messaging">
