@@ -69,9 +69,9 @@ namespace AccessReelApp
             }
             // movie tests
             IsAPIValidCheck();
-            GetPopularFilms();
-            GetFilmByName("The Matrix");
-            GetReviewsByName("Five Nights at Freddy's");
+            //GetPopularFilms();
+            //GetFilmByName("The Matrix");
+            //GetReviewsByName("Five Nights at Freddy's");
             //GetPopularFilmReviews();
         }
 

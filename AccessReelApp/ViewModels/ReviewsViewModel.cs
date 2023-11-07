@@ -43,7 +43,6 @@ namespace AccessReelApp.ViewModels
         public TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
         public ReviewsViewModel()
         {
-
             movieClient.ReviewFetched += (review) =>
             {
                 Device.BeginInvokeOnMainThread(() =>
