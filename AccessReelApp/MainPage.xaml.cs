@@ -7,6 +7,10 @@ using Google.Apis.Auth.OAuth2;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using System.Diagnostics;
+using AccessReelApp.Prototypes;
+using Newtonsoft.Json;
+using RestSharp;
+using Newtonsoft.Json.Linq;
 
 //Firebase https://firebase.google.com/docs/reference/admin
 //Android Setup https://firebase.google.com/docs/cloud-messaging/android/client
@@ -18,6 +22,8 @@ namespace AccessReelApp
 	{
         // Unused?
         int count = 0;
+        bool isApiKeyValid;
+        TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
         DatabaseControl databaseControl = new DatabaseControl();
 		private string _deviceToken;
 
@@ -53,18 +59,76 @@ namespace AccessReelApp
             Debug.WriteLine("**************************************************************");
         }
 
-		protected override void OnAppearing()
-		{
-			base.OnAppearing();
-			if (BindingContext is MainViewModel vm)
-			{
-				vm.Text = "Changed!";
-			}
-		}
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (BindingContext is MainViewModel vm)
+            {
+                vm.Text = "Changed!";
+            }
+            // movie tests
+            IsAPIValidCheck();
+            GetPopularFilms();
+            GetFilmByName("The Matrix");
+            GetReviewsByName("Five Nights at Freddy's");
+        }
 
         // Testing methods ------>
 
-        //THIS WORKS!!!! -> Does the bottom event not work?
+        // Check if the key is valid before we do anything else
+        private async void IsAPIValidCheck()
+        {
+            isApiKeyValid = await movieClient.IsApiKeyValid();
+            Debug.WriteLine($"Is API Valid: {isApiKeyValid}");
+        }
+
+        // Get the most popular movies atm
+
+        private async void GetPopularFilms()
+        {
+            List<Movie> popularMovies = await movieClient.GetPopularMovies();
+            if (popularMovies != null)
+            {
+                Debug.WriteLine("Popular Movies:");
+                foreach (var movie in popularMovies)
+                {
+                    Debug.WriteLine($"Title: {movie.Title}");
+                    Debug.WriteLine($"Overview: {movie.Overview}");
+                    Debug.WriteLine($"Release Date: {movie.ReleaseDate}");
+                    Debug.WriteLine("--------------");
+                }
+            }
+            else
+            {
+                Debug.WriteLine("Failed to retrieve popular movies.");
+            }
+        }
+
+        // search a film by name (if you need to)
+
+        private async void GetFilmByName(string name)
+        {
+            Movie movieDetails = await movieClient.GetMovieDetailsByName(name);
+            if (movieDetails != null)
+            {
+                Debug.WriteLine("Movie Title: " + movieDetails.Title);
+                Debug.WriteLine("Overview: " + movieDetails.Overview);
+            }
+            else
+            {
+                Debug.WriteLine("Movie not found or an error occurred.");
+            }
+        }
+
+        // get reviews from movie by its name 
+
+        private async void GetReviewsByName(string name)
+        {
+            string movieName = name; // Replace with the movie name you want to search for
+            await movieClient.GetMovieReviewsByName(movieName);
+        }
+
         private void Button_Clicked(object sender, EventArgs e)
         {
 
