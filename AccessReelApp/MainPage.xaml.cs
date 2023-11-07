@@ -124,12 +124,6 @@ namespace AccessReelApp
 
         // get reviews from movie by its name 
 
-        private async void GetReviewsByName(string name)
-        {
-            string movieName = name; // Replace with the movie name you want to search for
-            await movieClient.GetMovieReviewsByName(movieName);
-        }
-
 
         // get reviews from most recent/popular movies
 

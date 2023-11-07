@@ -19,15 +19,10 @@ public partial class ReviewsPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        MovieMode mode = MovieMode.AccessReelOrdered;
+        MovieMode mode = MovieMode.Popular;
         if(mode == MovieMode.Popular)
         {
             GetPopularFilmReviews();
-        }
-
-        if(mode == MovieMode.AccessReelOrdered)
-        {
-            GetMovieReviewsBySiteOrder();
         }
     }
 
@@ -35,15 +30,11 @@ public partial class ReviewsPage : ContentPage
     {
         if (BindingContext is ReviewsViewModel vm)
         {
-            await vm.movieClient.GetReviewsForPopularMovies(2);
-        }
-    }
-
-    private async void GetMovieReviewsBySiteOrder()
-    {
-        if (BindingContext is ReviewsViewModel vm)
-        {
-            await vm.movieClient.GetReviewsForMoviesByName(new string[] { "The Dive" }, 1);
+            //await vm.movieClient.GetReviewsForPopularMovies(1);
+            for(int i = 0; i < 3; i++)
+            {
+                await vm.movieClient.GetReviewsForMoviesByName("Cats", 1);
+            }
         }
     }
 }
