@@ -20,6 +20,8 @@ public static class MauiProgram
 			//.UseLocalNotification()		//ADDED FOR LOCAL NOTIFICATIONS
             //.UseMauiCommunityToolkit()
             //.ConfigureFonts(fonts =>
+            .UseMauiCommunityToolkit()
+            .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
