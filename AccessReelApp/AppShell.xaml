@@ -17,6 +17,7 @@
             
             <!-- set background coloour of shell-->
             <Color x:Key="ShellBackgroundColor">#FFFFFF</Color>
+            
 
         </ResourceDictionary>
     </Shell.Resources>
