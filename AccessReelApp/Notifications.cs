@@ -90,7 +90,7 @@ namespace AccessReelApp
         public object data { get; set; }
     }
 
-    public class NotificationMessageBody
+    public class NotificationMessageBody1
     {
         public string title { get; set; }
         public string body { get; set; }
