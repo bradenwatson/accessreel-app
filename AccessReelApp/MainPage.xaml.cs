@@ -14,6 +14,7 @@ using System.Diagnostics;
 
 namespace AccessReelApp
 {
+
     public class NotificationMessageBody
     {
         public string title { get; set; }
