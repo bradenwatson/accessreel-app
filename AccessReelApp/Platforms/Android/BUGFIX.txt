@@ -1,0 +1,5 @@
+HOW TO FIX FIREBASE PACKAGE DEPENDENCIES FROM INTERFERRING WITH MAUI
+
+1. In CLI, type 'dotnet add package Xamarin.Google.Android.Material --version 1.10.0.1' (https://www.nuget.org/packages/Xamarin.Google.Android.Material/1.10.0.1#versions-body-tab)
+2. Add following in project file within <ItemGroup>: (https://github.com/xamarin/AndroidX/issues/797)
+	<PackageReference Include="Xamarin.AndroidX.Preference" Version="1.2.1.2" /> 
