@@ -347,7 +347,6 @@ namespace AccessReelApp.Prototypes
     }
 }
 
-  
     public class PopularMoviesResponse
     {
         public List<Movie> Results { get; set; }

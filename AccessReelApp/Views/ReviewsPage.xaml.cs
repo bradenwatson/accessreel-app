@@ -22,8 +22,10 @@ public partial class ReviewsPage : ContentPage
         MovieMode mode = MovieMode.Popular;
         if(mode == MovieMode.Popular)
         {
-            GetPopularFilmReviews();
+            
         }
+
+        GetPopularFilmReviews();
     }
 
     private async void GetPopularFilmReviews()
@@ -33,7 +35,10 @@ public partial class ReviewsPage : ContentPage
             //await vm.movieClient.GetReviewsForPopularMovies(1);
             for(int i = 0; i < 3; i++)
             {
+                await vm.movieClient.GetReviewsForMoviesByName("Saw X", 1); // (1) get only 1 review for this movie
                 await vm.movieClient.GetReviewsForMoviesByName("Cats", 1);
+                // instead of for, use a pre-defined [OP'OCollection] to match site
+                // reviews if wanting
             }
         }
     }
