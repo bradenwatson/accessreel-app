@@ -1,31 +1,34 @@
 ﻿using AccessReelApp.ViewModels;
-﻿using AccessReelApp.database_structures;
 using Plugin.LocalNotification;
 using FirebaseAdmin.Messaging;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 using System.Diagnostics;
 using AccessReelApp.Prototypes;
+using System.Web.Optimization;
+using Microsoft.Maui.Controls.PlatformConfiguration;
 using Newtonsoft.Json;
-using RestSharp;
-using Newtonsoft.Json.Linq;
+using System.Text;
+
 
 //Firebase https://firebase.google.com/docs/reference/admin
 //Android Setup https://firebase.google.com/docs/cloud-messaging/android/client
 //Messaging https://firebase.google.com/docs/cloud-messaging/send-message
 
+
+
 namespace AccessReelApp
 {
     public partial class MainPage : ContentPage
 	{
-        // Unused?
-        int count = 0;
+
         bool isApiKeyValid;
         public TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
         DatabaseControl databaseControl = new DatabaseControl();
-		private string _deviceToken;
+
+        int count = 0;
+        private string _deviceToken;
 
 		public MainPage(MainViewModel vm)
 		{
@@ -132,6 +135,11 @@ namespace AccessReelApp
             await movieClient.GetReviewsForPopularMovies(1);
         }
 
+
+
+        /***************************************************************************/
+        /***************************************************************************/
+
         private void Button_Clicked(object sender, EventArgs e)
         {
 
@@ -171,11 +179,11 @@ namespace AccessReelApp
 
         private async void Button_Clicked_1(object sender, EventArgs e)
         {
-            var androidNotificationObject = new Dictionary<string, string>();
-            androidNotificationObject.Add("NavigationID", "2");
+            //var androidNotificationObject = new Dictionary<string, string>();
+            //androidNotificationObject.Add("NavigationID", "2");
 
-            var iosNotificationObject = new Dictionary<string, object>();
-            iosNotificationObject.Add("NavigationID", "2");
+            //var iosNotificationObject = new Dictionary<string, object>();
+            //iosNotificationObject.Add("NavigationID", "2");
 
             var pushNotificationRequest = new PushNotificationRequest
             {
@@ -184,35 +192,50 @@ namespace AccessReelApp
                     title = "Notification Title",
                     body = "Notification body"
                 },
-                data = androidNotificationObject,
+                //data = androidNotificationObject,
                 registration_ids = new List<string> { _deviceToken }
             };
 
+            string url = "https://fcm.googleapis.com/v1/projects/sample-afe7a/messages:send";
+
+            using(var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "=" + "BMa09HX2bwYS3y_dGm_xIDoRreyq2EDFwDPVJoBWFD6zaByfdv4uz9eh7qK8QzX7AW7mOAGk9tYgs7AwPSAVjAc\r\n8");
+            
+                string serializerRequest = JsonConvert.SerializeObject(pushNotificationRequest);
+                var response = await client.PostAsync(url, new StringContent(serializerRequest, Encoding.UTF8, "application/json"));
+                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    await App.Current.MainPage.DisplayAlert("Notification sent!", "notification sent", "OK");
+                }
+            }
             var messageList = new List<Message>();
 
-            var obj = new Message
-            {
-                Token = _deviceToken,
-                Notification = new Notification
-                {
-                    Title = "Tilte",
-                    Body = "message body"
-                },
-                Data = androidNotificationObject,
-                Apns = new ApnsConfig()
-                {
-                    Aps = new Aps
-                    {
-                        Badge = 15,
-                        CustomData = iosNotificationObject,
-                    }
-                }
-            };
+            //var obj = new Message
+            //{
+            //    Token = _deviceToken,
+            //    Notification = new Notification
+            //    {
+            //        Title = "Tilte",
+            //        Body = "message body"
+            //    },
+            //    Data = androidNotificationObject,
+            //    Apns = new ApnsConfig()
+            //    {
+            //        Aps = new Aps
+            //        {
+            //            Badge = 15,
+            //            CustomData = iosNotificationObject,
+            //        }
+            //    }
+            //};
 
-            messageList.Add(obj);
+            //messageList.Add(obj);
 
-            var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messageList);
+            //var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messageList);
         }
+        /***************************************************************************/
+        /***************************************************************************/
     }
 }
 

@@ -42,7 +42,7 @@ namespace AccessReelApp.Platforms.Android.Services
         {
             var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.Channel_ID)
                 .SetContentTitle(title)
-                //.SetSmallIcon(Resources.Mipmap.appicon)
+                .SetSmallIcon(Resource.Mipmap.appicon)
                 .SetContentText(messageBody)
                 .SetChannelId(MainActivity.Channel_ID)
                 .SetPriority(2);
