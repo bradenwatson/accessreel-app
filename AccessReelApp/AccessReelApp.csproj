@@ -103,6 +103,7 @@
    </ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
+    <PackageReference Include="Xamarin.AndroidX.Preference" Version="1.2.1.2" />
 	  <PackageReference Include="Xamarin.Firebase.Messaging">
 	    <Version>123.2.1</Version>
 	  </PackageReference>
