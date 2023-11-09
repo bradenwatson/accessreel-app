@@ -6,7 +6,7 @@ public partial class ReviewsPage : ContentPage
 {
 	public ReviewsPage(ReviewsViewModel vm)
 	{
-        InitializeComponent();
+		InitializeComponent();
 		BindingContext = vm;
     }
 

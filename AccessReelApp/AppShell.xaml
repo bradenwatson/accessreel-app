@@ -5,7 +5,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:AccessReelApp"
     xmlns:view="clr-namespace:AccessReelApp.Views"
-    FlyoutWidth="300"
     FlyoutHeaderBehavior="CollapseOnScroll"
     Shell.FlyoutBehavior="Flyout"
     Shell.ForegroundColor="#171516"
@@ -17,33 +16,9 @@
             
             <!-- set background coloour of shell-->
             <Color x:Key="ShellBackgroundColor">#FFFFFF</Color>
-
+            
         </ResourceDictionary>
     </Shell.Resources>
-
-    <Shell.ItemTemplate>
-        <DataTemplate>
-
-            <StackLayout Margin="25, 10, 75, 0">
-
-                <Grid ColumnDefinitions="100,*"
-                      Padding="10">
-
-                    <Label Margin="-10, 0, 0, -5"
-                           Text="{Binding Title}"
-                           FontAttributes="Bold"
-                           FontSize="20" />
-
-                </Grid>
-
-                <BoxView Color="#171516"
-                         HeightRequest="2"
-                         HorizontalOptions="Fill" />
-
-            </StackLayout>
-
-        </DataTemplate>
-    </Shell.ItemTemplate>
 
     <Shell.TitleView>
 
@@ -101,12 +76,5 @@
     <FlyoutItem Title="Log In">
         <ShellContent ContentTemplate="{DataTemplate view:SignUpLogin}" />
     </FlyoutItem>
-
-    <MenuFlyoutSeparator />
-
-    <MenuFlyoutItem IconImageSource="facebook_logo.png" />
-    <MenuFlyoutItem IconImageSource="google_logo.png" />
-    <MenuFlyoutItem IconImageSource="facebook_logo.png" />
-    <MenuFlyoutItem IconImageSource="google_logo.png" />
 
 </Shell>
