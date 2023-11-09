@@ -7,11 +7,10 @@
              x:DataType="viewmodel:NewsViewModel"
              Title="NewsPage"
              BackgroundColor="#FFFFFF">
-
-
+    
+    
     <ScrollView>
         <StackLayout>
-            <Label x:Name="topBanner"/>
             <CarouselView ItemsSource="{Binding ButtonCollection}" IndicatorView="indicatorView">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
@@ -19,97 +18,11 @@
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
-
             <IndicatorView x:Name="indicatorView" 
                            IndicatorColor="Gray"
                            SelectedIndicatorColor="Black"
                            MaximumVisible="10"
                            IndicatorsShape="Circle"/>
-
-            <!--<HorizontalStackLayout
-                Spacing="25"
-                Padding="30,0">
-                <Label x:Name="movieTitle" Text="text"/>
-                <Border x:Name="critic" Style="{x:StaticResource compositeBorderCritic}"/>
-            </HorizontalStackLayout>-->
-
-            <!-- Latest News Header Banner-->
-            <VerticalStackLayout Padding="30,20,30,0">
-                <Image Source="latest_news.png"/>
-            </VerticalStackLayout>
-
-            <!-- 1st Image for layout make as a templaet for all news feed items -->
-            <StackLayout>
-                <VerticalStackLayout Padding="30,10">
-                    <ImageButton Source="turtles.jpg" HorizontalOptions="StartAndExpand"/>
-                    <Label
-                        Text="Daisy Ridley set to star in Zak Hilditch’s new film We Bury the Dead in WA"
-                        Padding="5,5"
-                        FontAttributes="Bold">
-                    </Label>
-                    <Label Text="Screenwest and Screen Australia are pleased to announce Daisy Ridley (Star Wars sequel trilogy) is set to star in Zak Hilditch’s new survival-thriller film, We ..."
-                           Padding="5,5"/>
-                    <HorizontalStackLayout>
-                        <Label
-                            Text="AccessReel"
-                            TextColor="DarkGrey"
-                            Padding="10,0,10,0">
-                        </Label>
-                        <Label
-                            Text="1 November, 2023"
-                            TextColor="DarkGrey"
-                            Padding="10,0,10,0">
-                        </Label>
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
-
-                <!-- 2nd News Image for Layout only will be removed when feeds populate the scrollview-->
-                <VerticalStackLayout Padding="30,10">
-                    <ImageButton Source="turtles.jpg"/>
-                    <Label
-                        Text="Healing Doc About To Drop"
-                        Padding="5,5"
-                        FontAttributes="Bold">
-                    </Label>
-                    <Label Text="THE HEALING is a documentary about to make its way around Australia.It tells an inspiring tale of recovery from two very different worlds. Set against the bac..."
-                           Padding="5,5"
-                           HorizontalTextAlignment="Start"
-                           HorizontalOptions="Fill"/>
-                    <HorizontalStackLayout>
-                        <Label
-                            Text="AccessReel"
-                            TextColor="DarkGrey"
-                            Padding="10,0,10,0">
-                        </Label>
-                        <Label
-                            Text="1 November, 2023"
-                            TextColor="DarkGrey"
-                            Padding="10,0,10,0">
-                        </Label>
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
-
-            </StackLayout>
-            <StackLayout>
-
-                <!-- Latest Trailers Header Banner-->
-                <VerticalStackLayout Padding="30,20,30,0">
-                    <Image Source="new_trailers.png"/>
-                </VerticalStackLayout>
-
-                <!-- 1st Image for trailers for layout only -->
-                <HorizontalStackLayout>
-                    <VerticalStackLayout Padding="30,10">
-                        <ImageButton Source="turtles.jpg" HorizontalOptions="StartAndExpand"/>
-                        <Label
-                        Text="Teenage Mutant Ninja Turtles"
-                        Padding="5,5"
-                        FontAttributes="Bold">
-                        </Label>
-                    </VerticalStackLayout>
-
-                </HorizontalStackLayout>
-            </StackLayout>
         </StackLayout>
     </ScrollView>
 </ContentPage>

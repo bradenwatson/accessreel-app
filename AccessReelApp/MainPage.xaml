@@ -4,7 +4,9 @@
              xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
              x:DataType="viewmodel:MainViewModel"
              x:Class="AccessReelApp.MainPage">
+
     <ScrollView>
+        
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
