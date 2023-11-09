@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AccessReelApp.Prototypes;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,22 +39,17 @@ namespace AccessReelApp.ViewModels
         };
 
         [ObservableProperty]
-        ObservableCollection<ReviewCell> movieReviewsList = new()
+        ObservableCollection<ReviewCell> movieReviewsList = new ObservableCollection<ReviewCell>();
+        public TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
+        public ReviewsViewModel()
         {
-            new ReviewCell
+            movieClient.ReviewFetched += (review) =>
             {
-                MovieTitle = "Teenage Mutant Ninja Turtles: Mutant Mayhem Review",
-                MovieDescription = "Paramount Pictures and Nickelodeon Films presents their most radical movie this year - Teenage Mutant Ninja Turtles: Mutant Mayhem.",
-                PosterUrl = "turtles.jpg",
-                MovieRating = 3f,
-            },
-            new ReviewCell
-            {
-                MovieTitle = "Teenage Mutant Ninja Turtles: Mutant Mayhem Review",
-                MovieDescription = "Paramount Pictures and Nickelodeon Films presents their most radical movie this year - Teenage Mutant Ninja Turtles: Mutant Mayhem.",
-                PosterUrl = "turtles.jpg",
-                MovieRating = 5f,
-            }
-        };
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    MovieReviewsList.Add(review);
+                });
+            };
+        }
     }
 }
