@@ -38,19 +38,43 @@ namespace AccessReelApp
 				string msg = m.Value;
 			});
 
-            RootTests();
+
+            DeviceToken();
+            //RootTests();
             //ReadFireBaseAdminSDK();
+            SwitchByNotification();
+            
+            
         }
 
-        private void RootTests() // seperates code a little bit
+        private void DeviceToken()
         {
             if (Preferences.ContainsKey("DeviceToken"))
             {
                 _deviceToken = Preferences.Get("DeviceToken", "");
             }
+        }
+
+        private void SwitchByNotification()
+        {
+            if (Preferences.ContainsKey("NavigationID"))
+            {
+                string id = Preferences.Get("NavigationID", "");
+                if (id == "1")
+                {
+                    AppShell.Current.GoToAsync(nameof(NewPage1));
+                }
+                //ADD MORE PAGES
+            }
+            Preferences.Remove("NavigationID");
+        }
+
+        private void RootTests() // seperates code a little bit
+        {
+            
 
             string rootDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string relativePath = Path.Combine("Platforms", "Android", "Resources", "admin_sdk.json");
+            string relativePath = Path.Combine("Platforms", "Android", "admin_sdk.json");
             string fullPath = Path.Combine(rootDirectory, relativePath);
 
             Debug.WriteLine("**************************************************************");
@@ -160,8 +184,13 @@ namespace AccessReelApp
 
 		private async void ReadFireBaseAdminSDK()
 		{
-            string relativePath = "Platforms/Android/admin_sdk.json";
-            var stream = await FileSystem.OpenAppPackageFileAsync(relativePath);
+            //string rootDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            //string relative = Path.Combine("Platforms", "Android", "admin_sdk.json");
+            //string fullPath = Path.Combine(rootDirectory, relative);
+            //string relativePath = Path.Combine("Platforms", "Android", "admin_sdk.json");
+            //string relativePath = fullPath;
+            
+            var stream = await FileSystem.OpenAppPackageFileAsync("admin_sdk.json");        //FILE IO ERROR!!!
 			var reader = new StreamReader(stream);
 
 			var jsonContent = reader.ReadToEnd();
@@ -177,8 +206,8 @@ namespace AccessReelApp
 
         private async void Button_Clicked_1(object sender, EventArgs e)
         {
-            //var androidNotificationObject = new Dictionary<string, string>();
-            //androidNotificationObject.Add("NavigationID", "2");
+            var androidNotificationObject = new Dictionary<string, string>();
+            androidNotificationObject.Add("NavigationID", "2");
 
             //var iosNotificationObject = new Dictionary<string, object>();
             //iosNotificationObject.Add("NavigationID", "2");
@@ -190,47 +219,51 @@ namespace AccessReelApp
                     title = "Notification Title",
                     body = "Notification body"
                 },
-                //data = androidNotificationObject,
+                data = androidNotificationObject,
                 registration_ids = new List<string> { _deviceToken }
             };
 
-            string url = "https://fcm.googleapis.com/v1/projects/sample-afe7a/messages:send";
+            //Setup authorisation https://firebase.google.com/docs/cloud-messaging/migrate-v1
 
-            using(var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "=" + "BMa09HX2bwYS3y_dGm_xIDoRreyq2EDFwDPVJoBWFD6zaByfdv4uz9eh7qK8QzX7AW7mOAGk9tYgs7AwPSAVjAc\r\n8");
-            
-                string serializerRequest = JsonConvert.SerializeObject(pushNotificationRequest);
-                var response = await client.PostAsync(url, new StringContent(serializerRequest, Encoding.UTF8, "application/json"));
-                if(response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    await App.Current.MainPage.DisplayAlert("Notification sent!", "notification sent", "OK");
-                }
-            }
+            //string url = "https://fcm.googleapis.com/v1/projects/sample-afe7a/messages:send";
+            //string url = "https://fcm.googleapis.com/fcm/send";
+            //string url = "https://www.googleapis.com/auth/firebase.messaging";
+
+            //using (var client = new HttpClient())
+            //{
+            //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "=" + "BMa09HX2bwYS3y_dGm_xIDoRreyq2EDFwDPVJoBWFD6zaByfdv4uz9eh7qK8QzX7AW7mOAGk9tYgs7AwPSAVjAc\\r\\n8");
+
+            //    string serializerRequest = JsonConvert.SerializeObject(pushNotificationRequest);
+            //    var response = await client.PostAsync(url, new StringContent(serializerRequest, Encoding.UTF8, "application/json"));
+            //    if(response.StatusCode == System.Net.HttpStatusCode.OK)
+            //    {
+            //        await App.Current.MainPage.DisplayAlert("Notification sent!", "notification sent", "OK");
+            //    }
+            //}
             var messageList = new List<Message>();
 
-            //var obj = new Message
-            //{
-            //    Token = _deviceToken,
-            //    Notification = new Notification
-            //    {
-            //        Title = "Tilte",
-            //        Body = "message body"
-            //    },
-            //    Data = androidNotificationObject,
-            //    Apns = new ApnsConfig()
-            //    {
-            //        Aps = new Aps
-            //        {
-            //            Badge = 15,
-            //            CustomData = iosNotificationObject,
-            //        }
-            //    }
-            //};
+            var obj = new Message
+            {
+                Token = _deviceToken,
+                Notification = new Notification
+                {
+                    Title = "Tilte",
+                    Body = "message body"
+                },
+                Data = androidNotificationObject,
+                Apns = new ApnsConfig()
+                {
+                    Aps = new Aps
+                    {
+                        Badge = 15,
+                        //CustomData = iosNotificationObject,
+                    }
+                }
+            };
 
-            //messageList.Add(obj);
+            messageList.Add(obj);
 
-            //var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messageList);
+            var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messageList);
         }
         /***************************************************************************/
         /***************************************************************************/

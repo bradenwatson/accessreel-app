@@ -12,6 +12,21 @@ public class MainActivity : MauiAppCompatActivity
     protected override void OnCreate(Bundle savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
+        if(Intent.Extras != null)
+        {
+            foreach(var key in Intent.Extras.KeySet())
+            {
+                if(key == "NavigationID")
+                {
+                    string idValue = Intent.Extras.GetString(key);
+                    if(Preferences.ContainsKey("NavigationID"))
+                    {
+                        Preferences.Remove("NavigationID");
+                    }
+                    Preferences.Set("NavigationID", idValue);
+                }
+            }
+        }
 
         CreateNotificationChannel();
     }
