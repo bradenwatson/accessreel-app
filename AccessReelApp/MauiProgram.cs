@@ -13,13 +13,6 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-			.UseLocalNotification()		//ADDED FOR LOCAL NOTIFICATIONS
-            .UseMauiCommunityToolkit()
-            .ConfigureFonts(fonts =>
-
-			//.UseLocalNotification()		//ADDED FOR LOCAL NOTIFICATIONS
-            //.UseMauiCommunityToolkit()
-            //.ConfigureFonts(fonts =>
             .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
 			{
@@ -41,8 +34,6 @@ public static class MauiProgram
         builder.Services.AddTransient<InterviewsViewModel>();
 		builder.Services.AddSingleton<SignUpLogin>();
 		builder.Services.AddTransient<SignUpLoginViewModel>();
-		builder.Services.AddSingleton<AccountsPage>();
-		builder.Services.AddTransient<AccountsPageViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();
