@@ -49,6 +49,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\Oxygen-Bold.ttf" />
+	  <None Remove="Resources\Fonts\Oxygen-Light.ttf" />
+	  <None Remove="Resources\Fonts\Oxygen-Regular.ttf" />
+	  <None Remove="Resources\Images\accessreel_logo.png" />
+	  <None Remove="Resources\Images\facebook_logo.png" />
+	  <None Remove="Resources\Images\google_logo.png" />
+	  <None Remove="Resources\Images\NewTrailers.png" />
 	  <None Remove="Platforms\Android\google-services.json" />
 	  <None Remove="Resources\private_key.json" />
 	</ItemGroup>
@@ -76,10 +83,23 @@
 	  <MauiXaml Update="Views\ReviewsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\AccountsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\SignUpLogin.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Headers\latest_interviews.png" />
+	  <MauiImage Include="Resources\Images\Headers\latest_news.png" />
+	  <MauiImage Include="Resources\Images\Headers\latest_reviews.png" />
+	  <MauiImage Include="Resources\Images\Headers\new_trailers.png" />
+	  <MauiImage Include="Resources\Images\Icons\accessreel_logo.png" />
+	  <MauiImage Include="Resources\Images\movies\barbie.jpg" />
+	  <MauiImage Include="Resources\Images\movies\turtles.jpg" />
+   </ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
 	  <PackageReference Include="Xamarin.Firebase.Messaging">
@@ -91,6 +111,12 @@
 	  <PackageReference Include="Xamarin.GooglePlayServices.Base">
 	    <Version>118.2.0.3</Version>
 	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\AccountsPage.xaml.cs">
+	    <DependentUpon>AccountsPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>
