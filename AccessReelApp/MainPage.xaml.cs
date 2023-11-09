@@ -6,8 +6,6 @@ using Google.Apis.Auth.OAuth2;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Diagnostics;
 using AccessReelApp.Prototypes;
-using System.Web.Optimization;
-using Microsoft.Maui.Controls.PlatformConfiguration;
 using Newtonsoft.Json;
 using System.Text;
 

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net7.0-ios;net7.0-maccatalyst;net7.0-android</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
@@ -68,9 +68,7 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="FirebaseAdmin" Version="2.4.0" />
-		<PackageReference Include="Microsoft.AspNet.Web.Optimization" Version="1.1.3" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-		<PackageReference Include="Microsoft.TeamFoundationServer.ExtendedClient" Version="16.205.1" />
 		<PackageReference Include="Plugin.LocalNotification" Version="10.1.8" />
 		<PackageReference Include="RestSharp" Version="110.2.0" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
@@ -105,7 +103,8 @@
    </ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
-    <PackageReference Include="Microsoft.NETCore.App.Runtime.Mono.android-x64" Version="8.0.0-rc.2.23479.6" />
+	<GoogleServicesJson Include="google-services.json" />
+    
     <PackageReference Include="Xamarin.AndroidX.AppCompat">
       <Version>1.6.1.5</Version>
     </PackageReference>
