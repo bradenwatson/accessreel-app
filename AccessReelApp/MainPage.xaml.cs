@@ -7,6 +7,7 @@ using Google.Apis.Auth.OAuth2;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using System.Diagnostics;
+using AccessReelApp.Prototypes;
 
 //Firebase https://firebase.google.com/docs/reference/admin
 //Android Setup https://firebase.google.com/docs/cloud-messaging/android/client
@@ -14,17 +15,11 @@ using System.Diagnostics;
 
 namespace AccessReelApp
 {
-
-    public class NotificationMessageBody
-    {
-        public string title { get; set; }
-        public string body { get; set; }
-    }
-
     public partial class MainPage : ContentPage
 	{
-        // Unused?
-        int count = 0;
+        bool isApiKeyValid;
+        string jsonString = "https://accessreel.com/wp-json/api/v1/trailers?posts_per_page=-1&exclude_hidden=1";
+        public TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
         DatabaseControl databaseControl = new DatabaseControl();
 		private string _deviceToken;
 
@@ -39,7 +34,14 @@ namespace AccessReelApp
 			});
 
             RootTests();
-            ReadFireBaseAdminSDK();
+            //ReadFireBaseAdminSDK();
+            TestAccess();
+            
+        }
+
+        private async void TestAccess()
+        {
+            await TmdbApiClient.PullAccessReelData();
         }
 
         private void RootTests() // seperates code a little bit
@@ -69,9 +71,12 @@ namespace AccessReelApp
 			}
 		}
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+        }
         // Testing methods ------>
 
-        //THIS WORKS!!!! -> Does the bottom event not work?
         private void Button_Clicked(object sender, EventArgs e)
         {
 
