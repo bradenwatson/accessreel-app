@@ -368,11 +368,11 @@ namespace AccessReelApp.Prototypes
                         Debug.WriteLine($"Post ID: {post.ID}");
                         Debug.WriteLine($"Post Title: {post.post_title}");
                         Debug.WriteLine($"Post Date: {post.post_date}");
-
+                        string cleanedDescription = MyRegex().Replace(post.post_content, ""); // clean out html tags
                         var reviewCell = new ReviewCell
                         {
                             MovieTitle = post.post_title ?? "DefaultTitle",
-                            MovieDescription = post.post_content ?? "DefaultDescription",
+                            MovieDescription = cleanedDescription ?? "DefaultDescription",
                             PosterUrl = post.img?.thumbnail ?? "DefaultPosterUrl",
                             MovieRating = float.TryParse(post.film_info?.imdb_vote_avg, out var rating) ? rating : 0.0f,
                         };
@@ -393,7 +393,7 @@ namespace AccessReelApp.Prototypes
                         if(post.film_info != null)
                         {
                             // Trim out HTML tags from post.post_content
-                            string cleanedDescription = MyRegex().Replace(post.post_content, ""); // clean out html tags
+                            cleanedDescription = MyRegex().Replace(post.post_content, ""); // clean out html tags
                             Debug.WriteLine($"Film ID: {post.film_info.film_id}");
                             Debug.WriteLine($"Film Description: {cleanedDescription}");
                             Debug.WriteLine($"Avg Vote: {post.film_info.imdb_vote_avg}");
