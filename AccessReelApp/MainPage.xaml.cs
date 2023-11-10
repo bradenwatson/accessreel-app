@@ -41,7 +41,7 @@ namespace AccessReelApp
 
         private async void TestAccess()
         {
-            await TmdbApiClient.PullAccessReelData();
+            await movieClient.PullAccessReelData();
         }
 
         private void RootTests() // seperates code a little bit

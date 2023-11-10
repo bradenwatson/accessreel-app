@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AccessReelApp.Models;
 using Newtonsoft.Json;
@@ -11,7 +12,7 @@ using RestSharp;
 namespace AccessReelApp.Prototypes
 {
 
-    public class TmdbApiClient
+    public partial class TmdbApiClient
     {
         private readonly string apiKey;
         private readonly RestClient restClient;
@@ -20,7 +21,7 @@ namespace AccessReelApp.Prototypes
         public TmdbApiClient(string apiKey)
         {
             this.apiKey = apiKey;
-            this.restClient = new RestClient("https://api.themoviedb.org/3/");
+            restClient = new RestClient("https://api.themoviedb.org/3/");
         }
 
         public string GetApiKey()
@@ -349,14 +350,16 @@ namespace AccessReelApp.Prototypes
 
         // Access Reel Methods
 
-        public static async Task PullAccessReelData()
+        public async Task PullAccessReelData()
         {
             using (HttpClient client = new HttpClient())
             {
+                // access the JSON content
                 var response = await client.GetAsync("https://accessreel.com/wp-json/api/v1/trailers?posts_per_page=-1&exclude_hidden=1");
 
                 if (response.IsSuccessStatusCode)
                 {
+                    // grab the content from the link and store in json string
                     string json = await response.Content.ReadAsStringAsync();
                     var posts = JsonConvert.DeserializeObject<List<Post>>(json);
 
@@ -365,6 +368,16 @@ namespace AccessReelApp.Prototypes
                         Debug.WriteLine($"Post ID: {post.ID}");
                         Debug.WriteLine($"Post Title: {post.post_title}");
                         Debug.WriteLine($"Post Date: {post.post_date}");
+
+                        var reviewCell = new ReviewCell
+                        {
+                            MovieTitle = post.post_title ?? "DefaultTitle",
+                            MovieDescription = post.post_content ?? "DefaultDescription",
+                            PosterUrl = post.img?.thumbnail ?? "DefaultPosterUrl",
+                            MovieRating = float.TryParse(post.film_info?.imdb_vote_avg, out var rating) ? rating : 0.0f,
+                        };
+
+                        ReviewFetched?.Invoke(reviewCell);
 
                         if (post.review_info != null)
                         {
@@ -377,6 +390,22 @@ namespace AccessReelApp.Prototypes
                             }
                         }
 
+                        if(post.film_info != null)
+                        {
+                            // Trim out HTML tags from post.post_content
+                            string cleanedDescription = MyRegex().Replace(post.post_content, ""); // clean out html tags
+                            Debug.WriteLine($"Film ID: {post.film_info.film_id}");
+                            Debug.WriteLine($"Film Description: {cleanedDescription}");
+                            Debug.WriteLine($"Avg Vote: {post.film_info.imdb_vote_avg}");
+                            Debug.WriteLine($"AU Release Date: {post.film_info.au_release_date}");
+                            Debug.WriteLine($"US Release Date: {post.film_info.us_release_date}");
+                        }
+
+                        if (post.img != null)
+                        {
+                            Debug.WriteLine($"Thumbnail Link: {post.img.thumbnail}");
+                        }
+
                         // Add a separator line for better readability
                         Debug.WriteLine(new string('-', 50));
                     }
@@ -387,6 +416,9 @@ namespace AccessReelApp.Prototypes
                 }
             }
         }
+
+        [GeneratedRegex("<.*?>")]
+        private static partial Regex MyRegex();
     }
 }
 
