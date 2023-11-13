@@ -6,54 +6,64 @@ using Google.Apis.Auth.OAuth2;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Diagnostics;
 using AccessReelApp.Prototypes;
-using Newtonsoft.Json;
-using System.Text;
 
+/* Unmerged change from project 'AccessReelApp (net7.0-maccatalyst)'
+Before:
+using Intents;
+After:
+using Intents;
+using AccessReelApp.Notifications;
+*/
 
-//Firebase https://firebase.google.com/docs/reference/admin
-//Android Setup https://firebase.google.com/docs/cloud-messaging/android/client
-//Messaging https://firebase.google.com/docs/cloud-messaging/send-message
+/* Unmerged change from project 'AccessReelApp (net7.0-windows10.0.19041.0)'
+Before:
+using Intents;
+After:
+using Intents;
+using AccessReelApp.Notifications.Notifications;
+using AccessReelApp.Notifications;
+*/
 
-
+/* Unmerged change from project 'AccessReelApp (net7.0-android)'
+Before:
+using Intents;
+After:
+using Intents;
+using AccessReelApp.Notifications.Notifications.Notifications;
+using AccessReelApp.Notifications.Notifications;
+using AccessReelApp.Notifications;
+*/
+using AccessReelApp.Notifications;
 
 namespace AccessReelApp
 {
     public partial class MainPage : ContentPage
-	{
+    {
 
         bool isApiKeyValid;
         public TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
         DatabaseControl databaseControl = new DatabaseControl();
 
         int count = 0;
-        private string _deviceToken;
+        
 
-		public MainPage(MainViewModel vm)
-		{
-			InitializeComponent();
-			BindingContext = vm;
-
-			WeakReferenceMessenger.Default.Register<PushNotificationReceived>(this, (r, m) =>
-			{
-				string msg = m.Value;
-			});
-
-
-            DeviceToken();
-            //RootTests();
-            ReadFireBaseAdminSDK();
-            SwitchByNotification();
-            
-            
-        }
-
-        private void DeviceToken()
+        public MainPage(MainViewModel vm)
         {
-            if (Preferences.ContainsKey("DeviceToken"))
-            {
-                _deviceToken = Preferences.Get("DeviceToken", "");
-            }
+            InitializeComponent();
+            BindingContext = vm;
+
+            
+
+
+            //DeviceToken();
+            //RootTests();
+            //ReadFireBaseAdminSDK();
+            SwitchByNotification();
+
+
         }
+
+        
 
         private void SwitchByNotification()
         {
@@ -69,20 +79,6 @@ namespace AccessReelApp
             Preferences.Remove("NavigationID");
         }
 
-        private void RootTests() // seperates code a little bit
-        {
-            
-
-            string rootDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string relativePath = Path.Combine("Platforms", "Android", "admin_sdk.json");
-            string fullPath = Path.Combine(rootDirectory, relativePath);
-
-            Debug.WriteLine("**************************************************************");
-            Debug.WriteLine($"root dir = {rootDirectory}");
-            Debug.WriteLine($"rel path = {relativePath}");
-            Debug.WriteLine($"full path = {fullPath}");
-            Debug.WriteLine("**************************************************************");
-        }
 
         protected override void OnAppearing()
         {
@@ -157,113 +153,7 @@ namespace AccessReelApp
             await movieClient.GetReviewsForPopularMovies(1);
         }
 
-
-
-        /***************************************************************************/
-        /***************************************************************************/
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-
-			//DOES THIS PLUGIN WORK FOR FIREBASE
-			var request = new NotificationRequest
-			{
-				NotificationId = 1337,
-				Title = "Hello World",
-				Subtitle = "Test",
-				Description = "Working",
-				BadgeNumber = 42,
-				Schedule = new NotificationRequestSchedule
-				{
-					NotifyTime = DateTime.Now.AddSeconds(5),
-					NotifyRepeatInterval = TimeSpan.FromDays(1),
-				}
-			};
-			LocalNotificationCenter.Current.Show(request);
-        }
-
-		private async void ReadFireBaseAdminSDK()
-		{   
-            var stream = await FileSystem.OpenAppPackageFileAsync("Platforms\\Android\\admin_sdk.json");        //FILE IO ERROR!!!
-			var reader = new StreamReader(stream);
-
-			var jsonContent = reader.ReadToEnd();
-
-			if(FirebaseMessaging.DefaultInstance == null)
-			{
-				FirebaseApp.Create(new AppOptions()
-				{
-                    Credential = GoogleCredential.FromJson(jsonContent)
-                    //Credential = GoogleCredential.GetApplicationDefault(),
-                }); 
-			}
-        }
-
-        private async void Button_Clicked_1(object sender, EventArgs e)
-        {
-            //Setup authorisation https://firebase.google.com/docs/cloud-messaging/migrate-v1
-
-            var androidNotificationObject = new Dictionary<string, string>();
-            androidNotificationObject.Add("NavigationID", "2");
-
-            var pushNotificationRequest = new PushNotificationRequest
-            {
-                notification = new NotificationMessageBody1
-                {
-                    title = "Notification Title",
-                    body = "Notification body"
-                },
-                data = androidNotificationObject,
-                registration_ids = new List<string> { _deviceToken }
-            };
-
-            /*
-            // Setup authorization: Replace {project_id} with your Firebase project ID
-            string projectId = "sample-afe7a";
-            string url = $"https://fcm.googleapis.com/v1/projects/{projectId}/messages:send";
-
-            using (var client = new HttpClient())
-            {
-                // Replace "your_access_token" with your actual OAuth 2.0 access token
-                string accessToken = "BMa09HX2bwYS3y_dGm_xIDoRreyq2EDFwDPVJoBWFD6zaByfdv4uz9eh7qK8QzX7AW7mOAGk9tYgs7AwPSAVjAc\\r\\n8";
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
-
-                string serializerRequest = JsonConvert.SerializeObject(pushNotificationRequest);
-                var response = await client.PostAsync(url, new StringContent(serializerRequest, Encoding.UTF8, "application/json"));
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    await App.Current.MainPage.DisplayAlert("Notification sent!", "Notification sent", "OK");
-                }
-            }
-            */
-
-            var messageList = new List<Message>();
-
-            var obj = new Message
-            {
-                Token = _deviceToken,
-                Notification = new Notification
-                {
-                    Title = "Tilte",
-                    Body = "message body"
-                },
-                Data = androidNotificationObject,
-                //Apns = new ApnsConfig()
-                //{
-                //    Aps = new Aps
-                //    {
-                //        Badge = 15,
-                //        //CustomData = iosNotificationObject,
-                //    }
-                //}
-            };
-
-            messageList.Add(obj);
-
-            var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messageList);
-        }
-        /***************************************************************************/
-        /***************************************************************************/
-    }
+       
+    } 
 }
 

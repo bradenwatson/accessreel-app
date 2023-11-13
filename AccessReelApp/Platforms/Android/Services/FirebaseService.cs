@@ -14,11 +14,6 @@ namespace AccessReelApp.Platforms.Android.Services
     [IntentFilter(new[] {"com.google.firebase.MESSAGING_EVENT"})]
     public class FirebaseService: FirebaseMessagingService
     {
-        public FirebaseService()
-        {
-
-        }
-
         public override void OnNewToken(string token)
         {
             
@@ -50,7 +45,7 @@ namespace AccessReelApp.Platforms.Android.Services
                 intent.PutExtra(key, value);
             }
 
-            var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NotificationID, intent, PendingIntentFlags.Immutable);
+            var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NotificationID, intent, PendingIntentFlags.Immutable); //Make a mutable one
 
             var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.Channel_ID)
                 .SetContentTitle(title)
