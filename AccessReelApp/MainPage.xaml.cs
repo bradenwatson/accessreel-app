@@ -197,7 +197,7 @@ namespace AccessReelApp
                     //Credential = GoogleCredential.GetApplicationDefault(),
                 }); 
 			}
-		}
+        }
 
         private async void Button_Clicked_1(object sender, EventArgs e)
         {
@@ -217,6 +217,7 @@ namespace AccessReelApp
                 registration_ids = new List<string> { _deviceToken }
             };
 
+            /*
             // Setup authorization: Replace {project_id} with your Firebase project ID
             string projectId = "sample-afe7a";
             string url = $"https://fcm.googleapis.com/v1/projects/{projectId}/messages:send";
@@ -234,81 +235,32 @@ namespace AccessReelApp
                     await App.Current.MainPage.DisplayAlert("Notification sent!", "Notification sent", "OK");
                 }
             }
+            */
 
+            var messageList = new List<Message>();
 
+            var obj = new Message
+            {
+                Token = _deviceToken,
+                Notification = new Notification
+                {
+                    Title = "Tilte",
+                    Body = "message body"
+                },
+                Data = androidNotificationObject,
+                //Apns = new ApnsConfig()
+                //{
+                //    Aps = new Aps
+                //    {
+                //        Badge = 15,
+                //        //CustomData = iosNotificationObject,
+                //    }
+                //}
+            };
 
+            messageList.Add(obj);
 
-
-
-
-
-
-
-            /*****************************************************************************************************/
-            //var androidNotificationObject = new Dictionary<string, string>();
-            //androidNotificationObject.Add("NavigationID", "2");
-
-
-
-            ////var iosNotificationObject = new Dictionary<string, object>();
-            ////iosNotificationObject.Add("NavigationID", "2");
-
-            //var pushNotificationRequest = new PushNotificationRequest
-            //{
-            //    notification = new NotificationMessageBody1
-            //    {
-            //        title = "Notification Title",
-            //        body = "Notification body"
-            //    },
-            //    data = androidNotificationObject,
-            //    registration_ids = new List<string> { _deviceToken }
-            //};
-
-
-
-
-
-            //string url = "https://fcm.googleapis.com/v1/projects/sample-afe7a/messages:send";
-            ////string url = "https://fcm.googleapis.com/fcm/send";
-            ////string url = "https://www.googleapis.com/auth/firebase.messaging";
-
-            //using (var client = new HttpClient())
-            //{
-            //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer","BMa09HX2bwYS3y_dGm_xIDoRreyq2EDFwDPVJoBWFD6zaByfdv4uz9eh7qK8QzX7AW7mOAGk9tYgs7AwPSAVjAc\\r\\n8");
-            //    //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("key", "=" + "BMa09HX2bwYS3y_dGm_xIDoRreyq2EDFwDPVJoBWFD6zaByfdv4uz9eh7qK8QzX7AW7mOAGk9tYgs7AwPSAVjAc\\r\\n8");
-            //    string serializerRequest = JsonConvert.SerializeObject(pushNotificationRequest);
-            //    var response = await client.PostAsync(url, new StringContent(serializerRequest, Encoding.UTF8, "application/json"));
-            //    if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            //    {
-            //        await App.Current.MainPage.DisplayAlert("Notification sent!", "notification sent", "OK");
-            //    }
-            //}
-
-
-            //var messageList = new List<Message>();
-
-            //var obj = new Message
-            //{
-            //    Token = _deviceToken,
-            //    Notification = new Notification
-            //    {
-            //        Title = "Tilte",
-            //        Body = "message body"
-            //    },
-            //    Data = androidNotificationObject,
-            //    //Apns = new ApnsConfig()
-            //    //{
-            //    //    Aps = new Aps
-            //    //    {
-            //    //        Badge = 15,
-            //    //        //CustomData = iosNotificationObject,
-            //    //    }
-            //    //}
-            //};
-
-            //messageList.Add(obj);
-
-            //var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messageList);
+            var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messageList);
         }
         /***************************************************************************/
         /***************************************************************************/
