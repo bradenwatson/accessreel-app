@@ -49,10 +49,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiAsset Remove="Resources\Raw\admin_sdk.json" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Remove="Resources\Fonts\Oxygen-Bold.ttf" />
 	  <None Remove="Resources\Fonts\Oxygen-Light.ttf" />
 	  <None Remove="Resources\Fonts\Oxygen-Regular.ttf" />
@@ -60,12 +56,13 @@
 	  <None Remove="Resources\Images\facebook_logo.png" />
 	  <None Remove="Resources\Images\google_logo.png" />
 	  <None Remove="Resources\Images\NewTrailers.png" />
-	  <None Remove="Platforms\Android\google-services.json" />
-	  <None Remove="Resources\private_key.json" />
+	  <!--<None Remove="Platforms\Android\google-services.json" />-->
+	  <!--<None Remove="Resources\private_key.json" />-->
 	</ItemGroup>
 
 	<ItemGroup>
 	  <GoogleServicesJson Include="Platforms\Android\google-services.json" />
+    <AndroidAsset Include="Platforms\Android\admin_sdk.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -110,7 +107,8 @@
    </ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
-	<GoogleServicesJson Include="google-services.json" />
+		<GoogleServicesJson Include="google-services.json" />
+    <AndroidAsset Include="Platforms\Android\admin_sdk.json" />
     
     <PackageReference Include="Xamarin.AndroidX.AppCompat">
       <Version>1.6.1.5</Version>
