@@ -71,7 +71,6 @@ namespace AccessReelApp
                 vm.Text = "Changed!";
             }
             // movie tests
-            IsAPIValidCheck();
             //GetPopularFilms();
             //GetFilmByName("The Matrix");
             //GetReviewsByName("Five Nights at Freddy's");
