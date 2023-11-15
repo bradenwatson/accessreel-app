@@ -12,10 +12,11 @@
     <ScrollView>
         <StackLayout>
             <Label x:Name="topBanner"/>
-            <CarouselView ItemsSource="{Binding ButtonCollection}" IndicatorView="indicatorView">
+            <CarouselView ItemsSource="{Binding ButtonCollection}" Style="{StaticResource topCarousel}">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <ImageButton Source="turtles.jpg" />
+                        <!--Replace with actual binding-->
+                        <ImageButton Source="{Binding ImageSource}" Clicked="ImageButton_Clicked"/>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
@@ -34,14 +35,14 @@
             </HorizontalStackLayout>-->
 
             <!-- Latest News Header Banner-->
-            <VerticalStackLayout Padding="30,20,30,0">
+            <VerticalStackLayout Style="{StaticResource PaddingBanner}">
                 <Image Source="latest_news.png"/>
             </VerticalStackLayout>
 
             <!-- 1st Image for layout make as a templaet for all news feed items -->
             <StackLayout>
                 <VerticalStackLayout Padding="30,10">
-                    <ImageButton Source="turtles.jpg" HorizontalOptions="StartAndExpand"/>
+                    <ImageButton Source="turtles.jpg" HorizontalOptions="StartAndExpand" Clicked="ImageButton_Clicked"/>
                     <Label
                         Text="Daisy Ridley set to star in Zak Hilditch’s new film We Bury the Dead in WA"
                         Padding="5,5"
@@ -65,7 +66,7 @@
 
                 <!-- 2nd News Image for Layout only will be removed when feeds populate the scrollview-->
                 <VerticalStackLayout Padding="30,10">
-                    <ImageButton Source="turtles.jpg"/>
+                    <ImageButton Source="turtles.jpg" Clicked="ImageButton_Clicked"/>
                     <Label
                         Text="Healing Doc About To Drop"
                         Padding="5,5"
@@ -93,19 +94,18 @@
             <StackLayout>
 
                 <!-- Latest Trailers Header Banner-->
-                <VerticalStackLayout Padding="30,20,30,0">
+                <VerticalStackLayout Style="{StaticResource PaddingBanner}">
                     <Image Source="new_trailers.png"/>
                 </VerticalStackLayout>
 
                 <!-- 1st Image for trailers for layout only -->
                 <HorizontalStackLayout>
                     <VerticalStackLayout Padding="30,10">
-                        <ImageButton Source="turtles.jpg" HorizontalOptions="StartAndExpand"/>
+                        <ImageButton Source="turtles.jpg" HorizontalOptions="StartAndExpand" Clicked="ImageButton_Clicked"/>
                         <Label
                         Text="Teenage Mutant Ninja Turtles"
                         Padding="5,5"
-                        FontAttributes="Bold">
-                        </Label>
+                        FontAttributes="Bold"/>
                     </VerticalStackLayout>
 
                 </HorizontalStackLayout>

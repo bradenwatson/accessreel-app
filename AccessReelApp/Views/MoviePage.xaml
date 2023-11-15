@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="AccessReelApp.Views.MoviePage">
+
+    <ContentPage Title="{Binding Title}">
+        <StackLayout>
+            <HorizontalStackLayout>
+                <Label Text="In Theaters(AU): " HorizontalTextAlignment="End" FontSize="12" TextColor="#700"/>
+                <Label TextColor="#700" HorizontalTextAlignment="End" FontAttributes="Bold" FontSize="12" Text="{Binding TheatersAU}"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="In Theaters(USA): " HorizontalTextAlignment="End" FontSize="12" TextColor="#700"/>
+                <Label TextColor="#700" HorizontalTextAlignment="End" FontAttributes="Bold" FontSize="12" Text="{Binding TheatersUSA}"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Frame HasShadow="False" Padding="5,5,5,5" Margin="0,0,0,20">
+                    <!--Need bind image's width and height-->
+                    <Image Source="{Binding Poster}"/>
+                </Frame>
+                <Label FontSize="14" Text="{Binding Info}"/>
+            </HorizontalStackLayout>
+            <Button Text="Follow +" TextColor="White" BackgroundColor="#00d1e4" FontSize="14" Clicked="Button_Clicked"/>
+            <Label FontSize="24" Text="{Binding Title}"/>
+            <HorizontalStackLayout>
+                <Image Source="{Binding AvgRating}"/>
+                <StackLayout>
+                    <Label Text="Average User Rating" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <HorizontalStackLayout>
+                        <Label FontSize="11" Text="{Binding Votes}"/>
+                        <Label Text="VOTES" Margin="0,0,0,5" FontSize="11"/>
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </HorizontalStackLayout>
+            <Label Text="Rate This Item" FontAttributes="Italic,Bold" FontSize="18"/>
+            <HorizontalStackLayout>
+                <Label Text="YOUR RATING: " FontSize="11"/>
+                <Label FontSize="11" Text="{Binding Rating}"/>
+            </HorizontalStackLayout>
+            <Slider Maximum="10" Minimum="0"/>
+            <Button Text="Submit" TextColor="White" BackgroundColor="#f61e5b" Margin="0,5,0,0" HeightRequest="69.58" WidthRequest="40" Clicked="Button_Clicked"/>
+            <HorizontalStackLayout>
+                <Label Text="Genre:" FontSize="12"/>
+                <Button TextColor="#f61e5b" FontSize="12" WidthRequest="20" HeightRequest="284.5" Text="{Binding Genre}" Clicked="Button_Clicked"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="Cast:" FontSize="12"/>
+                <Button TextColor="#f61e5b" FontSize="12" WidthRequest="20" HeightRequest="284.5" Text="{Binding Cast}" Clicked="Button_Clicked"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="Director:" FontSize="12"/>
+                <Button TextColor="#f61e5b" FontSize="12" WidthRequest="20" HeightRequest="284.5" Text="{Binding Director}" Clicked="Button_Clicked"/>
+            </HorizontalStackLayout>
+        </StackLayout>
+    </ContentPage>
+    <ContentPage Title="News">
+        <StackLayout>
+            <Label Text="News" FontSize="30"/>
+            <Label Text="No items found."/>
+        </StackLayout>
+    </ContentPage>
+    <ContentPage Title="Videos">
+        <StackLayout>
+            <Label FontSize="30" Text="Videos"/>
+            <HorizontalStackLayout>
+                <Picker>
+                    <Picker.Items>
+                        <x:String>Newest</x:String>
+                        <x:String>Oldest</x:String>
+                        <x:String>Title (A-Z)</x:String>
+                        <x:String>Title (Z-A)</x:String>
+                        <x:String>Most Comments</x:String>
+                        <x:String>Most Views</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Picker>
+                    <Picker.Items>
+                        <x:String>Posted any date</x:String>
+                        <x:String>Posted in the last year</x:String>
+                        <x:String>Posted in the last month</x:String>
+                        <x:String>Posted in the last week</x:String>
+                        <x:String>Posted in the last day</x:String>
+                    </Picker.Items>
+                </Picker>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <ImageButton Source="{Binding Trailer}"/>
+                <Button Clicked="Button_Clicked" FontSize="14" Text="{Binding Title}"/>
+            </HorizontalStackLayout>
+        </StackLayout>
+    </ContentPage>
+    <ContentPage Title="Review">
+        <StackLayout>
+            <Label Text="{Binding Synopsis}" FontSize="18"/>
+            <!--Video-->
+            <HorizontalStackLayout>
+                <ImageButton WidthRequest="50" HeightRequest="50" BackgroundColor="#3b5998" Margin="15,0,0,0" Source="{Binding TwitterIcon}" Clicked="Button_Clicked"/>
+                <ImageButton WidthRequest="50" HeightRequest="50" BackgroundColor="#d34836" Margin="15,0,0,0" Source="{Binding FacebookIcon}" Clicked="Button_Clicked"/>
+                <ImageButton WidthRequest="50" HeightRequest="50" BackgroundColor="#C92228" Margin="15,0,0,0" Source="{Binding GooglePlusIcon}" Clicked="Button_Clicked"/>
+                <ImageButton BackgroundColor="#4099ff" WidthRequest="50" HeightRequest="50" Margin="15,0,0,0" Source="{Binding PinterestIcon}" Clicked="Button_Clicked"/>
+            </HorizontalStackLayout>
+            <Button BackgroundColor="Black" Margin="0,0,0,10" TextColor="White" FontSize="18" Text="{Binding Name}" Clicked="Button_Clicked"/>
+            <Label Text="CRITIC" FontSize="16" Margin="0,10,0,0" FontAttributes="Bold"/>
+            <!--Need to make Nathaniel's score/rating into a style-->
+            <Image WidthRequest="38" HeightRequest="726" Source="{Binding RelatedItemsHeader}"/>
+            <HorizontalStackLayout>
+                <ImageButton WidthRequest="207.188" HeightRequest="348.469" Source="{Binding SourceInitRelatedItem}" Clicked="Button_Clicked"/>
+                <ImageButton WidthRequest="207.188" HeightRequest="348.469" Source="{Binding SourceSecRelatedItem}" Clicked="Button_Clicked"/>
+            </HorizontalStackLayout>
+        </StackLayout>
+    </ContentPage>
+</TabbedPage>

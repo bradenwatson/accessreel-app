@@ -11,6 +11,57 @@
     <Style TargetType="IndicatorView">
         <Setter Property="IndicatorColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}"/>
         <Setter Property="SelectedIndicatorColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray100}}"/>
+        <Setter Property="MaximumVisible" Value="{Binding AmountVisible}"/>
+        <Setter Property="IndicatorsShape" Value="Circle"/>
+    </Style>
+
+    <Style TargetType="IndicatorView" x:Key="AmountIndicators">
+        <Setter Property="PeekAreaInsets" Value="{Binding AmountInsets}"/>
+    </Style>
+
+    <Style TargetType="StackLayout" x:Key="PaddingBanner">
+        <Setter Property="Padding" Value="30,20,30,0"/>
+    </Style>
+    
+    <Style TargetType="CarouselView" x:Key="carouselView">
+        <Setter Property="ItemsSource" Value="{Binding SourceItems}"/>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <StackLayout>
+                        <ImageButton Source="{Binding ImageSource}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="CarouselView" x:Key="topCarousel" BasedOn="{StaticResource carouselView}">
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <StackLayout>
+                        <ImageButton Source="{Binding ImageSource}"/>
+                        <IndicatorView MaximumVisible="10"/>
+                    </StackLayout>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="CarouselView" x:Key="bottomCarousel" BasedOn="{StaticResource carouselView}">
+        <Setter Property="ItemsSource" Value="{Binding SourceItems}"/>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <StackLayout>
+                        <ImageButton Source="{Binding ImageSource}"/>
+                        <Label Text="{Binding TitleLabel}"/>
+                        <IndicatorView Style="{StaticResource AmountIndicators}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style TargetType="Border">
