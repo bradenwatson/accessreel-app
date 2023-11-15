@@ -43,8 +43,7 @@ namespace AccessReelApp
         bool isApiKeyValid;
         public TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
         DatabaseControl databaseControl = new DatabaseControl();
-
-        int count = 0;
+        NotificationManager notificationManager = new NotificationManager();
         
 
         public MainPage(MainViewModel vm)
@@ -52,18 +51,13 @@ namespace AccessReelApp
             InitializeComponent();
             BindingContext = vm;
 
-            
-
-
             //DeviceToken();
-            //RootTests();
-            //ReadFireBaseAdminSDK();
+            NotificationManager.ReadFireBaseAdminSDK();
             SwitchByNotification();
 
 
         }
 
-        
 
         private void SwitchByNotification()
         {
@@ -153,7 +147,25 @@ namespace AccessReelApp
             await movieClient.GetReviewsForPopularMovies(1);
         }
 
-       
+
+
+
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            NotificationHandler.HandleButtonClick();
+        }
+
+        // Button click event for the second notification (using NotificationHandler)
+        private void Button_Clicked_1(object sender, EventArgs e)
+        {
+            notificationManager.HandleButtonClick();
+        }
+
+
+
+
+
     } 
 }
 
