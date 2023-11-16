@@ -104,9 +104,9 @@
 
     <MenuFlyoutSeparator />
 
-    <MenuFlyoutItem IconImageSource="facebook_logo.png" />
-    <MenuFlyoutItem IconImageSource="google_logo.png" />
-    <MenuFlyoutItem IconImageSource="facebook_logo.png" />
-    <MenuFlyoutItem IconImageSource="google_logo.png" />
+    <MenuFlyoutItem IconImageSource="Icons/facebook_icon.png" />
+    <MenuFlyoutItem IconImageSource="Icons/instagram_icon.png" />
+    <MenuFlyoutItem IconImageSource="Icons/x_icon.png" />
+    <MenuFlyoutItem IconImageSource="Icons/youtube_icon.png" />
 
 </Shell>

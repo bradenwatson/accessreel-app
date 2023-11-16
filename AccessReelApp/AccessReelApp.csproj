@@ -102,6 +102,10 @@
 	  <MauiImage Include="Resources\Images\Headers\latest_reviews.png" />
 	  <MauiImage Include="Resources\Images\Headers\new_trailers.png" />
 	  <MauiImage Include="Resources\Images\Icons\accessreel_logo.png" />
+	  <MauiImage Include="Resources\Images\Icons\facebook_icon.png" />
+	  <MauiImage Include="Resources\Images\Icons\instagram_icon.png" />
+	  <MauiImage Include="Resources\Images\Icons\x_icon.png" />
+	  <MauiImage Include="Resources\Images\Icons\youtube_icon.png" />
 	  <MauiImage Include="Resources\Images\movies\barbie.jpg" />
 	  <MauiImage Include="Resources\Images\movies\turtles.jpg" />
    </ItemGroup>
