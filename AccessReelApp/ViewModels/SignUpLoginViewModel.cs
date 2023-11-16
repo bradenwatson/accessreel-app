@@ -36,10 +36,17 @@ namespace AccessReelApp.ViewModels
         [RelayCommand]
         public Task Login()
         {
-            if(Username == null | Password == null)
+            //if(Username == nullorEmpty | Password == null)
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
                 WeakReferenceMessenger.Default.Send(new OpenPageMessage("Invalid Details"));
                 return Task.CompletedTask;
+            }
+            else
+            {
+                // Perform any login logic here
+                // can await an authentication service etc
+                // any handle success/failure
             }
             return Task.CompletedTask;
         }
