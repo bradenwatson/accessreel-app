@@ -14,27 +14,15 @@ public partial class ReviewsPage : ContentPage
 	{
         InitializeComponent();
 		BindingContext = vm;
+
+		LoadARReviews();
     }
 
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        MovieMode mode = MovieMode.Popular;
-        if(mode == MovieMode.Popular)
-        {
-            GetPopularFilmReviews();
-        }
-    }
-
-    private async void GetPopularFilmReviews()
-    {
-        if (BindingContext is ReviewsViewModel vm)
-        {
-            //await vm.movieClient.GetReviewsForPopularMovies(1);
-            for(int i = 0; i < 3; i++)
-            {
-                await vm.movieClient.GetReviewsForMoviesByName("Cats", 1);
-            }
-        }
-    }
+	private async void LoadARReviews()
+	{
+		if(BindingContext is ReviewsViewModel vm)
+		{
+			await vm.movieClient.PullAccessReelData();
+		}
+	}
 }

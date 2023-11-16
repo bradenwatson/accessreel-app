@@ -1,4 +1,5 @@
-﻿using AccessReelApp.Prototypes;
+﻿using AccessReelApp.Models;
+using AccessReelApp.Prototypes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace AccessReelApp.ViewModels
 {
     public partial class ReviewsViewModel : ObservableObject
     {
+        // Implement view model properties and funcs
+
         // Implement view model properties and funcs
 
         [ObservableProperty]
@@ -45,7 +48,7 @@ namespace AccessReelApp.ViewModels
         {
             movieClient.ReviewFetched += (review) =>
             {
-                Device.BeginInvokeOnMainThread(() =>
+                Application.Current.Dispatcher.Dispatch(() =>
                 {
                     MovieReviewsList.Add(review);
                 });
