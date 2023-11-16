@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content;
 using AndroidX.Core.App;
 using Firebase.Messaging;
 using System;
@@ -13,11 +14,6 @@ namespace AccessReelApp.Platforms.Android.Services
     [IntentFilter(new[] {"com.google.firebase.MESSAGING_EVENT"})]
     public class FirebaseService: FirebaseMessagingService
     {
-        public FirebaseService()
-        {
-
-        }
-
         public override void OnNewToken(string token)
         {
             
@@ -40,11 +36,23 @@ namespace AccessReelApp.Platforms.Android.Services
 
         private void SendNotification(string messageBody, string title, IDictionary<string, string> data) 
         {
+            var intent = new Intent(this,typeof(MainActivity));
+            intent.AddFlags(ActivityFlags.ClearTop);
+
+            foreach(var key in data.Keys)
+            {
+                string value = data[key];
+                intent.PutExtra(key, value);
+            }
+
+            var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NotificationID, intent, PendingIntentFlags.Immutable); //Make a mutable one
+
             var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.Channel_ID)
                 .SetContentTitle(title)
-                //.SetSmallIcon(Resources.Mipmap.appicon)
+                .SetSmallIcon(Resource.Mipmap.appicon)
                 .SetContentText(messageBody)
                 .SetChannelId(MainActivity.Channel_ID)
+                .SetContentIntent(pendingIntent)
                 .SetPriority(2);
 
             var notificationManager = NotificationManagerCompat.From(this);

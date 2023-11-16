@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net7.0-ios;net7.0-maccatalyst;net7.0-android</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
@@ -56,12 +56,13 @@
 	  <None Remove="Resources\Images\facebook_logo.png" />
 	  <None Remove="Resources\Images\google_logo.png" />
 	  <None Remove="Resources\Images\NewTrailers.png" />
-	  <None Remove="Platforms\Android\google-services.json" />
-	  <None Remove="Resources\private_key.json" />
+	  <!--<None Remove="Platforms\Android\google-services.json" />-->
+	  <!--<None Remove="Resources\private_key.json" />-->
 	</ItemGroup>
 
 	<ItemGroup>
 	  <GoogleServicesJson Include="Platforms\Android\google-services.json" />
+    <AndroidAsset Include="Platforms\Android\admin_sdk.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -75,6 +76,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="NewPage1.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\InterviewsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -103,6 +107,20 @@
    </ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
+		<GoogleServicesJson Include="google-services.json" />
+    <AndroidAsset Include="Platforms\Android\admin_sdk.json" />
+    
+    <PackageReference Include="Xamarin.AndroidX.AppCompat">
+      <Version>1.6.1.5</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.AndroidX.Media">
+      <Version>1.6.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.AndroidX.Preference" Version="1.2.1.2" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Basement">
+      <Version>118.2.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Kotlin.StdLib.Jdk8" Version="1.9.10.2" />
 	  <PackageReference Include="Xamarin.Firebase.Messaging">
 	    <Version>123.2.1</Version>
 	  </PackageReference>
@@ -113,11 +131,13 @@
 	    <Version>118.2.0.3</Version>
 	  </PackageReference>
 	</ItemGroup>
-
+    
 	<ItemGroup>
 	  <Compile Update="Views\AccountsPage.xaml.cs">
 	    <DependentUpon>AccountsPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
+    
+
 
 </Project>

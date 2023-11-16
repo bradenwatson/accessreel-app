@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AccessReelApp
+namespace AccessReelApp.Models
 {
     public class ReviewCell
     {
