@@ -41,13 +41,11 @@ namespace AccessReelApp.ViewModels
             {
                 WeakReferenceMessenger.Default.Send(new OpenPageMessage("Invalid Details"));
                 return Task.CompletedTask;
-            }
-            else
-            {
-                // Perform any login logic here
-                // can await an authentication service etc
-                // any handle success/failure
-            }
+            } // this is an escape clause no need for an else
+
+            // Perform any login logic here
+            // can await an authentication service etc
+            // any handle success/failure
             return Task.CompletedTask;
         }
     }

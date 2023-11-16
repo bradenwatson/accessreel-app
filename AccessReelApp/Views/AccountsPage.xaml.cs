@@ -4,9 +4,9 @@ namespace AccessReelApp.Views;
 
 public partial class AccountsPage : ContentPage
 {
-	/*public SignUpLogin(AccountsPageViewModel vm)
+	public AccountsPage(AccountsPageViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext = vm;
-	}*/
+	}
 }
