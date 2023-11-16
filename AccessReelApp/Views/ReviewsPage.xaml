@@ -24,7 +24,8 @@
             <ScrollView>
 
             </ScrollView>
-            <ListView ItemsSource="{Binding MovieReviewsList}">
+            <ListView ItemsSource="{Binding MovieReviewsList}"
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
