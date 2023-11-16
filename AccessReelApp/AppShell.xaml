@@ -104,9 +104,20 @@
 
     <MenuFlyoutSeparator />
 
-    <MenuFlyoutItem x:Name="facebookIcon" IconImageSource="Icons/facebook_icon.png" Clicked="facebookIcon_Clicked" />
-    <MenuFlyoutItem x:Name="instagramIcon" IconImageSource="Icons/instagram_icon.png" Clicked="instagramIcon_Clicked" />
-    <MenuFlyoutItem x:Name="xIcon" IconImageSource="Icons/x_icon.png" Clicked="xIcon_Clicked" />
-    <MenuFlyoutItem x:Name="youtubeIcon" IconImageSource="Icons/youtube_icon.png" Clicked="youtubeIcon_Clicked" />
+    <MenuFlyoutItem x:Name="facebookIcon"
+                    IconImageSource="Icons/facebook_icon.png"
+                    Clicked="facebookIcon_Clicked" />
+    
+    <MenuFlyoutItem x:Name="instagramIcon"
+                    IconImageSource="Icons/instagram_icon.png"
+                    Clicked="instagramIcon_Clicked" />
+    
+    <MenuFlyoutItem x:Name="xIcon"
+                    IconImageSource="Icons/x_icon.png"
+                    Clicked="xIcon_Clicked" />
+    
+    <MenuFlyoutItem x:Name="youtubeIcon"
+                    IconImageSource="Icons/youtube_icon.png"
+                    Clicked="youtubeIcon_Clicked" />
 
 </Shell>
