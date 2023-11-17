@@ -49,10 +49,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Remove="Views\MoviePage.xaml" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Remove="Resources\Fonts\Oxygen-Bold.ttf" />
 	  <None Remove="Resources\Fonts\Oxygen-Light.ttf" />
 	  <None Remove="Resources\Fonts\Oxygen-Regular.ttf" />
@@ -62,12 +58,6 @@
 	  <None Remove="Resources\Images\NewTrailers.png" />
 	  <None Remove="Platforms\Android\google-services.json" />
 	  <None Remove="Resources\private_key.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Include="Views\MoviePage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>

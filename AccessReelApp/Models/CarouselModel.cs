@@ -1,35 +1,65 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Android.Telephony;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Android.Content.ClipData;
 
 namespace AccessReelApp
 {
     public static class CarouselModel
     {
-        static Dictionary<string, string>[] movieImageDictionaries;
-        public static ImageButton[] ButtonCollection = new ImageButton[1];
+        const int NUMBER_MOVIES = 10;
+        const string TRAILER = "Trailer";
+        static Dictionary<string, string> movieImageDictionary;
+        static Dictionary<string, string>[] trailersDictionary = new Dictionary<string, string>[NUMBER_MOVIES];
+        static Dictionary<string, string>[] otherDictionary = new Dictionary<string, string>[NUMBER_MOVIES]; 
 
         public static void SetImageSource(string source)
         {
-            ButtonCollection[0] = new ImageButton { Source = source };
+            collection[0] = new ImageButton { Source = source };
+        }
+
+        public static List<string> GetKeys() // Ask Nathaniel how link data to dict
+        {
+            List<string> keys = new (movieImageDictionary.Keys);
+            return keys;
+        }
+
+        public static List<string> GetTitleKeys()
+        {
+            return GetKeys().FindAll(item => item.Contains("Title"));
+        }
+
+        public static List<int> IndexFirst10Keys() // This is applicable to trailers and none
+        {
+            List<string> keys = GetKeys();
+            List<int> indices = new ();
+            int count = 0;
+            while (count > 10)
+            {
+                foreach (var key in GetTitleKeys())
+                {
+                    int index = keys.FindIndex(item => item == key);
+                    indices.Add(index);
+                }
+            }
+            return indices;
         }
 
         static void AddMovieTitleSource(MovieModel movieModel, MovieImageModel movieImageModel)
         {
-            const int NUMBER_MOVIES = 10;
-
-            if (movieImageDictionaries == null)
+            if (movieImageDictionary == null)
             {
-                movieImageDictionaries = new Dictionary<string, string>[NUMBER_MOVIES];
+                movieImageDictionary = new();
             }
-            int currentIndex = Array.FindIndex(movieImageDictionaries, dict => dict == null);
-            if (currentIndex >= 0 && currentIndex < NUMBER_MOVIES)
+            else
             {
-                movieImageDictionaries[currentIndex] = new Dictionary<string, string>
+                movieImageDictionary = new Dictionary<string, string>
                 {
                     { movieModel.Title, movieImageModel.Source }
                 };

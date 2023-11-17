@@ -27,13 +27,6 @@
                            MaximumVisible="10"
                            IndicatorsShape="Circle"/>
 
-            <!--<HorizontalStackLayout
-                Spacing="25"
-                Padding="30,0">
-                <Label x:Name="movieTitle" Text="text"/>
-                <Border x:Name="critic" Style="{x:StaticResource compositeBorderCritic}"/>
-            </HorizontalStackLayout>-->
-
             <!-- Latest News Header Banner-->
             <VerticalStackLayout Style="{StaticResource PaddingBanner}">
                 <Image Source="latest_news.png"/>
@@ -107,7 +100,6 @@
                         Padding="5,5"
                         FontAttributes="Bold"/>
                     </VerticalStackLayout>
-
                 </HorizontalStackLayout>
             </StackLayout>
         </StackLayout>
