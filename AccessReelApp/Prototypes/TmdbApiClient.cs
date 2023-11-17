@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AccessReelApp.Models;
+using Android.Graphics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -91,6 +92,7 @@ namespace AccessReelApp.Prototypes
                         string detailsJson = detailsResponse.Content;
                         var movieDetails = JsonConvert.DeserializeObject<Movie>(detailsJson);
                         return movieDetails;
+                        Debug.WriteLine(movieDetails.ToString());
                     }
                 }
             }
@@ -375,6 +377,7 @@ namespace AccessReelApp.Prototypes
                             MovieDescription = cleanedDescription ?? "DefaultDescription",
                             PosterUrl = post.img?.thumbnail ?? "DefaultPosterUrl",
                             MovieRating = float.TryParse(post.film_info?.imdb_vote_avg, out var rating) ? rating : 0.0f,
+                            PostDate = DateTime.Parse(post.post_date),
                         };
 
                         ReviewFetched?.Invoke(reviewCell);

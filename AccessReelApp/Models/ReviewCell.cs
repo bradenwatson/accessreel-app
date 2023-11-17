@@ -13,5 +13,6 @@ namespace AccessReelApp.Models
         public string PosterUrl { get; set; }
         public string CriticUrl { get; set; }
         public float? MovieRating { get; set; }
+        public DateTime PostDate { get; set; }
     }
 }

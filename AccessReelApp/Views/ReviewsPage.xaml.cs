@@ -25,4 +25,5 @@ public partial class ReviewsPage : ContentPage
 			await vm.movieClient.PullAccessReelData();
 		}
 	}
+
 }
