@@ -5,145 +5,77 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
- * * Settings:
+ * LOCAL:
+    * A bell button for users to opt: 
+        * for 'upcoming' movies
+        * for live interviews
+        * expiring movies, competitions in their local time
+    * A tab view of all previous notifications
+    * An indicator for all tab views, pages that are new
+        * Mark all settings 
+    * Settings:
         * tableview:
             * "Enable notifications"
-            * "Enable sound notifications"
             * "Enable reminders (for outside functionality)"
         * picker:
             *  "Frequency"
                 * Daily
                 * Weekly
                 * Fortnightly
-                * Monthly (at the beginning of the month)
             * "Remind me every"
-                * x minutes before
+                * x minutes
                 * in x days
                 * x days before event ends
-            * Genre Preference
-            * Select movie language
-            * Movie age ratings
-        * radio button:
-            * "Preferred topics"   
-                * All
-                * Deals
-                * Compeitions
-                * Interviews
-                * Showing near you
-                * News
-                * Trending
  */
 
 namespace AccessReelApp.Notifications
 {
-    public class GenrePref
+    public enum Frequency
     {
-        public enum MovieGenre
-        {
-            Action,
-            Comedy,
-            Drama,
-            Fantasy,
-            Horror,
-            Mystery,
-            Romance,
-            SciFi,
-            Thriller,
-            Other
-        }
-
-        private List<GenreSwitch> genres;
-
-        //Create a list with with bool attached to each one
-        private class GenreSwitch
-        {
-            MovieGenre MovieGenre { get; set; }
-            bool selected;
-
-            public GenreSwitch(MovieGenre genre, bool enabled)
-            {
-                MovieGenre = genre;
-                selected = enabled;
-            }
-        }
-
-        public GenrePref()
-        {
-            genres = new List<GenreSwitch>();
-        }
-
-        public void setDefault()
-        { }
-
+        Immediate,
+        Hourly,
+        Daily,
+        Weekly,
+        Fortnightly,
+        Monthly
     }
 
-    public class LanguagePref
-    { 
-        public enum MovieLanguage
-        {
-            All,
-            English,
-            Spanish,
-            French,
-            German,
-            Chinese,
-            Japanese,
-            Korean,
-            Other
-        }
-    }
-
-    public class AgePref
+    public enum RemindMeIn
     {
-        public enum MovieAgeRating
-        {
-            All,
-            G,
-            PG,
-            PG13,
-            R,
-            NC17,
-            Other
-        }
+        Fifteen,
+        Thirty,
+        One_Hour,
+        Six_Hours,
+        Twelve_Hours,
+        One_Day,
+        Two_Days,
+        One_Week
     }
 
-    public class TopicPref
+    public static class NotificationSettings
     {
-        public enum PreferredTopic  //Optional
+        private const string NotificationEnabledKey = "Notification Enabled";       //This is to check globally
+        private const string FrequencyKey = "Frequency";
+        private const string RemindMeInKey = "RemindMeIn";
+
+        public static bool EnableNotification
         {
-            All,
-            Deals,
-            Competitions,
-            Interviews,
-            ShowingNearYou,
-            News,   //Anything new
-            Trending,   //Anything popular
+            get => Preferences.Default.Get(NotificationEnabledKey, defaultValue: true);
+            set => Preferences.Default.Set(NotificationEnabledKey, value);
+        }
+
+        public static Frequency SelectedFrequency
+        {
+            get => Preferences.Default.Get(FrequencyKey, defaultValue: Frequency.Immediate);
+            set => Preferences.Default.Set(FrequencyKey, value);
+        }
+
+        public static RemindMeIn SelectedRemindMeIn     //Should this be a global setting or should user define for each movie? Should also be used for compeititons
+        {
+            get => Preferences.Default.Get(RemindMeInKey, defaultValue: RemindMeIn.One_Hour);
+            set => Preferences.Default.Set(RemindMeInKey, value);
         }
     }
 
 
-    public class NotificationSettings
-    {
-        public enum Frequency
-        {
-            Hourly,
-            Daily,
-            Weekly,
-            Fortnightly,
-            Monthly
-        }
-
-        private string chosenFrequency;
-        public string ChosenFrequency
-        {
-            get { return chosenFrequency; }
-            set { chosenFrequency = value; }
-        }
-
-        public NotificationSettings()
-        {
-            chosenFrequency = Frequency.Daily.ToString();
-
-        }
-    }
 }

@@ -1,4 +1,34 @@
-﻿using CommunityToolkit.Mvvm.Messaging.Messages;
+﻿/**************************************************************
+ *                  FIREBASE NOTIFICATIONS                   *
+ **************************************************************/
+
+/*
+  Author: Tony Bui
+  Last Updated: 13/11/23
+  Class Name: Local Notifications
+  Purpose: 
+    Create and set customised push notifications based 
+    on the user's notification preferences for Android devices. 
+    It also features scheduling, ID and badgenumbers.
+
+    This class itself is not an object, and should be called
+    as trigger to alert the user or inform the user's interests.
+
+    It should only be used for direct communication to Android
+    devices or for new content.
+
+  Notes:
+    * Package Requriements:
+        * FirebaseAdmin
+        * Xamarain.Firebase.Messaging
+        * Xamarin.GooglePlayServices.Base
+        * Xamarin.Google.Dagger
+        * Xamarin.Kotlin.StdLib.Jdk8
+        * Xamarin.AndroidX.AppCompat
+        * Xamarin.AndroidX.Media
+        * Xamarin.ANdroidX.Preference
+*/
+using CommunityToolkit.Mvvm.Messaging.Messages;
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;

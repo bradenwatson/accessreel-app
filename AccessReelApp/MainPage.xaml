@@ -13,10 +13,15 @@
             <!--Remove when creating home page-->
             <Label Text="{Binding Text}"></Label>
             <Button
-                Text="Send Notification"
+                Text="Bell Button"
                 TextColor="White"
                 BackgroundColor="Gray"
                 Clicked="Button_Clicked"/>
+            <Button
+                Text="Cancel local"
+                TextColor="White"
+                BackgroundColor="Gray"
+                Clicked="Button_Clicked_3"/>
             <Button
                 Text="Send Notification"
                 TextColor="White"

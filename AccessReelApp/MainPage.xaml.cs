@@ -6,33 +6,6 @@ using Google.Apis.Auth.OAuth2;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Diagnostics;
 using AccessReelApp.Prototypes;
-
-/* Unmerged change from project 'AccessReelApp (net7.0-maccatalyst)'
-Before:
-using Intents;
-After:
-using Intents;
-using AccessReelApp.Notifications;
-*/
-
-/* Unmerged change from project 'AccessReelApp (net7.0-windows10.0.19041.0)'
-Before:
-using Intents;
-After:
-using Intents;
-using AccessReelApp.Notifications.Notifications;
-using AccessReelApp.Notifications;
-*/
-
-/* Unmerged change from project 'AccessReelApp (net7.0-android)'
-Before:
-using Intents;
-After:
-using Intents;
-using AccessReelApp.Notifications.Notifications.Notifications;
-using AccessReelApp.Notifications.Notifications;
-using AccessReelApp.Notifications;
-*/
 using AccessReelApp.Notifications;
 
 namespace AccessReelApp
@@ -153,7 +126,8 @@ namespace AccessReelApp
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            NotificationHandler.HandleButtonClick();
+            NotificationHandler.BellButton(sender,e);
+
         }
 
         // Button click event for the second notification (using NotificationHandler)
@@ -161,10 +135,6 @@ namespace AccessReelApp
         {
             notificationManager.HandleButtonClick();
         }
-
-
-
-
 
     } 
 }

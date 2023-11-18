@@ -11,7 +11,6 @@
     * Settings:
         * tableview:
             * "Enable notifications"
-            * "Enable sound notifications"
             * "Enable reminders (for outside functionality)"
         * picker:
             *  "Frequency"
@@ -22,19 +21,7 @@
                 * x minutes
                 * in x days
                 * x days before event ends
-            * Genre Preference
-            * Select movie language
-            * Movie age ratings
-            * Movies rated above (3-5 starts)
-        * radio button:
-            * "Preferred topics"   
-                * All
-                * Deals
-                * Compeitions
-                * Interviews
-                * Showing near you
-                * News
-                * Trending
+
  
  * SERVER:
     * Software update
