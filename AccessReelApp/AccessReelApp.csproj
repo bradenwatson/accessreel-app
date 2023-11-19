@@ -76,9 +76,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="NewPage1.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\InterviewsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -101,7 +98,7 @@
 	  <MauiImage Include="Resources\Images\Headers\latest_news.png" />
 	  <MauiImage Include="Resources\Images\Headers\latest_reviews.png" />
 	  <MauiImage Include="Resources\Images\Headers\new_trailers.png" />
-	  <MauiImage Include="Resources\Images\Icons\accessreel_logo.png" />
+	  <MauiImage Include="Resources\Images\Icons\accessreel_logo.bmp" />
 	  <MauiImage Include="Resources\Images\movies\barbie.jpg" />
 	  <MauiImage Include="Resources\Images\movies\turtles.jpg" />
    </ItemGroup>

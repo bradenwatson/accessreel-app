@@ -139,19 +139,20 @@ namespace AccessReelApp.Notifications
             }
         }
 
+        //For general notifications do the following
+        /*
+         * repeatType to notif9icationrepeat.yes
+         * notifytime begining at 7am
+         * Notifyrepeat interval on the frequency in terms of timespan
+         */
 
-        //Delete notification when movie expires
-        public static void DeleteButton()
-        {
-            if (LocalNotificationCenter.Current.Clear(0))
-            {
-                Debug.WriteLine($"Deleted Notification ()");
-            }
-            else
-            {
-                Debug.WriteLine($"Failed to delete Notification ()");
-            }
-        }
+        //Can get range interval of notifications if setting is not immedate
+
+
+
+
+        /********************REDUNDANT************************/
+
         //Cancel notification
         //public static void CancelNotification(object sender, EventArgs e)
         //{
@@ -174,32 +175,6 @@ namespace AccessReelApp.Notifications
         //    }
 
         //}
-
-
-
-
-
-
-        //For general notifications do the following
-        /*
-         * repeatType to notif9icationrepeat.yes
-         * notifytime begining at 7am
-         * Notifyrepeat interval on the frequency in terms of timespan
-         */
-
-        //Can get range interval of notifications if setting is not immedate
-
-
-
-
-
-
-
-
-        //Delete notification when movie expires (timespan of local movie data downloaded)
-
-
-
 
 
 

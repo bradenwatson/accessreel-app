@@ -1,6 +1,8 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics;
 using AndroidX.Core.App;
+using AndroidX.Core.Graphics.Drawable;
 using Firebase.Messaging;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,6 @@ namespace AccessReelApp.Platforms.Android.Services
     {
         public override void OnNewToken(string token)
         {
-            
             base.OnNewToken(token);
             if(Preferences.ContainsKey("DeviceToken"))
             {
@@ -36,6 +37,8 @@ namespace AccessReelApp.Platforms.Android.Services
 
         private void SendNotification(string messageBody, string title, IDictionary<string, string> data) 
         {
+            //Check content to set channel or just have 1 channel
+
             var intent = new Intent(this,typeof(MainActivity));
             intent.AddFlags(ActivityFlags.ClearTop);
 
@@ -45,18 +48,24 @@ namespace AccessReelApp.Platforms.Android.Services
                 intent.PutExtra(key, value);
             }
 
-            var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NotificationID, intent, PendingIntentFlags.Immutable); //Make a mutable one
 
+            var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NotificationID, intent, PendingIntentFlags.Mutable);   //Messages can be editted
+
+            
             var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.Channel_ID)
                 .SetContentTitle(title)
                 .SetSmallIcon(Resource.Mipmap.appicon)
                 .SetContentText(messageBody)
+                //.SetChannelId(MainActivity.Channel_IDs)
                 .SetChannelId(MainActivity.Channel_ID)
                 .SetContentIntent(pendingIntent)
-                .SetPriority(2);
+                .SetPriority(NotificationCompat.PriorityDefault);
 
             var notificationManager = NotificationManagerCompat.From(this);
             notificationManager.Notify(MainActivity.NotificationID, notificationBuilder.Build());
         }
+
+
+
     }
 }

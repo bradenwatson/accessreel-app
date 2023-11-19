@@ -18,11 +18,6 @@
                 BackgroundColor="Gray"
                 Clicked="Button_Clicked"/>
             <Button
-                Text="Cancel local"
-                TextColor="White"
-                BackgroundColor="Gray"
-                Clicked="Button_Clicked_3"/>
-            <Button
                 Text="Send Notification"
                 TextColor="White"
                 BackgroundColor="Gray"
