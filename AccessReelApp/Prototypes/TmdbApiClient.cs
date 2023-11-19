@@ -98,7 +98,6 @@ namespace AccessReelApp.Prototypes
             return null; // No movie found or an error occurred
         }
 
-        public event Action<ReviewCell> ReviewFetched;
         public async Task GetReviewsForPopularMovies(int maxReviewsPerMovie)
         {
             var popularMoviesClient = new RestClient("https://api.themoviedb.org/3/movie/popular");

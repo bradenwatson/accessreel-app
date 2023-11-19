@@ -13,8 +13,8 @@ namespace AccessReelApp.ViewModels
 {
     public partial class SignUpLoginViewModel : ObservableObject
     {
-        String DEFAULT_USERNAME = "test";
-        String DEFAULT_PASSWORD = "test";
+        const string DEFAULT_USERNAME = "test";
+        const string DEFAULT_PASSWORD = "test";
 
         [ObservableProperty] bool isSignedUp;
         [ObservableProperty] bool isSignedIn;
