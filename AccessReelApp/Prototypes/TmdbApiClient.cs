@@ -363,8 +363,10 @@ namespace AccessReelApp.Prototypes
                     string json = await response.Content.ReadAsStringAsync();
                     var posts = JsonConvert.DeserializeObject<List<Post>>(json);
 
+                    int movieIndex = 0; // Initialize movie index
                     foreach (var post in posts)
                     {
+
                         Debug.WriteLine($"Post ID: {post.ID}");
                         Debug.WriteLine($"Post Title: {post.post_title}");
                         Debug.WriteLine($"Post Date: {post.post_date}");
@@ -377,6 +379,8 @@ namespace AccessReelApp.Prototypes
                             MovieRating = float.TryParse(post.film_info?.imdb_vote_avg, out var rating) ? rating : 0.0f,
                         };
 
+                        CarouselModel.AddMovieToDictionaries(reviewCell, movieIndex);
+                        movieIndex++;
                         ReviewFetched?.Invoke(reviewCell);
 
                         if (post.review_info != null)
