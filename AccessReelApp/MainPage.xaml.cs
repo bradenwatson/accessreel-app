@@ -8,9 +8,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using System.Diagnostics;
 using AccessReelApp.Prototypes;
-using Newtonsoft.Json;
-using RestSharp;
-using Newtonsoft.Json.Linq;
 
 //Firebase https://firebase.google.com/docs/reference/admin
 //Android Setup https://firebase.google.com/docs/cloud-messaging/android/client
@@ -20,9 +17,8 @@ namespace AccessReelApp
 {
     public partial class MainPage : ContentPage
 	{
-        // Unused?
-        int count = 0;
         bool isApiKeyValid;
+        string jsonString = "https://accessreel.com/wp-json/api/v1/trailers?posts_per_page=-1&exclude_hidden=1";
         public TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
         DatabaseControl databaseControl = new DatabaseControl();
 		private string _deviceToken;
@@ -39,6 +35,13 @@ namespace AccessReelApp
 
             RootTests();
             //ReadFireBaseAdminSDK();
+            TestAccess();
+            
+        }
+
+        private async void TestAccess()
+        {
+            await movieClient.PullAccessReelData();
         }
 
         private void RootTests() // seperates code a little bit
@@ -75,62 +78,11 @@ namespace AccessReelApp
             //GetPopularFilmReviews();
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+        }
         // Testing methods ------>
-
-        // Check if the key is valid before we do anything else
-        private async void IsAPIValidCheck()
-        {
-            isApiKeyValid = await movieClient.IsApiKeyValid();
-            Debug.WriteLine($"Is API Valid: {isApiKeyValid}");
-        }
-
-        // Get the most popular movies atm
-
-        private async void GetPopularFilms()
-        {
-            List<Movie> popularMovies = await movieClient.GetPopularMovies();
-            if (popularMovies != null)
-            {
-                Debug.WriteLine("Popular Movies:");
-                foreach (var movie in popularMovies)
-                {
-                    Debug.WriteLine($"Title: {movie.Title}");
-                    Debug.WriteLine($"Overview: {movie.Overview}");
-                    Debug.WriteLine($"Release Date: {movie.ReleaseDate}");
-                    Debug.WriteLine("--------------");
-                }
-            }
-            else
-            {
-                Debug.WriteLine("Failed to retrieve popular movies.");
-            }
-        }
-
-        // search a film by name (if you need to)
-
-        private async void GetFilmByName(string name)
-        {
-            Movie movieDetails = await movieClient.GetMovieDetailsByName(name);
-            if (movieDetails != null)
-            {
-                Debug.WriteLine("Movie Title: " + movieDetails.Title);
-                Debug.WriteLine("Overview: " + movieDetails.Overview);
-            }
-            else
-            {
-                Debug.WriteLine("Movie not found or an error occurred.");
-            }
-        }
-
-        // get reviews from movie by its name 
-
-
-        // get reviews from most recent/popular movies
-
-        private async void GetPopularFilmReviews()
-        {
-            await movieClient.GetReviewsForPopularMovies(1);
-        }
 
         private void Button_Clicked(object sender, EventArgs e)
         {

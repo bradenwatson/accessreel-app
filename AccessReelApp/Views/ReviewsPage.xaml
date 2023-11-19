@@ -22,7 +22,7 @@
             </Grid>
 
             <ScrollView>
-                
+
             </ScrollView>
             <ListView ItemsSource="{Binding MovieReviewsList}">
                 <ListView.ItemTemplate>

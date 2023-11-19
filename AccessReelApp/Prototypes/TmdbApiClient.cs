@@ -2,22 +2,26 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using AccessReelApp.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
 namespace AccessReelApp.Prototypes
 {
-    public class TmdbApiClient
+
+    public partial class TmdbApiClient
     {
         private readonly string apiKey;
         private readonly RestClient restClient;
+        public event Action<ReviewCell> ReviewFetched;
 
         public TmdbApiClient(string apiKey)
         {
             this.apiKey = apiKey;
-            this.restClient = new RestClient("https://api.themoviedb.org/3/");
+            restClient = new RestClient("https://api.themoviedb.org/3/");
         }
 
         public string GetApiKey()
@@ -344,20 +348,93 @@ namespace AccessReelApp.Prototypes
                 }
             }
         }
+
+        // Access Reel Methods
+
+        public async Task PullAccessReelData()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                // access the JSON content
+                var response = await client.GetAsync("https://accessreel.com/wp-json/api/v1/trailers?posts_per_page=-1&exclude_hidden=1");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // grab the content from the link and store in json string
+                    string json = await response.Content.ReadAsStringAsync();
+                    var posts = JsonConvert.DeserializeObject<List<Post>>(json);
+
+                    foreach (var post in posts)
+                    {
+                        Debug.WriteLine($"Post ID: {post.ID}");
+                        Debug.WriteLine($"Post Title: {post.post_title}");
+                        Debug.WriteLine($"Post Date: {post.post_date}");
+                        string cleanedDescription = MyRegex().Replace(post.post_content, ""); // clean out html tags
+                        var reviewCell = new ReviewCell
+                        {
+                            MovieTitle = post.post_title ?? "DefaultTitle",
+                            MovieDescription = cleanedDescription ?? "DefaultDescription",
+                            PosterUrl = post.img?.thumbnail ?? "DefaultPosterUrl",
+                            MovieRating = float.TryParse(post.film_info?.imdb_vote_avg, out var rating) ? rating : 0.0f,
+                        };
+
+                        ReviewFetched?.Invoke(reviewCell);
+
+                        if (post.review_info != null)
+                        {
+                            foreach (var review in post.review_info)
+                            {
+                                Debug.WriteLine($"Review ID: {review.ID}");
+                                Debug.WriteLine($"Review Title: {review.post_title}");
+                                Debug.WriteLine($"Review Date: {review.post_date}");
+
+                            }
+                        }
+
+                        if(post.film_info != null)
+                        {
+                            // Trim out HTML tags from post.post_content
+                            cleanedDescription = MyRegex().Replace(post.post_content, ""); // clean out html tags
+                            Debug.WriteLine($"Film ID: {post.film_info.film_id}");
+                            Debug.WriteLine($"Film Description: {cleanedDescription}");
+                            Debug.WriteLine($"Avg Vote: {post.film_info.imdb_vote_avg}");
+                            Debug.WriteLine($"AU Release Date: {post.film_info.au_release_date}");
+                            Debug.WriteLine($"US Release Date: {post.film_info.us_release_date}");
+                        }
+
+                        if (post.img != null)
+                        {
+                            Debug.WriteLine($"Thumbnail Link: {post.img.thumbnail}");
+                        }
+
+                        // Add a separator line for better readability
+                        Debug.WriteLine(new string('-', 50));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Error: {response.StatusCode}");
+                }
+            }
+        }
+
+        [GeneratedRegex("<.*?>")]
+        private static partial Regex MyRegex();
     }
 }
 
-    public class PopularMoviesResponse
+// TMDB Client Classes
+public class PopularMoviesResponse
     {
         public List<Movie> Results { get; set; }
     }
 
-    public class SearchResults
+public class SearchResults
     {
         public List<Movie> Results { get; set; }
     }
 
-    public class Movie
+public class Movie
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -365,4 +442,120 @@ namespace AccessReelApp.Prototypes
         public DateOnly ReleaseDate { get; set; }
         public string PosterPath { get; set; }
     }
+
+// AccessReelJSON Classes
+
+public class Img
+{
+    public string thumbnail { get; set; }
+    public string medium { get; set; }
+    public string full { get; set; }
+}
+
+public class Banner
+{
+    public string url { get; set; }
+    public int id { get; set; }
+    public int height { get; set; }
+    public int width { get; set; }
+    public string thumbnail { get; set; }
+}
+
+public class Poster
+{
+    public string thumbnail { get; set; }
+    public string medium { get; set; }
+    public string full { get; set; }
+}
+
+public class FilmInfo
+{
+    public int film_id { get; set; }
+    public string us_release_date { get; set; }
+    public string au_release_date { get; set; }
+    public string studio { get; set; }
+    public IList<string> genre { get; set; }
+    public IList<string> director { get; set; }
+    public IList<string> cast { get; set; }
+    public string homepage { get; set; }
+    public string imdb_id { get; set; }
+    public string imdb_vote_avg { get; set; }
+    public string imdb_vote_count { get; set; }
+    public Banner banner { get; set; }
+    public Poster poster { get; set; }
+}
+
+public class ReviewInfo
+{
+    public int ID { get; set; }
+    public string post_author { get; set; }
+    public string post_date { get; set; }
+    public string post_date_gmt { get; set; }
+    public string post_content { get; set; }
+    public string post_title { get; set; }
+    public string post_excerpt { get; set; }
+    public string post_status { get; set; }
+    public string comment_status { get; set; }
+    public string ping_status { get; set; }
+    public string post_password { get; set; }
+    public string post_name { get; set; }
+    public string to_ping { get; set; }
+    public string pinged { get; set; }
+    public string post_modified { get; set; }
+    public string post_modified_gmt { get; set; }
+    public string post_content_filtered { get; set; }
+    public int post_parent { get; set; }
+    public string guid { get; set; }
+    public int menu_order { get; set; }
+    public string post_type { get; set; }
+    public string post_mime_type { get; set; }
+    public string comment_count { get; set; }
+    public string filter { get; set; }
+    public int film { get; set; }
+    public int thumbnail_id { get; set; }
+    public Img img { get; set; }
+    public Banner banner { get; set; }
+    public IList<string> rating { get; set; }
+    public IList<string> good_points { get; set; }
+    public IList<string> bad_points { get; set; }
+    public string summary { get; set; }
+}
+
+public class Post
+{
+    public int ID { get; set; }
+    public string post_author { get; set; }
+    public string post_date { get; set; }
+    public string post_date_gmt { get; set; }
+    public string post_content { get; set; }
+    public string post_title { get; set; }
+    public string post_excerpt { get; set; }
+    public string post_status { get; set; }
+    public string comment_status { get; set; }
+    public string ping_status { get; set; }
+    public string post_password { get; set; }
+    public string post_name { get; set; }
+    public string to_ping { get; set; }
+    public string pinged { get; set; }
+    public string post_modified { get; set; }
+    public string post_modified_gmt { get; set; }
+    public string post_content_filtered { get; set; }
+    public int post_parent { get; set; }
+    public string guid { get; set; }
+    public int menu_order { get; set; }
+    public string post_type { get; set; }
+    public string post_mime_type { get; set; }
+    public string comment_count { get; set; }
+    public string filter { get; set; }
+    public int film { get; set; }
+    public int thumbnail_id { get; set; }
+    public Img img { get; set; }
+    public string vimeo { get; set; }
+    public FilmInfo film_info { get; set; }
+    public IList<ReviewInfo> review_info { get; set; }
+    public string hidden { get; set; }
+}
+
+
+
 
