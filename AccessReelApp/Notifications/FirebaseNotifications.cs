@@ -85,23 +85,40 @@ namespace AccessReelApp.Notifications
             }
         }
 
+        //private void SwitchByNotification()         //Redirects to page on notification interaction
+        //{
+        //    if (Preferences.ContainsKey("NavigationID"))
+        //    {
+        //        string id = Preferences.Get("NavigationID", "");
+        //        if(Enum.TryParse(id, out Pages page))
+        //        {
+        //            NavigateToPage(page);
+        //        }
+        //        Preferences.Remove("NavigationID");
+        //    }
+            
+        //}
+
+
+        //private void NavigateToPage(Pages page)
+        //{
+        //    if(Enum.IsDefined(typeof(Pages), page))
+        //    {
+        //        AppShell.Current.GoToAsync(nameof(page));
+        //        Debug.WriteLine($"Navigate to page {page}");
+        //    }
+        //    else
+        //    {
+        //        Debug.WriteLine($"Page does not exist");
+        //    }
+            
+        //}
+
         // Method to handle button click event
         public async void HandleButtonClick()
         {
-            // Setup authorization and create push notification request
             var androidNotificationObject = new Dictionary<string, string>();
-            androidNotificationObject.Add("NavigationID", "2");
-
-            var pushNotificationRequest = new PushNotificationRequest
-            {
-                notification = new NotificationMessageBody
-                {
-                    title = "Notification Title",
-                    body = "Notification body"
-                },
-                data = androidNotificationObject,
-                registration_ids = new List<string> { _deviceToken }
-            };
+            androidNotificationObject.Add("NavigationID", "2");         //This redirects to app page by its index
 
             // Create a list of messages
             var messageList = new List<Message>();
@@ -122,6 +139,8 @@ namespace AccessReelApp.Notifications
 
             // Send push notification
             var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messageList);
+
+            //SwitchByNotification();
         }
     }
 
