@@ -31,7 +31,7 @@ namespace AccessReelApp.Notifications
     public class NotificationHandler
     {
         //When a notification request is created, it is stored within a Local Notification Center by a unique identifier which can be retireved.
-        public static string GenerateNotificationID()
+        private static string GenerateNotificationID()
         {
             string time = DateTime.Now.ToLocalTime().ToString("MMddHHmmss");
             //return int.Parse(time);

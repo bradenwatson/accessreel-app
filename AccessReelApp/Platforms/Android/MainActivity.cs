@@ -10,32 +10,32 @@ namespace AccessReelApp;
 [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
 public class MainActivity : MauiAppCompatActivity
 {
-    internal static readonly string Channel_ID = "TestChannel";
-    internal static readonly int NotificationID = 0; 
-    internal static readonly List<string> Channel_IDs = new List<string> {"Competitions_Channel, Movie Updates_Channel", "News Updates_Channel", "All Communications_Channel"};
-    
+    internal static readonly string ChannelID = "General_Channel";
+    internal static readonly int NotificationID = 0;
     internal static readonly Dictionary<string, ChannelInfo> Channels = new Dictionary<string, ChannelInfo>
     {
-        //{"Competitions_Channel", new ChannelInfo("Competitions_Channel", "Competitions")},                        //Intended for competitions
-        {"MovieUpdates_Channel", new ChannelInfo("MovieUpdates_Channel", "Movie Updates")},                         //Intended for movie upodates
-        {"News_Channel", new ChannelInfo("News_Channel", "News")},                                                  //Intended for social media news
-        {"Reivews_Channell", new ChannelInfo("Reviews_Channel", "Reviews")},                                        //Intended for discussion in the comments
-        {"Account_Channel", new ChannelInfo("Account_Channel", "Account")},                                         //Intended for security purposes
-        {"General_Channel", new ChannelInfo("General_Channel", "General")},                                         //Intended for content with no category
-        {"AdminCommunications_Channel", new ChannelInfo("AdminCommunications_Channel", "Admin Communications")}     //Intended for only urgent communication (eg update on tc's)
+        {"General_Channel", new ChannelInfo("General_Channel", "General")},                                             //Intended for universal content
+        //{"Competitions_Channel", new ChannelInfo("Competitions_Channel", "Competitions")},                            //Intended for competitions
+        //{"MovieUpdates_Channel", new ChannelInfo("MovieUpdates_Channel", "Movie Updates")},                           //Intended for movie upodates
+        //{"News_Channel", new ChannelInfo("News_Channel", "News")},                                                    //Intended for social media news
+        //{"Reivews_Channell", new ChannelInfo("Reviews_Channel", "Reviews")},                                          //Intended for discussion in the comments
+        //{"Account_Channel", new ChannelInfo("Account_Channel", "Account")},                                           //Intended for security purposes
+        //{"AdminCommunications_Channel", new ChannelInfo("AdminCommunications_Channel", "Admin Communications")}       //Intended for only urgent communication (eg update on tc's)
     };
 
     public class ChannelInfo
     {
-        public string ChannelId { get; }
+        public string ChannelID { get; }
         public string DisplayName { get; }
 
         public ChannelInfo(string channelId, string displayName)
         {
-            ChannelId = channelId;
+            ChannelID = channelId;
             DisplayName = displayName;
         }
     }
+
+    
 
 
     protected override void OnCreate(Bundle savedInstanceState)
@@ -89,11 +89,14 @@ public class MainActivity : MauiAppCompatActivity
         {
             var notificationManager = (NotificationManager)GetSystemService(Android.Content.Context.NotificationService);
 
-            foreach (var (channelId, channel) in Channels)
-            {
-                var newChannel = new NotificationChannel(channelId, channel.DisplayName, NotificationImportance.Default);
-                notificationManager.CreateNotificationChannel(newChannel);
-            }
+            //foreach (var (channelId, channel) in Channels)
+            //{
+            //    var newChannel = new NotificationChannel(channelId, channel.DisplayName, NotificationImportance.Default);
+            //    notificationManager.CreateNotificationChannel(newChannel);
+            //}
+
+            var newChannel1 = new NotificationChannel(ChannelID, ChannelID, NotificationImportance.Default);
+            notificationManager.CreateNotificationChannel(newChannel1);
         }
     }
 }

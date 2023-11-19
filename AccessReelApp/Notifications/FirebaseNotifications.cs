@@ -39,15 +39,16 @@ namespace AccessReelApp.Notifications
     public enum Pages
     {
         MainPage,
-        NewsPage,
-        ReviewsPage,
-        InterviewPage,
-        SignUpLogin,
+        //NewsPage,
+        //ReviewsPage,
+        //InterviewPage,
+        //SignUpLogin,
         //Movies,
         //Compeitions,
         //Settings,
         //Accounts,
     }
+
     public class PushNotificationReceived : ValueChangedMessage<string>
     {
         public PushNotificationReceived(string message) : base(message) { }
@@ -101,22 +102,25 @@ namespace AccessReelApp.Notifications
             }
         }
 
-        private void SwitchByNotification()         //Redirects to page on notification interaction
+        public static void SwitchByNotification()         //Redirects to page on notification interaction
         {
             if (Preferences.ContainsKey("NavigationID"))
             {
                 string id = Preferences.Get("NavigationID", "");
-                if(Enum.TryParse(id, out Pages page))
+                Debug.WriteLine("***************************************************************");
+                Debug.WriteLine($"ID = {id}\n");
+                if (Enum.TryParse(id, out Pages page))
                 {
+                    Debug.WriteLine("***************************************************************");
+                    Debug.WriteLine($"Page name = {page}\n");
                     NavigateToPage(page);
                 }
                 Preferences.Remove("NavigationID");
             }
-            
         }
 
 
-        private void NavigateToPage(Pages page)
+        private static void NavigateToPage(Pages page)
         {
             if(Enum.IsDefined(typeof(Pages), page))
             {
@@ -127,14 +131,16 @@ namespace AccessReelApp.Notifications
             {
                 Debug.WriteLine($"Page does not exist");
             }
-            
         }
+
+
 
         // Method to handle button click event
         public async void HandleButtonClick()
         {
             var androidNotificationObject = new Dictionary<string, string>();
-            androidNotificationObject.Add("NavigationID", "2");         //This redirects to app page by its index
+            //androidNotificationObject.Add("NavigationID", "MainPage");         //This redirects to app page by its name
+            androidNotificationObject.Add("NavigationID", "2");
 
             // Create a list of messages
             var messageList = new List<Message>();
@@ -155,6 +161,8 @@ namespace AccessReelApp.Notifications
 
             // Send push notification
             var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messageList);
+
+            //SwitchByNotification();
         }
     }
 
