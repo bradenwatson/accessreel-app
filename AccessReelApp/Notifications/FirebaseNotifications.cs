@@ -114,6 +114,14 @@ namespace AccessReelApp.Notifications
                 {
                     NavigateToPage(page);
                 }
+                else
+                {
+                    Debug.WriteLine("*******************************");
+                    Debug.WriteLine("No matching ID");
+                    Debug.WriteLine("*******************************");
+
+                    NavigateToPage(Pages.MainPage);
+                }
                 Preferences.Remove("NavigationID");
             }
 
@@ -125,17 +133,22 @@ namespace AccessReelApp.Notifications
             if (Enum.IsDefined(typeof(Pages), page))
             {
                 AppShell.Current.GoToAsync(page.ToString());
+                Debug.WriteLine("*******************************");
                 Debug.WriteLine($"Navigate to page {page}");
+                Debug.WriteLine("*******************************");
             }
             else
             {
                 AppShell.Current.GoToAsync(Pages.MainPage.ToString());
+                Debug.WriteLine("*******************************");
                 Debug.WriteLine($"Page does not exist");
+                Debug.WriteLine("*******************************");
             }
 
         }
 
         // Method to handle button click event
+        /*
         public async void HandleButtonClick()
         {
             var androidNotificationObject = new Dictionary<string, string>();
@@ -164,18 +177,18 @@ namespace AccessReelApp.Notifications
 
             //SwitchByNotification();       //WORKING!
         }
-
+        */
 
         public void SendFCMNotification(object sender, EventArgs e)
         {
             CreateMessage("New method", "Should work");
-            //await SendMessage();
+            SendMessage();
         }
 
         //WIP
         public void CreateMessageContainer() { messages = new List<Message>(); }
  
-        public async void CreateMessage(string title, string body, string topic = "")
+        public void CreateMessage(string title, string body, string topic = "")
         {
             var androidNotificationObject = new Dictionary<string, string>();
             androidNotificationObject.Add("NavigationID", topic);
@@ -183,7 +196,6 @@ namespace AccessReelApp.Notifications
             if (messages == null) { CreateMessageContainer(); }
             var obj = new Message
             {
-                //Topic = topic,
                 Token = deviceToken,
                 Notification = new Notification
                 {
@@ -192,25 +204,17 @@ namespace AccessReelApp.Notifications
                 },
                 Data = androidNotificationObject,
             };
-            Debug.WriteLine("*******************************");
-            Debug.WriteLine($"Msg: {obj}");
-            Debug.WriteLine("*******************************");
             messages.Add(obj);
-            var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
+            //var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
         }
 
         public void SendMessage()
         {
-            //SendAsyncMessages();
-
-            //Debug.WriteLine("*******************************");
-            //Debug.WriteLine($"Sending ({messages.Count}) messages.");
-            //Debug.WriteLine("*******************************");
-            //await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
+            SendAsyncMessages();
 
             if (FirebaseMessaging.DefaultInstance != null) 
             {
-                //messages.Clear();
+                messages.Clear();
                 if (messages.Count == 0)
                 {
                     Debug.WriteLine("*******************************");
