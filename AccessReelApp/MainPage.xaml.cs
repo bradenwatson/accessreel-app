@@ -39,7 +39,11 @@ namespace AccessReelApp
                 string id = Preferences.Get("NavigationID", "");
                 if (id == "1")
                 {
-                    AppShell.Current.GoToAsync(nameof(NewPage1));
+                    AppShell.Current.GoToAsync(nameof(Page1));
+                }
+                if (id == "2")
+                {
+                    AppShell.Current.GoToAsync(nameof(Page2));
                 }
                 //ADD MORE PAGES
             }

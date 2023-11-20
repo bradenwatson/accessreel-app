@@ -57,6 +57,21 @@ namespace AccessReelApp.Platforms.Android.Services
 
             var notificationManager = NotificationManagerCompat.From(this);
             notificationManager.Notify(MainActivity.NotificationID, notificationBuilder.Build());
+
+            /*
+            var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NotificationID, intent, PendingIntentFlags.Mutable); //Make a mutable one
+
+            var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.Channel_ID)
+                .SetContentTitle(title)
+                .SetSmallIcon(Resource.Mipmap.appicon)
+                .SetContentText(messageBody)
+                .SetChannelId(MainActivity.Channel_ID)
+                .SetContentIntent(pendingIntent)
+                .SetPriority(NotificationCompat.PriorityDefault);
+
+            var notificationManager = NotificationManagerCompat.From(this);
+            notificationManager.Notify(MainActivity.NotificationID, notificationBuilder.Build());
+            */
         }
     }
 }

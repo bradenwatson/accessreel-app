@@ -56,6 +56,19 @@ namespace AccessReelApp.Notifications
     // The main class that encapsulates the functionality
     public class NotificationManager
     {
+        public enum Pages
+        {
+            MainPage,
+            //NewsPage,
+            //ReviewsPage,
+            //InterviewPage,
+            //SignUpLogin,
+            //Movies,
+            //Compeitions,
+            //Settings,
+            //Accounts,
+        }
+
         // Private fields can be declared here
         private string _deviceToken;
 
