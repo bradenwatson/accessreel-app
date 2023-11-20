@@ -29,7 +29,7 @@
                 <Grid ColumnDefinitions="100,*"
                       Padding="10">
 
-                    <Label Margin="-10, 0, 0, -5"
+                    <Label Margin="-10, 0, -15, -5"
                            Text="{Binding Title}"
                            FontAttributes="Bold"
                            FontSize="20" />
@@ -63,11 +63,6 @@
 
     <TabBar>
 
-        <Tab Title="Home">
-            <ShellContent Route="home" 
-              ContentTemplate="{DataTemplate local:MainPage}" />
-        </Tab>
-
         <Tab Title="News">
             <ShellContent ContentTemplate="{DataTemplate view:NewsPage}" />
         </Tab>
@@ -77,10 +72,6 @@
         </Tab>
 
     </TabBar>
-
-    <FlyoutItem Title="Home">
-        <ShellContent ContentTemplate="{DataTemplate view:ReviewsPage}" />
-    </FlyoutItem>
 
     <FlyoutItem Title="News">
         <ShellContent ContentTemplate="{DataTemplate view:NewsPage}" />
@@ -94,7 +85,7 @@
         <ShellContent ContentTemplate="{DataTemplate view:InterviewsPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Map">
+    <FlyoutItem Title="Events">
         <ShellContent ContentTemplate="{DataTemplate view:InterviewsPage}" />
     </FlyoutItem>
 
@@ -106,18 +97,22 @@
 
     <MenuFlyoutItem x:Name="facebookIcon"
                     IconImageSource="Icons/facebook_icon.png"
+                    Text="Facebook"
                     Clicked="facebookIcon_Clicked" />
     
     <MenuFlyoutItem x:Name="instagramIcon"
                     IconImageSource="Icons/instagram_icon.png"
+                    Text="Instagram"
                     Clicked="instagramIcon_Clicked" />
     
     <MenuFlyoutItem x:Name="xIcon"
                     IconImageSource="Icons/x_icon.png"
+                    Text="X"
                     Clicked="xIcon_Clicked" />
     
     <MenuFlyoutItem x:Name="youtubeIcon"
                     IconImageSource="Icons/youtube_icon.png"
+                    Text="YouTube"
                     Clicked="youtubeIcon_Clicked" />
 
 </Shell>
