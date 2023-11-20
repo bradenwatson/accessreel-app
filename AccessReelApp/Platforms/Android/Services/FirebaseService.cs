@@ -45,7 +45,7 @@ namespace AccessReelApp.Platforms.Android.Services
                 intent.PutExtra(key, value);
             }
 
-            var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NotificationID, intent, PendingIntentFlags.Immutable); //Make a mutable one
+            var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NotificationID, intent, PendingIntentFlags.Mutable); //Make a mutable one
 
             var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.Channel_ID)
                 .SetContentTitle(title)
@@ -53,7 +53,7 @@ namespace AccessReelApp.Platforms.Android.Services
                 .SetContentText(messageBody)
                 .SetChannelId(MainActivity.Channel_ID)
                 .SetContentIntent(pendingIntent)
-                .SetPriority(2);
+                .SetPriority(NotificationCompat.PriorityDefault);
 
             var notificationManager = NotificationManagerCompat.From(this);
             notificationManager.Notify(MainActivity.NotificationID, notificationBuilder.Build());
