@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AccessReelApp
+namespace AccessReelApp.Models
 {
     public class ReviewCell
     {
@@ -13,5 +13,6 @@ namespace AccessReelApp
         public string PosterUrl { get; set; }
         public string CriticUrl { get; set; }
         public float? MovieRating { get; set; }
+        public DateTime PostDate { get; set; }
     }
 }

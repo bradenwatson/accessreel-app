@@ -17,14 +17,15 @@
                     <ColumnDefinition Width="148" />
                     <ColumnDefinition Width="160" />
                 </Grid.ColumnDefinitions>
-                <Picker Grid.Column="0" ItemsSource="{Binding FilterList}" Title="Newest" />
+                <Picker x:Name="filterDropdown" Grid.Column="0" ItemsSource="{Binding FilterList}" Title="Newest" />
                 <Picker Grid.Column="1" ItemsSource="{Binding DateFilterList}" Title="Posted any date" />
             </Grid>
-
+            
             <ScrollView>
-                
+
             </ScrollView>
-            <ListView ItemsSource="{Binding MovieReviewsList}">
+            <ListView ItemsSource="{Binding MovieReviewsList}"
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
