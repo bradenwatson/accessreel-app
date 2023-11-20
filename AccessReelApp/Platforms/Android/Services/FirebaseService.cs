@@ -30,11 +30,10 @@ namespace AccessReelApp.Platforms.Android.Services
         {
             base.OnMessageReceived(message);
             var notification = message.GetNotification();
-
-            SendNotification(notification.Body, notification.Title, message.Data);
+            SendNotification(message.Data, notification.Title, notification.Body);
         }
 
-        private void SendNotification(string messageBody, string title, IDictionary<string, string> data) 
+        private void SendNotification(IDictionary<string, string> data, string title, string messageBody) 
         {
             var intent = new Intent(this,typeof(MainActivity));
             intent.AddFlags(ActivityFlags.ClearTop);

@@ -36,51 +36,36 @@ using System.Diagnostics;
 
 namespace AccessReelApp.Notifications
 {
-    public class PushNotificationReceived : ValueChangedMessage<string>
+    public enum Pages       //Turn into dictionary
     {
-        public PushNotificationReceived(string message) : base(message) { }
+        MainPage,
+        Page1,
+        Page2,
+        //NewsPage,
+        //ReviewsPage,
+        //InterviewPage,
+        //SignUpLogin,
+        //Movies,
+        //Compeitions,
+        //Settings,
+        //Accounts,
     }
-
-    public class PushNotificationRequest
-    {
-        public List<string> registration_ids { get; set; } = new List<string>();
-        public NotificationMessageBody notification { get; set; }
-        public object data { get; set; }
-    }
-
-    public class NotificationMessageBody
-    {
-        public string title { get; set; }
-        public string body { get; set; }
-    }
-
     // The main class that encapsulates the functionality
     public class NotificationManager
     {
-        public enum Pages
-        {
-            MainPage,
-            Page1,
-            Page2,
-            //NewsPage,
-            //ReviewsPage,
-            //InterviewPage,
-            //SignUpLogin,
-            //Movies,
-            //Compeitions,
-            //Settings,
-            //Accounts,
-        }
+
+        
 
         // Private fields can be declared here
-        private string _deviceToken;
+        private string deviceToken;
+        private List<Message> messages;
 
         // Constructor can be used to initialize class-level variables
         public NotificationManager()
         {
             if(Preferences.ContainsKey("DeviceToken"))
             {
-                _deviceToken = Preferences.Get("DeviceToken", "");
+                deviceToken = Preferences.Get("DeviceToken", "");
             }
         }
 
@@ -146,6 +131,7 @@ namespace AccessReelApp.Notifications
             }
             else
             {
+                AppShell.Current.GoToAsync(Pages.MainPage.ToString());
                 Debug.WriteLine($"Page does not exist");
             }
 
@@ -162,11 +148,12 @@ namespace AccessReelApp.Notifications
 
             var obj = new Message
             {
-                Token = _deviceToken,
+                Topic = "",
+                Token = deviceToken,
                 Notification = new Notification
                 {
                     Title = "Go to page 1",
-                    Body = "See Title"
+                    Body = "See Title",
                 },
                 Data = androidNotificationObject,
                 // Include additional configurations if needed
@@ -179,8 +166,83 @@ namespace AccessReelApp.Notifications
 
             //SwitchByNotification();       //WORKING!
         }
+
+
+
+
+        //WIP
+        public void CreateMessageContainer() { messages = new List<Message>(); }
+ 
+        public void CreateMessage(string title, string body, string topic = "")
+        {
+            var androidNotificationObject = new Dictionary<string, string>();
+            androidNotificationObject.Add("NavigationID", topic);
+
+            if (messages.Count == 0) { CreateMessageContainer(); }
+            var obj = new Message
+            {
+                Topic = topic,
+                Token = deviceToken,
+                Notification = new Notification
+                {
+                    Title = "Go to page 1",
+                    Body = "See Title",
+                },
+                Data = androidNotificationObject,
+            };
+
+            messages.Add(obj);
+        }
+
+        public void SendMessage()
+        {
+            SendAsyncMessages();
+
+            messages.Clear();
+            if (messages.Count == 0) 
+            {
+                Debug.WriteLine("*******************************");
+                Debug.WriteLine("Messages sent and cleared.");
+                Debug.WriteLine("*******************************");
+            }
+            else
+            {
+                Debug.WriteLine("*******************************");
+                Debug.WriteLine("Failed to send messages");
+                Debug.WriteLine("*******************************");
+            }
+        }
+        private async void SendAsyncMessages()
+        {
+            Debug.WriteLine("*******************************");
+            Debug.WriteLine($"Sending ({messages.Count}) messages.");
+            Debug.WriteLine("*******************************");
+            await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
+        } 
+
     }
 
+
+    //public class PushNotificationReceived : ValueChangedMessage<string>
+    //{
+    //    public PushNotificationReceived(string message) : base(message) { }
+    //}
+
+    //public class PushNotificationRequest
+    //{
+    //    //public string notificationID { get; set; }
+    //    public List<string> registration_ids { get; set; } = new List<string>();
+    //    public NotificationMessageBody notification { get; set; }
+    //    public object data { get; set; }
+    //}
+
+    //public class NotificationMessageBody
+    //{
+    //    public string title { get; set; }
+    //    public string body { get; set; }
+
+    //    //public string subtitle {  get; set; }
+    //}
 
     //private string _deviceToken;
 
