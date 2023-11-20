@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace AccessReelApp
         const string TRAILER = "Trailer";
         static Dictionary<string, string> movieImageDictionary = new();
         static Dictionary<string, string>[] trailersDictionary = new Dictionary<string, string>[NUMBER_MOVIES];
-        static Dictionary<string, string>[] otherDictionary = new Dictionary<string, string>[NUMBER_MOVIES]; 
+        static Dictionary<string, string>[] otherDictionary = new Dictionary<string, string>[NUMBER_MOVIES];
         static ImageButton[] trailerImageButtons = new ImageButton[NUMBER_MOVIES];
         static ImageButton[] otherImageButtons = new ImageButton[NUMBER_MOVIES];
 
@@ -53,8 +54,8 @@ namespace AccessReelApp
                 string value = movieImageDictionary[key];
                 dictionaries[i] = CreateDictionary(key, value);
                 buttons[i] = CreateImageButton(key);
-                }
             }
+        }
 
         // Finds keys in the list containing the specified key and returns a sublist.
         static List<string> FindKeys(string key, List<string> keys)
@@ -70,21 +71,21 @@ namespace AccessReelApp
 
         // Creates an array of image buttons based on the list's elements.
         static ImageButton[] CreateImageButtonArray(List<string> keys)
-            {
+        {
             return keys.Select(CreateImageButton).ToArray();
-            }
+        }
 
         // Returns an array of dictionaries based on the parameter's value.
         static Dictionary<string, string>[] GetSelectedDict(string filter)
-            {
+        {
             return filter == TRAILER ? trailersDictionary : otherDictionary;
         }
 
         // Returns an array of image buttons based on the parameter's value.
         static ImageButton[] GetSelectedImageButtons(string filter)
-                {
+        {
             return filter == TRAILER ? trailerImageButtons : otherImageButtons;
-            }
+        }
 
         public static void AddMovieToDictionaries(ReviewCell reviewCell, int index)
         {
