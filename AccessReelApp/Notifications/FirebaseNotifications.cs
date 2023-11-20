@@ -32,6 +32,7 @@ using CommunityToolkit.Mvvm.Messaging.Messages;
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
+using System.Diagnostics;
 
 namespace AccessReelApp.Notifications
 {
@@ -59,6 +60,8 @@ namespace AccessReelApp.Notifications
         public enum Pages
         {
             MainPage,
+            Page1,
+            Page2,
             //NewsPage,
             //ReviewsPage,
             //InterviewPage,
@@ -98,7 +101,7 @@ namespace AccessReelApp.Notifications
             }
         }
 
-
+        /*
         public static void SwitchByNotification()
         {
             if (Preferences.ContainsKey("NavigationID"))
@@ -116,41 +119,43 @@ namespace AccessReelApp.Notifications
             }
             Preferences.Remove("NavigationID");
         }
+        */
 
-        //private void SwitchByNotification()         //Redirects to page on notification interaction
-        //{
-        //    if (Preferences.ContainsKey("NavigationID"))
-        //    {
-        //        string id = Preferences.Get("NavigationID", "");
-        //        if(Enum.TryParse(id, out Pages page))
-        //        {
-        //            NavigateToPage(page);
-        //        }
-        //        Preferences.Remove("NavigationID");
-        //    }
+        //WORKING (Now needs on notifiication press)
+        private void SwitchByNotification()         //Redirects to page on notification interaction     
+        {
+            if (Preferences.ContainsKey("NavigationID"))
+            {
+                string id = Preferences.Get("NavigationID", "");
+                if (Enum.TryParse(id, out Pages page))
+                {
+                    NavigateToPage(page);
+                }
+                Preferences.Remove("NavigationID");
+            }
 
-        //}
+        }
 
+        //WOKRING
+        private void NavigateToPage(Pages page)
+        {
+            if (Enum.IsDefined(typeof(Pages), page))
+            {
+                AppShell.Current.GoToAsync(page.ToString());
+                Debug.WriteLine($"Navigate to page {page}");
+            }
+            else
+            {
+                Debug.WriteLine($"Page does not exist");
+            }
 
-        //private void NavigateToPage(Pages page)
-        //{
-        //    if(Enum.IsDefined(typeof(Pages), page))
-        //    {
-        //        AppShell.Current.GoToAsync(nameof(page));
-        //        Debug.WriteLine($"Navigate to page {page}");
-        //    }
-        //    else
-        //    {
-        //        Debug.WriteLine($"Page does not exist");
-        //    }
-
-        //}
+        }
 
         // Method to handle button click event
         public async void HandleButtonClick()
         {
             var androidNotificationObject = new Dictionary<string, string>();
-            androidNotificationObject.Add("NavigationID", "2");         //This redirects to app page by its index
+            androidNotificationObject.Add("NavigationID", "Page1");         //This redirects to app page by its index
 
             // Create a list of messages
             var messageList = new List<Message>();
@@ -160,8 +165,8 @@ namespace AccessReelApp.Notifications
                 Token = _deviceToken,
                 Notification = new Notification
                 {
-                    Title = "Title",
-                    Body = "message body"
+                    Title = "Go to page 1",
+                    Body = "See Title"
                 },
                 Data = androidNotificationObject,
                 // Include additional configurations if needed
@@ -172,7 +177,7 @@ namespace AccessReelApp.Notifications
             // Send push notification
             var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messageList);
 
-            //SwitchByNotification();
+            //SwitchByNotification();       //WORKING!
         }
     }
 
