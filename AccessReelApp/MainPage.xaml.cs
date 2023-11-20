@@ -117,7 +117,8 @@ namespace AccessReelApp
         // Button click event for the second notification (using NotificationHandler)
         private void Button_Clicked_1(object sender, EventArgs e)
         {
-            notificationManager.HandleButtonClick();
+            //notificationManager.HandleButtonClick();
+            notificationManager.SendFCMNotification(sender, e);
         }
 
     } 

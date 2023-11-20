@@ -53,9 +53,6 @@ namespace AccessReelApp.Notifications
     // The main class that encapsulates the functionality
     public class NotificationManager
     {
-
-        
-
         // Private fields can be declared here
         private string deviceToken;
         private List<Message> messages;
@@ -63,6 +60,7 @@ namespace AccessReelApp.Notifications
         // Constructor can be used to initialize class-level variables
         public NotificationManager()
         {
+            messages = new List<Message>();
             if(Preferences.ContainsKey("DeviceToken"))
             {
                 deviceToken = Preferences.Get("DeviceToken", "");
@@ -168,49 +166,71 @@ namespace AccessReelApp.Notifications
         }
 
 
-
+        public void SendFCMNotification(object sender, EventArgs e)
+        {
+            CreateMessage("New method", "Should work");
+            //await SendMessage();
+        }
 
         //WIP
         public void CreateMessageContainer() { messages = new List<Message>(); }
  
-        public void CreateMessage(string title, string body, string topic = "")
+        public async void CreateMessage(string title, string body, string topic = "")
         {
             var androidNotificationObject = new Dictionary<string, string>();
             androidNotificationObject.Add("NavigationID", topic);
 
-            if (messages.Count == 0) { CreateMessageContainer(); }
+            if (messages == null) { CreateMessageContainer(); }
             var obj = new Message
             {
-                Topic = topic,
+                //Topic = topic,
                 Token = deviceToken,
                 Notification = new Notification
                 {
-                    Title = "Go to page 1",
-                    Body = "See Title",
+                    Title = title,
+                    Body = body,
                 },
                 Data = androidNotificationObject,
             };
-
+            Debug.WriteLine("*******************************");
+            Debug.WriteLine($"Msg: {obj}");
+            Debug.WriteLine("*******************************");
             messages.Add(obj);
+            var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
         }
 
         public void SendMessage()
         {
-            SendAsyncMessages();
+            //SendAsyncMessages();
 
-            messages.Clear();
-            if (messages.Count == 0) 
+            //Debug.WriteLine("*******************************");
+            //Debug.WriteLine($"Sending ({messages.Count}) messages.");
+            //Debug.WriteLine("*******************************");
+            //await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
+
+            if (FirebaseMessaging.DefaultInstance != null) 
             {
-                Debug.WriteLine("*******************************");
-                Debug.WriteLine("Messages sent and cleared.");
-                Debug.WriteLine("*******************************");
+                //messages.Clear();
+                if (messages.Count == 0)
+                {
+                    Debug.WriteLine("*******************************");
+                    Debug.WriteLine("Messages sent and cleared.");
+                    Debug.WriteLine("*******************************");
+                }
+                else
+                {
+                    Debug.WriteLine("*******************************");
+                    Debug.WriteLine("Failed to send messages");
+                    Debug.WriteLine("*******************************");
+                }
             }
             else
             {
                 Debug.WriteLine("*******************************");
-                Debug.WriteLine("Failed to send messages");
+                Debug.WriteLine("No messages detected");
                 Debug.WriteLine("*******************************");
             }
+            
         }
         private async void SendAsyncMessages()
         {
