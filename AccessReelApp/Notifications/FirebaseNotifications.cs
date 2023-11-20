@@ -98,6 +98,25 @@ namespace AccessReelApp.Notifications
             }
         }
 
+
+        public static void SwitchByNotification()
+        {
+            if (Preferences.ContainsKey("NavigationID"))
+            {
+                string id = Preferences.Get("NavigationID", "");
+                if (id == "1")
+                {
+                    AppShell.Current.GoToAsync(nameof(Page1));
+                }
+                if (id == "2")
+                {
+                    AppShell.Current.GoToAsync(nameof(Page2));
+                }
+                //ADD MORE PAGES
+            }
+            Preferences.Remove("NavigationID");
+        }
+
         //private void SwitchByNotification()         //Redirects to page on notification interaction
         //{
         //    if (Preferences.ContainsKey("NavigationID"))
@@ -109,7 +128,7 @@ namespace AccessReelApp.Notifications
         //        }
         //        Preferences.Remove("NavigationID");
         //    }
-            
+
         //}
 
 
@@ -124,7 +143,7 @@ namespace AccessReelApp.Notifications
         //    {
         //        Debug.WriteLine($"Page does not exist");
         //    }
-            
+
         //}
 
         // Method to handle button click event

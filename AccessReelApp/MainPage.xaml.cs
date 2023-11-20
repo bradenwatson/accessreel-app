@@ -34,6 +34,7 @@ namespace AccessReelApp
 
         private void SwitchByNotification()
         {
+            /*
             if (Preferences.ContainsKey("NavigationID"))
             {
                 string id = Preferences.Get("NavigationID", "");
@@ -48,6 +49,8 @@ namespace AccessReelApp
                 //ADD MORE PAGES
             }
             Preferences.Remove("NavigationID");
+            */
+            NotificationManager.SwitchByNotification();
         }
 
 
