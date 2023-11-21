@@ -46,16 +46,33 @@ namespace AccessReelApp.Notifications
         //InterviewPage,
         //SignUpLogin,
         //Movies,
-        //Compeitions,
+        //Competitions,
         //Settings,
         //Accounts,
     }
+
+    
+
     // The main class that encapsulates the functionality
     public class NotificationManager
     {
         // Private fields can be declared here
         private string deviceToken;
         private List<Message> messages;
+        internal static readonly Dictionary<string, string> PageRoute = new Dictionary<string, string>
+        {
+            {"General", "MainPage" },
+            //{"General", "Page1" },
+            //{"General", "Page2" },
+            //{"General", "NewsPage" },
+            //{"General", "ReviewsPage" },
+            //{"General", "InterviewPage" },
+            //{"General", "SignUpLogin" },
+            //{"General", "Movies" },
+            //{"General", "Competitions" },
+            //{"General", "Settings" },
+            //{"General", "Accounts" },
+        };
 
         // Constructor can be used to initialize class-level variables
         public NotificationManager()
@@ -124,6 +141,12 @@ namespace AccessReelApp.Notifications
                 }
                 Preferences.Remove("NavigationID");
             }
+            else
+            {
+                Debug.WriteLine("*******************************");
+                Debug.WriteLine("Key does not exist");
+                Debug.WriteLine("*******************************");
+            }
 
         }
 
@@ -187,7 +210,11 @@ namespace AccessReelApp.Notifications
 
         //WIP
         public void CreateMessageContainer() { messages = new List<Message>(); }
- 
+
+
+        private void SendToChannel()
+        { }
+
         public void CreateMessage(string title, string body, string topic = "")
         {
             var androidNotificationObject = new Dictionary<string, string>();
@@ -218,7 +245,7 @@ namespace AccessReelApp.Notifications
                 if (messages.Count == 0)
                 {
                     Debug.WriteLine("*******************************");
-                    Debug.WriteLine("Messages sent and cleared.");
+                    Debug.WriteLine($"{messages.Count} messages remaining.");
                     Debug.WriteLine("*******************************");
                 }
                 else

@@ -10,17 +10,21 @@ namespace AccessReelApp;
 public class MainActivity : MauiAppCompatActivity
 {
     internal static readonly string Channel_ID = "NewChannel";
-    internal static readonly int NotificationID = 0; 
-    internal enum Channels
+    internal static readonly int NotificationID = 0;
+
+
+#pragma warning disable CA1416 // Validate platform compatibility
+    internal static readonly IList<NotificationChannel> Channels = new List<NotificationChannel> 
     {
-        General,
-        Movies,
-        News, 
-        Interviews, 
-        Accounts, 
-        Competitions_Channel, 
-        Communications, 
-    }
+        new NotificationChannel("General", "General", NotificationImportance.Default),
+        new NotificationChannel("Movies", "Movies", NotificationImportance.Default),
+        new NotificationChannel("News", "News", NotificationImportance.Default),
+        new NotificationChannel("Interviews", "Interviews", NotificationImportance.Default),
+        new NotificationChannel("Accounts", "Accounts", NotificationImportance.Default),
+        new NotificationChannel("Competitions", "Competitions", NotificationImportance.Default),
+        new NotificationChannel("Communcations", "Commincations", NotificationImportance.High),
+    };
+#pragma warning restore CA1416 // Validate platform compatibility
     protected override void OnCreate(Bundle savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
@@ -85,13 +89,7 @@ public class MainActivity : MauiAppCompatActivity
         if (OperatingSystem.IsOSPlatformVersionAtLeast("android", 26))
         {
             var notificationManager = (NotificationManager)GetSystemService(Android.Content.Context.NotificationService);
-            Channels[] channels = (Channels[])Enum.GetValues(typeof(Channels));
-            foreach (Channels channel in channels)
-            {
-                string output = channel.ToString();
-                var newChannel = new NotificationChannel(output, output, NotificationImportance.Default);
-                notificationManager.CreateNotificationChannel(newChannel);
-            }
+            notificationManager.CreateNotificationChannels(Channels);
             
         }
     }

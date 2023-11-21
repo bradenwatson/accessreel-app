@@ -1,9 +1,14 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Content.PM;
+using Android.Views;
 using AndroidX.Core.App;
 using Firebase.Messaging;
+using Microsoft.Maui.Controls.PlatformConfiguration;
+using Microsoft.Maui.Platform;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,21 +35,34 @@ namespace AccessReelApp.Platforms.Android.Services
         {
             base.OnMessageReceived(message);
             var notification = message.GetNotification();
+            Debug.WriteLine("*******************************");
+            Debug.WriteLine($"Notification = {notification}");
+            Debug.WriteLine($"Message = {message.Data}");
+            Debug.WriteLine("*******************************");
             SendNotification(message.Data, notification.Title, notification.Body);
         }
 
+        //Sort Content here
         private void SendNotification(IDictionary<string, string> data, string title, string messageBody) 
         {
             var intent = new Intent(this,typeof(MainActivity));
-            intent.AddFlags(ActivityFlags.ClearTop);
+            //intent.AddFlags(ActivityFlags.ClearTop);
+
+            intent.AddFlags(ActivityFlags.NewTask);
 
             foreach(var key in data.Keys)
             {
                 string value = data[key];
                 intent.PutExtra(key, value);
+                Debug.WriteLine("*******************************");
+                Debug.WriteLine($"Key = {key}\tValue = {value}");
+                Debug.WriteLine("*******************************");
             }
 
             var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NotificationID, intent, PendingIntentFlags.Mutable); //Make a mutable one
+            Debug.WriteLine("*******************************");
+            Debug.WriteLine($"Intent = {pendingIntent}");
+            Debug.WriteLine("*******************************");
 
             var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.Channel_ID)
                 .SetContentTitle(title)
@@ -52,11 +70,14 @@ namespace AccessReelApp.Platforms.Android.Services
                 .SetContentText(messageBody)
                 .SetChannelId(MainActivity.Channel_ID)
                 .SetContentIntent(pendingIntent)
-                .SetPriority(NotificationCompat.PriorityDefault);
+                .SetPriority(NotificationCompat.PriorityDefault)
+                .SetAutoCancel(true);
 
             var notificationManager = NotificationManagerCompat.From(this);
             notificationManager.Notify(MainActivity.NotificationID, notificationBuilder.Build());
 
+            
+            
             /*
             var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NotificationID, intent, PendingIntentFlags.Mutable); //Make a mutable one
 
