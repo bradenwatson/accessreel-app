@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Runtime;
 using Android.Views;
 using AndroidX.Core.App;
 using Firebase.Messaging;
@@ -46,9 +47,8 @@ namespace AccessReelApp.Platforms.Android.Services
         private void SendNotification(IDictionary<string, string> data, string title, string messageBody) 
         {
             var intent = new Intent(this,typeof(MainActivity));
-            //intent.AddFlags(ActivityFlags.ClearTop);
-
-            intent.AddFlags(ActivityFlags.NewTask);
+            intent.AddFlags(ActivityFlags.ClearTop);
+            //intent.AddFlags(ActivityFlags.NewTask);
 
             foreach(var key in data.Keys)
             {
@@ -71,6 +71,7 @@ namespace AccessReelApp.Platforms.Android.Services
                 .SetChannelId(MainActivity.Channel_ID)
                 .SetContentIntent(pendingIntent)
                 .SetPriority(NotificationCompat.PriorityDefault)
+                
                 .SetAutoCancel(true);
 
             var notificationManager = NotificationManagerCompat.From(this);
