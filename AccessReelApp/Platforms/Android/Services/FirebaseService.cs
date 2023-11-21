@@ -59,7 +59,17 @@ namespace AccessReelApp.Platforms.Android.Services
                 Debug.WriteLine("*******************************");
             }
 
+            string channelID = MainActivity.Channels.FirstOrDefault(x => x.Id == "General").Id; //WIP
+            Debug.WriteLine("*******************************");
+            Debug.WriteLine($"Channel ID = {channelID}");
+            Debug.WriteLine("*******************************");
+
+
             int notificationID = GenerateNotificationID();
+            Debug.WriteLine("*******************************");
+            Debug.WriteLine($"Msg ID = {notificationID}");
+            Debug.WriteLine("*******************************");
+
 
             var pendingIntent = PendingIntent.GetActivity(this, notificationID, intent, PendingIntentFlags.Mutable); //Make a mutable one
             Debug.WriteLine("*******************************");
@@ -70,7 +80,8 @@ namespace AccessReelApp.Platforms.Android.Services
                 .SetContentTitle(title)
                 .SetSmallIcon(Resource.Mipmap.appicon)
                 .SetContentText(messageBody)
-                .SetChannelId(MainActivity.Channel_ID)
+                //.SetChannelId(MainActivity.Channel_ID)
+                .SetChannelId(channelID)
                 .SetContentIntent(pendingIntent)
                 .SetPriority(NotificationCompat.PriorityDefault)
                 

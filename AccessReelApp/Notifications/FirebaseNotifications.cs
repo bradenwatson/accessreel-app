@@ -215,7 +215,7 @@ namespace AccessReelApp.Notifications
         private void SendToChannel()
         { }
 
-        public void CreateMessage(string title, string body, string topic = "")
+        public void CreateMessage(string title, string body, string topic = "MainPage")
         {
             var androidNotificationObject = new Dictionary<string, string>();
             androidNotificationObject.Add("NavigationID", topic);
