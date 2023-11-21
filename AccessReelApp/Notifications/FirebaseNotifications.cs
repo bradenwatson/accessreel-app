@@ -59,20 +59,7 @@ namespace AccessReelApp.Notifications
         // Private fields can be declared here
         private string deviceToken;
         private List<Message> messages;
-        internal static readonly Dictionary<string, string> PageRoute = new Dictionary<string, string>
-        {
-            {"General", "MainPage" },
-            //{"General", "Page1" },
-            //{"General", "Page2" },
-            //{"General", "NewsPage" },
-            //{"General", "ReviewsPage" },
-            //{"General", "InterviewPage" },
-            //{"General", "SignUpLogin" },
-            //{"General", "Movies" },
-            //{"General", "Competitions" },
-            //{"General", "Settings" },
-            //{"General", "Accounts" },
-        };
+        
 
         // Constructor can be used to initialize class-level variables
         public NotificationManager()
@@ -208,10 +195,10 @@ namespace AccessReelApp.Notifications
             SendMessage();
         }
 
-        //WIP
+       
         public void CreateMessageContainer() { messages = new List<Message>(); }
 
-
+        //WIP
         private void SendToChannel()
         { }
 
@@ -232,9 +219,10 @@ namespace AccessReelApp.Notifications
                 Data = androidNotificationObject,
             };
             messages.Add(obj);
-            //var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
+           
         }
 
+        //This functions sends to the server
         public void SendMessage()
         {
             SendAsyncMessages();

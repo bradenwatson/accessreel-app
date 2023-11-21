@@ -44,13 +44,15 @@ namespace AccessReelApp.Platforms.Android.Services
         }
 
         //Sort Content here
+
+
         private void SendNotification(IDictionary<string, string> data, string title, string messageBody) 
         {
             var intent = new Intent(this,typeof(MainActivity));
             intent.AddFlags(ActivityFlags.ClearTop);
             //intent.AddFlags(ActivityFlags.NewTask);
 
-            foreach(var key in data.Keys)
+            foreach(var key in data.Keys)       //This iterates the dictionary entry values and used to direct stored pages
             {
                 string value = data[key];
                 intent.PutExtra(key, value);
@@ -76,7 +78,7 @@ namespace AccessReelApp.Platforms.Android.Services
             Debug.WriteLine($"Intent = {pendingIntent}");
             Debug.WriteLine("*******************************");
 
-            var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.Channel_ID)
+            var notificationBuilder = new NotificationCompat.Builder(this, channelID)
                 .SetContentTitle(title)
                 .SetSmallIcon(Resource.Mipmap.appicon)
                 .SetContentText(messageBody)

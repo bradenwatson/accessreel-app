@@ -18,6 +18,20 @@ public class MainActivity : MauiAppCompatActivity
     internal static readonly string Channel_ID = "NewChannel";
     internal static readonly int NotificationID = 0;
 
+    internal static readonly Dictionary<string, string> PageRoute = new Dictionary<string, string>
+        {
+            {"General", "MainPage" },
+            //{"General", "Page1" },
+            //{"General", "Page2" },
+            //{"General", "NewsPage" },
+            //{"General", "ReviewsPage" },
+            //{"General", "InterviewPage" },
+            //{"General", "SignUpLogin" },
+            //{"General", "Movies" },
+            //{"General", "Competitions" },
+            //{"General", "Settings" },
+            //{"General", "Accounts" },
+        };
 
 #pragma warning disable CA1416 // Validate platform compatibility
     internal static readonly IList<NotificationChannel> Channels = new List<NotificationChannel> 
@@ -35,8 +49,11 @@ public class MainActivity : MauiAppCompatActivity
     {
         base.OnCreate(savedInstanceState);
 
-        bool channelCreated = Preferences.Get("NotificationChannel", false);
-        if (!channelCreated)
+        //bool channelCreated = Preferences.Get("NotificationChannel", false);
+
+        //if (!channelCreated)
+        IList<NotificationChannel> currentChannels = GetAllNotificationChannels();
+        if(currentChannels == null || !(currentChannels.Equals(Channels)))
         {
             CreateNotificationChannel();
             Preferences.Default.Set("NotificationChannel", true);
@@ -75,7 +92,6 @@ public class MainActivity : MauiAppCompatActivity
             System.Diagnostics.Debug.WriteLine($"Key: ({key})");
         }
 
-        //CreateNotificationChannel();
     }
 
     private List<NotificationChannel> GetAllNotificationChannels()
@@ -85,8 +101,10 @@ public class MainActivity : MauiAppCompatActivity
             var notificationManager = (NotificationManager)GetSystemService(Android.Content.Context.NotificationService);
             return notificationManager.NotificationChannels.ToList();
         }
-
-        return new List<NotificationChannel>();
+        else
+        {
+            throw new NotSupportedException();
+        }
     }
 
 
@@ -97,8 +115,13 @@ public class MainActivity : MauiAppCompatActivity
         if (OperatingSystem.IsOSPlatformVersionAtLeast("android", 26))
         {
             var notificationManager = (NotificationManager)GetSystemService(Android.Content.Context.NotificationService);
-            notificationManager.CreateNotificationChannels(Channels);
-            
+            //notificationManager.CreateNotificationChannels(Channels);
+            foreach(var route in PageRoute)
+            {
+                string channelKey = route.Key;
+                NotificationChannel newChannel = new NotificationChannel(channelKey, channelKey, NotificationImportance.Default);
+                notificationManager.CreateNotificationChannel(newChannel);
+            }
         }
     }
 }
