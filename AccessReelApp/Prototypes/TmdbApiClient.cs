@@ -379,7 +379,7 @@ namespace AccessReelApp.Prototypes
                             MovieRating = float.TryParse(post.film_info?.imdb_vote_avg, out var rating) ? rating : 0.0f,
                         };
 
-                        CarouselModel.AddMovieToDictionaries(reviewCell, movieIndex);
+                        //CarouselModel.AddMovieToDictionaries(reviewCell, movieIndex);
                         movieIndex++;
                         ReviewFetched?.Invoke(reviewCell);
 

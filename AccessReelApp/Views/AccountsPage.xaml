@@ -31,7 +31,7 @@
         <!--firstname input-->
         <Entry
             Placeholder="First Name"
-            Text="{Binding Firstname}"
+            Text="{Binding FirstName}"
             TextColor="#69CCDE"
             Keyboard="Default"
             WidthRequest="250"
@@ -49,7 +49,7 @@
         <!--lastname input-->
         <Entry
             Placeholder="Last Name"
-            Text="{Binding Lastname}"
+            Text="{Binding LastName}"
             TextColor="#69CCDE"
             Keyboard="Default"
             WidthRequest="250"
