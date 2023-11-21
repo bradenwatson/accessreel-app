@@ -28,7 +28,7 @@ public class MainActivity : MauiAppCompatActivity
         new NotificationChannel("Interviews", "Interviews", NotificationImportance.Default),
         new NotificationChannel("Accounts", "Accounts", NotificationImportance.Default),
         new NotificationChannel("Competitions", "Competitions", NotificationImportance.Default),
-        new NotificationChannel("Communcations", "Commincations", NotificationImportance.High),
+        //new NotificationChannel("Communcations", "Commincations", NotificationImportance.High),
     };
 #pragma warning restore CA1416 // Validate platform compatibility
     protected override void OnCreate(Bundle savedInstanceState)
@@ -88,6 +88,8 @@ public class MainActivity : MauiAppCompatActivity
 
         return new List<NotificationChannel>();
     }
+
+
 
 
     private void CreateNotificationChannel()        //Need to create first on app start, not on button press. This is due to android 8

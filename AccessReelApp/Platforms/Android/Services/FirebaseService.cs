@@ -59,7 +59,9 @@ namespace AccessReelApp.Platforms.Android.Services
                 Debug.WriteLine("*******************************");
             }
 
-            var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NotificationID, intent, PendingIntentFlags.Mutable); //Make a mutable one
+            int notificationID = GenerateNotificationID();
+
+            var pendingIntent = PendingIntent.GetActivity(this, notificationID, intent, PendingIntentFlags.Mutable); //Make a mutable one
             Debug.WriteLine("*******************************");
             Debug.WriteLine($"Intent = {pendingIntent}");
             Debug.WriteLine("*******************************");
@@ -75,9 +77,7 @@ namespace AccessReelApp.Platforms.Android.Services
                 .SetAutoCancel(true);
 
             var notificationManager = NotificationManagerCompat.From(this);
-            notificationManager.Notify(MainActivity.NotificationID, notificationBuilder.Build());
-
-            
+            notificationManager.Notify(notificationID, notificationBuilder.Build());
             
             /*
             var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NotificationID, intent, PendingIntentFlags.Mutable); //Make a mutable one
@@ -94,5 +94,12 @@ namespace AccessReelApp.Platforms.Android.Services
             notificationManager.Notify(MainActivity.NotificationID, notificationBuilder.Build());
             */
         }
+
+        public static int GenerateNotificationID()
+        {
+            string time = DateTime.Now.ToLocalTime().ToString("MMddHHmmss");
+            return int.Parse(time);
+        }
+
     }
 }
