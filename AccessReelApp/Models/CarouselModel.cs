@@ -1,14 +1,8 @@
-﻿using Android.Telephony;
-using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Maui.Controls.Compatibility.Platform.Android;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Android.Content.ClipData;
 
 namespace AccessReelApp
 {
@@ -22,10 +16,13 @@ namespace AccessReelApp
         static ImageButton[] trailerImageButtons = new ImageButton[NUMBER_MOVIES];
         static ImageButton[] otherImageButtons = new ImageButton[NUMBER_MOVIES];
 
+
         public static void SetImageSource(string source)
         {
-            collection[0] = new ImageButton { Source = source };
+            collection[0] = source;
         }
+
+        // Need to get position image button and set indicator view index to that
 
         // Initialises the dictionaries and image buttons
         static void Initialise()

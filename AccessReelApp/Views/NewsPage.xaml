@@ -12,20 +12,9 @@
     <ScrollView>
         <StackLayout>
             <Label x:Name="topBanner"/>
-            <CarouselView ItemsSource="{Binding ButtonCollection}" Style="{StaticResource topCarousel}">
-                <CarouselView.ItemTemplate>
-                    <DataTemplate>
-                        <!--Replace with actual binding-->
-                        <ImageButton Source="{Binding ImageSource}" Clicked="ImageButton_Clicked"/>
-                    </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
-
-            <IndicatorView x:Name="indicatorView" 
-                           IndicatorColor="Gray"
-                           SelectedIndicatorColor="Black"
-                           MaximumVisible="10"
-                           IndicatorsShape="Circle"/>
+            <StackLayout>
+                <CarouselView Style="{StaticResource topCarousel}"/>
+            </StackLayout>
 
             <!-- Latest News Header Banner-->
             <VerticalStackLayout Style="{StaticResource PaddingBanner}">
@@ -92,15 +81,7 @@
                 </VerticalStackLayout>
 
                 <!-- 1st Image for trailers for layout only -->
-                <HorizontalStackLayout>
-                    <VerticalStackLayout Padding="30,10">
-                        <ImageButton Source="turtles.jpg" HorizontalOptions="StartAndExpand" Clicked="ImageButton_Clicked"/>
-                        <Label
-                        Text="Teenage Mutant Ninja Turtles"
-                        Padding="5,5"
-                        FontAttributes="Bold"/>
-                    </VerticalStackLayout>
-                </HorizontalStackLayout>
+                <CarouselView Style="{StaticResource bottomCarousel}"/>
             </StackLayout>
         </StackLayout>
     </ScrollView>
