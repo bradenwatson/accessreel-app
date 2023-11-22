@@ -14,7 +14,6 @@
 
         <!-- accessreel.com logo-->
         <Image Source="accessreel_logo.png"
-               WidthRequest="250"
                HeightRequest="150"
                Scale="0.8"
                Aspect="Center"/>
