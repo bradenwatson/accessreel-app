@@ -31,6 +31,7 @@ public class MainActivity : MauiAppCompatActivity
         Accounts,
     }
 
+
 #pragma warning disable CA1416 // Validate platform compatibility
     internal static readonly IList<NotificationChannel> Channels = new List<NotificationChannel> //Can rename ID to page name, but keep name to channel name
     {
