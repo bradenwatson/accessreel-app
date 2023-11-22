@@ -82,11 +82,7 @@ namespace AccessReelApp.Notifications
        
         public void CreateMessageContainer() { messages = new List<Message>(); }
 
-
-        private void SendToChannel()
-        { }
-
-        public void CreateMessage(string title, string body, string key = "MainPage")
+        public void CreateMessage(string title, string body, string key = "NewsPage")       //Must have a channel otherwise fails
         {
             var androidNotificationObject = new Dictionary<string, string>();
             androidNotificationObject.Add("NavigationID", key);
@@ -111,29 +107,29 @@ namespace AccessReelApp.Notifications
         {
             SendAsyncMessages();
 
-            //if (FirebaseMessaging.DefaultInstance != null) 
-            //{
-            //    messages.Clear();
-            //    if (messages.Count == 0)
-            //    {
-            //        Debug.WriteLine("*******************************");
-            //        Debug.WriteLine($"{messages.Count} messages remaining.");
-            //        Debug.WriteLine("*******************************");
-            //    }
-            //    else
-            //    {
-            //        Debug.WriteLine("*******************************");
-            //        Debug.WriteLine("Failed to send messages");
-            //        Debug.WriteLine("*******************************");
-            //    }
-            //}
-            //else
-            //{
-            //    Debug.WriteLine("*******************************");
-            //    Debug.WriteLine("No messages detected");
-            //    Debug.WriteLine("*******************************");
-            //}
-            
+            if (FirebaseMessaging.DefaultInstance != null)
+            {
+                messages.Clear();
+                if (messages.Count == 0)
+                {
+                    Debug.WriteLine("*******************************");
+                    Debug.WriteLine($"{messages.Count} messages remaining.");
+                    Debug.WriteLine("*******************************");
+                }
+                else
+                {
+                    Debug.WriteLine("*******************************");
+                    Debug.WriteLine("Failed to send messages");
+                    Debug.WriteLine("*******************************");
+                }
+            }
+            else
+            {
+                Debug.WriteLine("*******************************");
+                Debug.WriteLine("No messages detected");
+                Debug.WriteLine("*******************************");
+            }
+
         }
         private async void SendAsyncMessages()
         {

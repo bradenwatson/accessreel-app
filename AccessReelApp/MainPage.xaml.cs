@@ -27,7 +27,7 @@ namespace AccessReelApp
             //DeviceToken();
             NotificationManager.ReadFireBaseAdminSDK();
 
-
+            //Preferences.Clear("NavigationID");
         }
 
 

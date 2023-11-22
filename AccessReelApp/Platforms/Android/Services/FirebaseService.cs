@@ -63,7 +63,7 @@ namespace AccessReelApp.Platforms.Android.Services
                 }
                 else
                 {
-                    intent.PutExtra(key, value);
+                    intent.PutExtra(key, MainActivity.Pages.MainPage.ToString());   //Failsafe if prior calls fail
                 }
                 
                 Debug.WriteLine("*******************************");
@@ -95,7 +95,6 @@ namespace AccessReelApp.Platforms.Android.Services
 
             var notificationManager = NotificationManagerCompat.From(this);
             notificationManager.Notify(notificationID, notificationBuilder.Build());
-
         }
 
         public static int GenerateNotificationID()

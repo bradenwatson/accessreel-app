@@ -50,64 +50,30 @@ public class MainActivity : MauiAppCompatActivity
     protected override void OnNewIntent(Intent intent)
     {
         base.OnNewIntent(intent);
-        Debug.WriteLine("*******************************");
-        Debug.WriteLine($"Intent = {intent.Data.ToString()}");
-        Debug.WriteLine("*******************************");
-        SwitchByNotification();
+
+        Bundle extras = intent.Extras;
+        string key = (string)extras.Get("NavigationID");
+        SwitchByNotification(key);
     }
 
-    private void SwitchByNotification()         //Redirects to page on notification interaction     
+    private void SwitchByNotification(string key = "")         //Redirects to page on notification interaction     //Leave empty in case needs other uses.
     {
-        if(Preferences.ContainsKey("NavigationID"))
+        Debug.WriteLine("*******************************");
+        Debug.WriteLine($"ID switch = {key}");
+        Debug.WriteLine("*******************************");
+        if (Enum.TryParse(key, out Pages page))
         {
-            string id = Preferences.Get("NavigationID", Pages.MainPage.ToString());
+            NavigateToPage(page);
+        }
+        else
+        {
             Debug.WriteLine("*******************************");
-            Debug.WriteLine($"ID switch = {id}");
+            Debug.WriteLine("No matching ID");
             Debug.WriteLine("*******************************");
-            if (Enum.TryParse(id, out Pages page))
-            {
-                NavigateToPage(page);
-            }
-            else
-            {
-                Debug.WriteLine("*******************************");
-                Debug.WriteLine("No matching ID");
-                Debug.WriteLine("*******************************");
 
-                NavigateToPage(Pages.MainPage);
-            }
-            Preferences.Remove("NavigationID");
+            NavigateToPage(Pages.MainPage);
         }
         
-
-        /*
-        //if (Preferences.ContainsKey("NavigationID"))        //Key missing, may need to getfrom inent
-        //{
-        //    string id = Preferences.Get("NavigationID", "");
-        //    //Debug.WriteLine("*******************************");
-        //    //Debug.WriteLine($"ID switch = {id}");
-        //    //Debug.WriteLine("*******************************");
-        //    if (Enum.TryParse(id, out Pages page))
-        //    {
-        //        NavigateToPage(page);
-        //    }
-        //    else
-        //    {
-        //        Debug.WriteLine("*******************************");
-        //        Debug.WriteLine("No matching ID");
-        //        Debug.WriteLine("*******************************");
-
-        //        NavigateToPage(Pages.MainPage);
-        //    }
-        //    Preferences.Remove("NavigationID");
-        //}
-        //else
-        //{
-        //    Debug.WriteLine("*******************************");
-        //    Debug.WriteLine("Key does not exist");
-        //    Debug.WriteLine("*******************************");
-        //}
-        */
     }
 
     //WOKRING
@@ -137,38 +103,32 @@ public class MainActivity : MauiAppCompatActivity
     protected override void OnCreate(Bundle savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
-
-        if (Intent.Extras != null)
-        {
-            foreach (var key in Intent.Extras.KeySet())
-            {
-                if (key == "NavigationID")
-                {
-                    string idValue = Intent.Extras.GetString(key);
-                    Debug.WriteLine("*******************************");
-                    Debug.WriteLine($"ID on create = {idValue}");
-                    Debug.WriteLine("*******************************");
-                    if (Preferences.ContainsKey("NavigationID"))
-                    {
-                        Preferences.Remove("NavigationID");
-                        Debug.WriteLine("*******************************");
-                        Debug.WriteLine($"Removed NavigatinID preference");
-                        Debug.WriteLine("*******************************");
-                    }
-                    Preferences.Set("NavigationID", idValue);
-                    Debug.WriteLine("*****************************");
-                    Debug.WriteLine($"ID create = {Preferences.Get("NavigationID", "")}");
-                    Debug.WriteLine("*****************************");
-                }
-            }
-        }
-        else
-        {
-            var key = Intent.Extras;
-            System.Diagnostics.Debug.WriteLine("**************************************************************************");
-            System.Diagnostics.Debug.WriteLine($"Key: ({key})");
-        }
-
+        /*
+        //if (Intent.Extras != null)
+        //{
+        //    foreach (var key in Intent.Extras.KeySet())
+        //    {
+        //        if (key == "NavigationID")
+        //        {
+        //            string idValue = Intent.Extras.GetString(key);
+        //            Debug.WriteLine("*******************************");
+        //            Debug.WriteLine($"ID on create = {idValue}");
+        //            Debug.WriteLine("*******************************");
+        //            if (Preferences.ContainsKey("NavigationID"))
+        //            {
+        //                Preferences.Remove("NavigationID");
+        //                Debug.WriteLine("*******************************");
+        //                Debug.WriteLine($"Removed NavigatinID preference");
+        //                Debug.WriteLine("*******************************");
+        //            }
+        //            Preferences.Set("NavigationID", idValue);
+        //            Debug.WriteLine("*****************************");
+        //            Debug.WriteLine($"ID create = {Preferences.Get("NavigationID", "")}");
+        //            Debug.WriteLine("*****************************");
+        //        }
+        //    }
+        //}
+        */
 
         bool channelCreated = Preferences.Get("NotificationChannel", false);
         if (!channelCreated)
