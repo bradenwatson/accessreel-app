@@ -16,20 +16,6 @@ namespace AccessReelApp;
             LaunchMode = LaunchMode.SingleTop)]
 public class MainActivity : MauiAppCompatActivity
 {
-#pragma warning disable CA1416 // Validate platform compatibility
-    internal static readonly IList<NotificationChannel> Channels = new List<NotificationChannel> //Can rename ID to page name, but keep name to channel name
-    {
-        new NotificationChannel("General", "General", NotificationImportance.Default),
-        new NotificationChannel("News", "News", NotificationImportance.Default),
-        new NotificationChannel("Movies", "Movies", NotificationImportance.Default),
-        new NotificationChannel("Reviews", "Reviews", NotificationImportance.Default),
-        new NotificationChannel("Interviews", "Interviews", NotificationImportance.Default),
-        new NotificationChannel("Accounts", "Accounts", NotificationImportance.Default),
-        new NotificationChannel("Competitions", "Competitions", NotificationImportance.Default),
-        //new NotificationChannel("Communcations", "Communcations", NotificationImportance.High),
-    };
-#pragma warning restore CA1416 // Validate platform compatibility
-
     public enum Pages       //Turn into dictionary
     {
         MainPage,
@@ -45,18 +31,38 @@ public class MainActivity : MauiAppCompatActivity
         Accounts,
     }
 
+#pragma warning disable CA1416 // Validate platform compatibility
+    internal static readonly IList<NotificationChannel> Channels = new List<NotificationChannel> //Can rename ID to page name, but keep name to channel name
+    {
+        new NotificationChannel(Pages.MainPage.ToString(), "General", NotificationImportance.Default),
+        new NotificationChannel(Pages.NewsPage.ToString(), "News", NotificationImportance.Default),
+        new NotificationChannel(Pages.ReviewsPage.ToString(), "Reviews", NotificationImportance.Default),
+        new NotificationChannel(Pages.InterviewPage.ToString(), "Interviews", NotificationImportance.Default),
+        new NotificationChannel(Pages.SignUpLogin.ToString(), "Sign Up/Login", NotificationImportance.Default),
+        new NotificationChannel(Pages.Movies.ToString(), "Movies", NotificationImportance.Default),
+        new NotificationChannel(Pages.Competitions.ToString(), "Competitions", NotificationImportance.Default),
+        //new NotificationChannel(Pages.Settings.ToString(), "Settings", NotificationImportance.Default),
+        new NotificationChannel(Pages.Accounts.ToString(), "Accounts", NotificationImportance.Default),
+    };
+#pragma warning restore CA1416 // Validate platform compatibility
+
     protected override void OnNewIntent(Intent intent)
     {
         base.OnNewIntent(intent);
-
+        Debug.WriteLine("*******************************");
+        Debug.WriteLine($"Intent = {intent.Data}");
+        Debug.WriteLine("*******************************");
         SwitchByNotification();
     }
 
     private void SwitchByNotification()         //Redirects to page on notification interaction     
     {
-        if (Preferences.ContainsKey("NavigationID"))
+        if(Preferences.ContainsKey("NavigationID"))
         {
-            string id = Preferences.Get("NavigationID", "");
+            string id = Preferences.Get("NavigationID", Pages.MainPage.ToString());
+            Debug.WriteLine("*******************************");
+            Debug.WriteLine($"ID switch = {id}");
+            Debug.WriteLine("*******************************");
             if (Enum.TryParse(id, out Pages page))
             {
                 NavigateToPage(page);
@@ -71,13 +77,36 @@ public class MainActivity : MauiAppCompatActivity
             }
             Preferences.Remove("NavigationID");
         }
-        else
-        {
-            Debug.WriteLine("*******************************");
-            Debug.WriteLine("Key does not exist");
-            Debug.WriteLine("*******************************");
-        }
+        
 
+        /*
+        //if (Preferences.ContainsKey("NavigationID"))        //Key missing, may need to getfrom inent
+        //{
+        //    string id = Preferences.Get("NavigationID", "");
+        //    //Debug.WriteLine("*******************************");
+        //    //Debug.WriteLine($"ID switch = {id}");
+        //    //Debug.WriteLine("*******************************");
+        //    if (Enum.TryParse(id, out Pages page))
+        //    {
+        //        NavigateToPage(page);
+        //    }
+        //    else
+        //    {
+        //        Debug.WriteLine("*******************************");
+        //        Debug.WriteLine("No matching ID");
+        //        Debug.WriteLine("*******************************");
+
+        //        NavigateToPage(Pages.MainPage);
+        //    }
+        //    Preferences.Remove("NavigationID");
+        //}
+        //else
+        //{
+        //    Debug.WriteLine("*******************************");
+        //    Debug.WriteLine("Key does not exist");
+        //    Debug.WriteLine("*******************************");
+        //}
+        */
     }
 
     //WOKRING
@@ -108,23 +137,6 @@ public class MainActivity : MauiAppCompatActivity
     {
         base.OnCreate(savedInstanceState);
 
-        bool channelCreated = Preferences.Get("NotificationChannel", false);
-        if (channelCreated)
-        {
-            CreateNotificationChannel();
-            Preferences.Default.Set("NotificationChannel", true);
-        }
-        else
-        {
-            List<NotificationChannel> sysChannels = GetAllNotificationChannels();
-            foreach( NotificationChannel channel in sysChannels)
-            {
-                Debug.WriteLine("*****************************");
-                Debug.WriteLine($"{channel}");
-                Debug.WriteLine("*****************************");
-            }
-        }
-
         if (Intent.Extras != null)
         {
             foreach (var key in Intent.Extras.KeySet())
@@ -132,12 +144,20 @@ public class MainActivity : MauiAppCompatActivity
                 if (key == "NavigationID")
                 {
                     string idValue = Intent.Extras.GetString(key);
-
+                    Debug.WriteLine("*******************************");
+                    Debug.WriteLine($"ID on create = {idValue}");
+                    Debug.WriteLine("*******************************");
                     if (Preferences.ContainsKey("NavigationID"))
                     {
                         Preferences.Remove("NavigationID");
+                        Debug.WriteLine("*******************************");
+                        Debug.WriteLine($"Removed NavigatinID preference");
+                        Debug.WriteLine("*******************************");
                     }
                     Preferences.Set("NavigationID", idValue);
+                    Debug.WriteLine("*****************************");
+                    Debug.WriteLine($"ID create = {Preferences.Get("NavigationID", "")}");
+                    Debug.WriteLine("*****************************");
                 }
             }
         }
@@ -148,6 +168,23 @@ public class MainActivity : MauiAppCompatActivity
             System.Diagnostics.Debug.WriteLine($"Key: ({key})");
         }
 
+
+        bool channelCreated = Preferences.Get("NotificationChannel", false);
+        if (!channelCreated)
+        {
+            CreateNotificationChannel();
+            Preferences.Default.Set("NotificationChannel", true);
+        }
+        else
+        {
+            List<NotificationChannel> sysChannels = GetAllNotificationChannels();
+            foreach (NotificationChannel channel in sysChannels)
+            {
+                Debug.WriteLine("*****************************");
+                Debug.WriteLine($"{channel}");
+                Debug.WriteLine("*****************************");
+            }
+        }
         //CreateNotificationChannel();
     }
 
@@ -165,8 +202,7 @@ public class MainActivity : MauiAppCompatActivity
         
     }
 
-
-    private void CreateNotificationChannel()        //Need to create first on app start, not on button press. This is due to android 8
+    private void CreateNotificationChannel()        
     {
         if (OperatingSystem.IsOSPlatformVersionAtLeast("android", 26))
         {

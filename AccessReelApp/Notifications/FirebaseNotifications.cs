@@ -37,44 +37,12 @@ using System.Runtime.CompilerServices;
 
 namespace AccessReelApp.Notifications
 {
-    public enum Pages       //Turn into dictionary
-    {
-        MainPage,
-        //Page1,
-        //Page2,
-        NewsPage,
-        ReviewsPage,
-        InterviewPage,
-        SignUpLogin,
-        Movies,
-        Competitions,
-        //Settings,
-        //Accounts,
-    }
-
-    
-
     // The main class that encapsulates the functionality
     public class NotificationManager
     {
         // Private fields can be declared here
         private string deviceToken;
         private List<Message> messages;
-        //internal static readonly Dictionary<string, string> PageRoute = new Dictionary<string, string>
-        //{
-        //    {"General", "MainPage" },
-        //    //{"Page1", "Page1" },
-        //    //{"Page2", "Page2" },
-        //    //{"News", "NewsPage" },
-        //    //{"Reviews", "ReviewsPage" },
-        //    //{"Interviews", "InterviewPage" },
-        //    //{"SignUpLogin", "SignUpLogin" },
-        //    //{"Movies", "Movies" },
-        //    //{"Compeitions", "Competitions" },
-        //    //{"Settings", "Settings" },
-        //    //{"Accounts", "Accounts" },
-        //};
-        //private Dictionary<string, string> Pages;   //Based 
 
         // Constructor can be used to initialize class-level variables
         public NotificationManager()
@@ -103,114 +71,7 @@ namespace AccessReelApp.Notifications
                     Credential = GoogleCredential.FromJson(jsonContent)
                 });
             }
-        }
-
-        /*
-        public static void SwitchByNotification()
-        {
-            if (Preferences.ContainsKey("NavigationID"))
-            {
-                string id = Preferences.Get("NavigationID", "");
-                if (id == "1")
-                {
-                    AppShell.Current.GoToAsync(nameof(Page1));
-                }
-                if (id == "2")
-                {
-                    AppShell.Current.GoToAsync(nameof(Page2));
-                }
-                //ADD MORE PAGES
-            }
-            Preferences.Remove("NavigationID");
-        }
-        */
-
-        //WORKING (Now needs on notifiication press)
-        private void SwitchByNotification()         //Redirects to page on notification interaction     
-        {
-            if (Preferences.ContainsKey("NavigationID"))
-            {
-                string id = Preferences.Get("NavigationID", "");
-                if (Enum.TryParse(id, out Pages page))
-                {
-                    NavigateToPage(page);
-                }
-                else
-                {
-                    Debug.WriteLine("*******************************");
-                    Debug.WriteLine("No matching ID");
-                    Debug.WriteLine("*******************************");
-
-                    NavigateToPage(Pages.MainPage);
-                }
-                Preferences.Remove("NavigationID");
-            }
-            else
-            {
-                Debug.WriteLine("*******************************");
-                Debug.WriteLine("Key does not exist");
-                Debug.WriteLine("*******************************");
-            }
-
-        }
-
-        //WOKRING
-        private void NavigateToPage(Pages page)
-        {
-            if (Enum.IsDefined(typeof(Pages), page))
-            {
-                AppShell.Current.GoToAsync(page.ToString());
-                Debug.WriteLine("*******************************");
-                Debug.WriteLine($"Navigate to page {page}");
-                Debug.WriteLine("*******************************");
-            }
-            else
-            {
-                AppShell.Current.GoToAsync(Pages.MainPage.ToString());
-                Debug.WriteLine("*******************************");
-                Debug.WriteLine($"Page does not exist");
-                Debug.WriteLine("*******************************");
-            }
-
-        }
-
-
-        private void SwitchToPage()
-        {
-
-        }
-
-        // Method to handle button click event
-        /*
-        public async void HandleButtonClick()
-        {
-            var androidNotificationObject = new Dictionary<string, string>();
-            androidNotificationObject.Add("NavigationID", "Page1");         //This redirects to app page by its index
-
-            // Create a list of messages
-            var messageList = new List<Message>();
-
-            var obj = new Message
-            {
-                Topic = "",
-                Token = deviceToken,
-                Notification = new Notification
-                {
-                    Title = "Go to page 1",
-                    Body = "See Title",
-                },
-                Data = androidNotificationObject,
-                // Include additional configurations if needed
-            };
-
-            messageList.Add(obj);
-
-            // Send push notification
-            var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messageList);
-
-            //SwitchByNotification();       //WORKING!
-        }
-        */
+        }        
 
         public void SendFCMNotification(object sender, EventArgs e)
         {
@@ -221,10 +82,10 @@ namespace AccessReelApp.Notifications
         //WIP
         public void CreateMessageContainer() { messages = new List<Message>(); }
 
-        public void CreateMessage(string title, string body, string topic = "News")
+        public void CreateMessage(string title, string body, string key = "NewsPage")
         {
             var androidNotificationObject = new Dictionary<string, string>();
-            androidNotificationObject.Add("NavigationID", topic);
+            androidNotificationObject.Add("NavigationID", key);
 
             if (messages == null) { CreateMessageContainer(); }
             var obj = new Message
@@ -245,28 +106,28 @@ namespace AccessReelApp.Notifications
         {
             SendAsyncMessages();
 
-            if (FirebaseMessaging.DefaultInstance != null) 
-            {
-                messages.Clear();
-                if (messages.Count == 0)
-                {
-                    Debug.WriteLine("*******************************");
-                    Debug.WriteLine($"{messages.Count} messages remaining.");
-                    Debug.WriteLine("*******************************");
-                }
-                else
-                {
-                    Debug.WriteLine("*******************************");
-                    Debug.WriteLine("Failed to send messages");
-                    Debug.WriteLine("*******************************");
-                }
-            }
-            else
-            {
-                Debug.WriteLine("*******************************");
-                Debug.WriteLine("No messages detected");
-                Debug.WriteLine("*******************************");
-            }
+            //if (FirebaseMessaging.DefaultInstance != null) 
+            //{
+            //    messages.Clear();
+            //    if (messages.Count == 0)
+            //    {
+            //        Debug.WriteLine("*******************************");
+            //        Debug.WriteLine($"{messages.Count} messages remaining.");
+            //        Debug.WriteLine("*******************************");
+            //    }
+            //    else
+            //    {
+            //        Debug.WriteLine("*******************************");
+            //        Debug.WriteLine("Failed to send messages");
+            //        Debug.WriteLine("*******************************");
+            //    }
+            //}
+            //else
+            //{
+            //    Debug.WriteLine("*******************************");
+            //    Debug.WriteLine("No messages detected");
+            //    Debug.WriteLine("*******************************");
+            //}
             
         }
         private async void SendAsyncMessages()
