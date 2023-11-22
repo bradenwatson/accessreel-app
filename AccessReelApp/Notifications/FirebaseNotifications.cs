@@ -42,12 +42,12 @@ namespace AccessReelApp.Notifications
     {
         // Private fields can be declared here
         private string deviceToken;
-        private List<Message> messages;
+        //private List<Message> messages;
 
         // Constructor can be used to initialize class-level variables
         public NotificationManager()
         {
-            messages = new List<Message>();
+            //messages = new List<Message>();
 
 
             if(Preferences.ContainsKey("DeviceToken"))
@@ -76,18 +76,18 @@ namespace AccessReelApp.Notifications
         public void SendFCMNotification(object sender, EventArgs e)
         {
             CreateMessage("New method", "Should work");
-            SendMessage();
+            //SendMessage();
         }
 
        
-        public void CreateMessageContainer() { messages = new List<Message>(); }
+        //public void CreateMessageContainer() { messages = new List<Message>(); }
 
-        public void CreateMessage(string title, string body, string key = "NewsPage")       //Must have a channel otherwise fails
+        public async void CreateMessage(string title, string body, string key = "NewsPage")       //Must have a channel otherwise fails
         {
             var androidNotificationObject = new Dictionary<string, string>();
             androidNotificationObject.Add("NavigationID", key);
 
-            if (messages == null) { CreateMessageContainer(); }
+            var messages = new List<Message>();
             var obj = new Message
             {
                 Token = deviceToken,
@@ -99,45 +99,47 @@ namespace AccessReelApp.Notifications
                 Data = androidNotificationObject,
             };
             messages.Add(obj);
-           
+
+            await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
         }
 
         //This functions sends to the server
-        public void SendMessage()
-        {
-            SendAsyncMessages();
+        //public void SendMessage()
+        //{
+        //    SendAsyncMessages();
 
-            if (FirebaseMessaging.DefaultInstance == null)
-            {
-                Debug.WriteLine("*******************************");
-                Debug.WriteLine("No messages detected. Sent successfully");
-                Debug.WriteLine("*******************************");
-                messages.Clear();
-            }
-            else
-            {
-                if (messages.Count == 0)
-                {
-                    Debug.WriteLine("*******************************");
-                    Debug.WriteLine($"{messages.Count} messages remaining.");
-                    Debug.WriteLine("*******************************");
-                }
-                else
-                {
-                    Debug.WriteLine("*******************************");
-                    Debug.WriteLine("Failed to send messages");
-                    Debug.WriteLine("*******************************");
-                }
-            }
+        //    if (FirebaseMessaging.DefaultInstance == null)
+        //    {
+        //        Debug.WriteLine("*******************************");
+        //        Debug.WriteLine("Message Sent successfully");
+        //        Debug.WriteLine("*******************************");
+        //        //messages.Clear();
+        //    }
+            //else
+            //{
+            //    if (messages.Count == 0)
+            //    {
+            //        Debug.WriteLine("*******************************");
+            //        Debug.WriteLine($"{messages.Count} messages remaining.");
+            //        Debug.WriteLine("*******************************");
+            //    }
+            //    else
+            //    {
+            //        Debug.WriteLine("*******************************");
+            //        Debug.WriteLine("Failed to send messages");
+            //        Debug.WriteLine("*******************************");
+            //    }
+            //}
 
-        }
-        private async void SendAsyncMessages()
-        {
-            Debug.WriteLine("*******************************");
-            Debug.WriteLine($"Sending ({messages.Count}) messages.");
-            Debug.WriteLine("*******************************");
-            await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
-        } 
+        //}
+
+        //private async void SendAsyncMessages()
+        //{
+        //    Debug.WriteLine("*******************************");
+        //    Debug.WriteLine($"Sending ({messages.Count}) messages.");
+        //    Debug.WriteLine("*******************************");
+        //    await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
+        //} 
 
     }
 
