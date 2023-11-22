@@ -3,8 +3,10 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
+using Java.Util;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using System.Diagnostics;
+using System.Linq;
 using Debug = System.Diagnostics.Debug;
 
 namespace AccessReelApp;
@@ -23,7 +25,7 @@ public class MainActivity : MauiAppCompatActivity
         //Page2,
         NewsPage,
         ReviewsPage,
-        InterviewPage,
+        InterviewsPage,
         SignUpLogin,
         Movies,
         Competitions,
@@ -38,7 +40,7 @@ public class MainActivity : MauiAppCompatActivity
         new NotificationChannel(Pages.MainPage.ToString(), "General", NotificationImportance.Default),
         new NotificationChannel(Pages.NewsPage.ToString(), "News", NotificationImportance.Default),
         new NotificationChannel(Pages.ReviewsPage.ToString(), "Reviews", NotificationImportance.Default),
-        new NotificationChannel(Pages.InterviewPage.ToString(), "Interviews", NotificationImportance.Default),
+        new NotificationChannel(Pages.InterviewsPage.ToString(), "Interviews", NotificationImportance.Default),
         new NotificationChannel(Pages.SignUpLogin.ToString(), "Sign Up/Login", NotificationImportance.Default),
         new NotificationChannel(Pages.Movies.ToString(), "Movies", NotificationImportance.Default),
         new NotificationChannel(Pages.Competitions.ToString(), "Competitions", NotificationImportance.Default),
@@ -52,8 +54,15 @@ public class MainActivity : MauiAppCompatActivity
         base.OnNewIntent(intent);
 
         Bundle extras = intent.Extras;
-        string key = (string)extras.Get("NavigationID");
-        SwitchByNotification(key);
+        if (extras != null)
+        {
+            string key = (string)extras.Get("NavigationID");
+            SwitchByNotification(key);
+        }
+        else
+        {
+            SwitchByNotification();
+        }
     }
 
     private void SwitchByNotification(string key = "")         //Redirects to page on notification interaction     //Leave empty in case needs other uses.
@@ -130,15 +139,16 @@ public class MainActivity : MauiAppCompatActivity
         //}
         */
 
-        bool channelCreated = Preferences.Get("NotificationChannel", false);
-        if (!channelCreated)
+        //bool channelCreated = Preferences.Get("NotificationChannel", false);
+        //if (!channelCreated)
+        if(GetAllNotificationChannels() != Channels)        //If current channels do not match compiled channels
         {
             CreateNotificationChannel();
-            Preferences.Default.Set("NotificationChannel", true);
+            //Preferences.Default.Set("NotificationChannel", true);
         }
         else
         {
-            List<NotificationChannel> sysChannels = GetAllNotificationChannels();
+            IList<NotificationChannel> sysChannels = GetAllNotificationChannels();
             foreach (NotificationChannel channel in sysChannels)
             {
                 Debug.WriteLine("*****************************");
@@ -149,7 +159,7 @@ public class MainActivity : MauiAppCompatActivity
         //CreateNotificationChannel();
     }
 
-    private List<NotificationChannel> GetAllNotificationChannels()
+    private IList<NotificationChannel> GetAllNotificationChannels()
     {
         if (OperatingSystem.IsOSPlatformVersionAtLeast("android", 26))
         {

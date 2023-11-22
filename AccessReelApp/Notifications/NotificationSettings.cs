@@ -57,23 +57,61 @@ namespace AccessReelApp.Notifications
         private const string NotificationEnabledKey = "Notification Enabled";       //This is to check globally
         private const string FrequencyKey = "Frequency";
         private const string RemindMeInKey = "RemindMeIn";
+        private const string InterestsKey = "Interest";
+
+        
 
         public static bool EnableNotification
         {
-            get => Preferences.Default.Get(NotificationEnabledKey, defaultValue: true);
+            get => Preferences.Default.Get(NotificationEnabledKey, true);
             set => Preferences.Default.Set(NotificationEnabledKey, value);
         }
 
         public static Frequency SelectedFrequency
         {
-            get => Preferences.Default.Get(FrequencyKey, defaultValue: Frequency.Immediate);
+            get => Preferences.Default.Get(FrequencyKey, Frequency.Immediate);
             set => Preferences.Default.Set(FrequencyKey, value);
         }
 
         public static RemindMeIn SelectedRemindMeIn     //Should this be a global setting or should user define for each movie? Should also be used for compeititons
         {
-            get => Preferences.Default.Get(RemindMeInKey, defaultValue: RemindMeIn.One_Hour);
+            get => Preferences.Default.Get(RemindMeInKey, RemindMeIn.One_Hour);
             set => Preferences.Default.Set(RemindMeInKey, value);
+        }
+
+        public static Dictionary<string, bool> Interests
+        {
+            get 
+            {
+                Dictionary<string, bool> tmp = null;
+                var result = Preferences.Default.Get(InterestsKey, tmp);
+                if (result != null) 
+                {
+                    result = new Dictionary<string, bool>
+                    {
+                        {"All", true},
+                        {"News", true},
+                        {"Reviews", true},
+                        {"Interviews", true},
+                        {"Movies", true},
+                        {"Competitions", true},
+                    };
+                }
+                
+                if (result["All"])
+                {
+                    foreach(var entry in result)
+                    {
+                        if (!entry.Value)
+                        {
+                            result[entry.Key] = true;
+                        }
+                    }
+                }
+                return result;
+            }
+
+            set => Preferences.Default.Set(InterestsKey, value);
         }
     }
 

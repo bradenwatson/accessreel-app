@@ -107,9 +107,15 @@ namespace AccessReelApp.Notifications
         {
             SendAsyncMessages();
 
-            if (FirebaseMessaging.DefaultInstance != null)
+            if (FirebaseMessaging.DefaultInstance == null)
             {
+                Debug.WriteLine("*******************************");
+                Debug.WriteLine("No messages detected. Sent successfully");
+                Debug.WriteLine("*******************************");
                 messages.Clear();
+            }
+            else
+            {
                 if (messages.Count == 0)
                 {
                     Debug.WriteLine("*******************************");
@@ -122,12 +128,6 @@ namespace AccessReelApp.Notifications
                     Debug.WriteLine("Failed to send messages");
                     Debug.WriteLine("*******************************");
                 }
-            }
-            else
-            {
-                Debug.WriteLine("*******************************");
-                Debug.WriteLine("No messages detected");
-                Debug.WriteLine("*******************************");
             }
 
         }
