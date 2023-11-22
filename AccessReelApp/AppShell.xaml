@@ -95,7 +95,7 @@
     </FlyoutItem>
 
     <FlyoutItem Title="Map">
-        <ShellContent ContentTemplate="{DataTemplate view:InterviewsPage}" />
+        <ShellContent ContentTemplate="{DataTemplate view:MapsPage}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Log In">

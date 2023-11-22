@@ -39,6 +39,8 @@ public static class MauiProgram
 		// here
 		builder.Services.AddSingleton<AccountsPage>();
 		builder.Services.AddTransient<AccountsPageViewModel>();
+        builder.Services.AddSingleton<MapsPage>();
+        builder.Services.AddTransient<MapsPageViewModel>();
 
 
 #if DEBUG
