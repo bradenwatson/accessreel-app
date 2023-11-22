@@ -43,13 +43,15 @@ namespace AccessReelApp.Platforms.Android.Services
 
         
         //Sort Content here
+
+
         private void SendNotification(IDictionary<string, string> data, string title, string messageBody) 
         {
             var intent = new Intent(this,typeof(MainActivity));
             intent.AddFlags(ActivityFlags.ClearTop);
 
             string page = string.Empty;
-            foreach (var key in data.Keys)           //Use to Navigate Pages by dictionary entry value
+            foreach(var key in data.Keys)
             {
                 string value = data[key];
                 var tmp = MainActivity.Channels.SingleOrDefault(x => x.Id == value);
@@ -69,14 +71,6 @@ namespace AccessReelApp.Platforms.Android.Services
                 Debug.WriteLine("*******************************");
             }
 
-            
-            //Obtain specific dict entry value from the intent so that can select channel. If nothing, send to general
-
-
-            //string channelID = MainActivity.Channels.FirstOrDefault(x => x.Id == "News").Id; //WIP  //This should match 
-            //Debug.WriteLine("*******************************");
-            //Debug.WriteLine($"Channel ID = {channelID}");
-            //Debug.WriteLine("*******************************");
 
 
             int notificationID = GenerateNotificationID();
@@ -85,7 +79,7 @@ namespace AccessReelApp.Platforms.Android.Services
             Debug.WriteLine("*******************************");
 
 
-            var pendingIntent = PendingIntent.GetActivity(this, notificationID, intent, PendingIntentFlags.Mutable | PendingIntentFlags.UpdateCurrent); //Make a mutable one
+            var pendingIntent = PendingIntent.GetActivity(this, notificationID, intent, PendingIntentFlags.Mutable); //Make a mutable one
             Debug.WriteLine("*******************************");
             Debug.WriteLine($"Intent = {pendingIntent}");
             Debug.WriteLine("*******************************");
@@ -94,7 +88,6 @@ namespace AccessReelApp.Platforms.Android.Services
                 .SetContentTitle(title)
                 .SetSmallIcon(Resource.Mipmap.appicon)
                 .SetContentText(messageBody)
-                //.SetChannelId(MainActivity.Channel_ID)
                 .SetChannelId(page)
                 .SetContentIntent(pendingIntent)
                 .SetPriority(NotificationCompat.PriorityDefault)

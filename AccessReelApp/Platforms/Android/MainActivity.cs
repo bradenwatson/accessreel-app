@@ -51,7 +51,7 @@ public class MainActivity : MauiAppCompatActivity
     {
         base.OnNewIntent(intent);
         Debug.WriteLine("*******************************");
-        Debug.WriteLine($"Intent = {intent.Data}");
+        Debug.WriteLine($"Intent = {intent.Data.ToString()}");
         Debug.WriteLine("*******************************");
         SwitchByNotification();
     }

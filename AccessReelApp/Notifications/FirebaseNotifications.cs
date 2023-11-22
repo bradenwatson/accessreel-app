@@ -79,10 +79,14 @@ namespace AccessReelApp.Notifications
             SendMessage();
         }
 
-        //WIP
+       
         public void CreateMessageContainer() { messages = new List<Message>(); }
 
-        public void CreateMessage(string title, string body, string key = "NewsPage")
+
+        private void SendToChannel()
+        { }
+
+        public void CreateMessage(string title, string body, string key = "MainPage")
         {
             var androidNotificationObject = new Dictionary<string, string>();
             androidNotificationObject.Add("NavigationID", key);
@@ -99,9 +103,10 @@ namespace AccessReelApp.Notifications
                 Data = androidNotificationObject,
             };
             messages.Add(obj);
-            //var response = await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
+           
         }
 
+        //This functions sends to the server
         public void SendMessage()
         {
             SendAsyncMessages();
