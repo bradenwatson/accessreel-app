@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
@@ -15,28 +16,100 @@ namespace AccessReelApp;
             LaunchMode = LaunchMode.SingleTop)]
 public class MainActivity : MauiAppCompatActivity
 {
-    internal static readonly string Channel_ID = "NewChannel";
-    internal static readonly int NotificationID = 0;
-
-
 #pragma warning disable CA1416 // Validate platform compatibility
-    internal static readonly IList<NotificationChannel> Channels = new List<NotificationChannel> 
+    internal static readonly IList<NotificationChannel> Channels = new List<NotificationChannel> //Can rename ID to page name, but keep name to channel name
     {
         new NotificationChannel("General", "General", NotificationImportance.Default),
-        new NotificationChannel("Movies", "Movies", NotificationImportance.Default),
         new NotificationChannel("News", "News", NotificationImportance.Default),
+        new NotificationChannel("Movies", "Movies", NotificationImportance.Default),
+        new NotificationChannel("Reviews", "Reviews", NotificationImportance.Default),
         new NotificationChannel("Interviews", "Interviews", NotificationImportance.Default),
         new NotificationChannel("Accounts", "Accounts", NotificationImportance.Default),
         new NotificationChannel("Competitions", "Competitions", NotificationImportance.Default),
-        //new NotificationChannel("Communcations", "Commincations", NotificationImportance.High),
+        //new NotificationChannel("Communcations", "Communcations", NotificationImportance.High),
     };
 #pragma warning restore CA1416 // Validate platform compatibility
+
+    public enum Pages       //Turn into dictionary
+    {
+        MainPage,
+        //Page1,
+        //Page2,
+        NewsPage,
+        ReviewsPage,
+        InterviewPage,
+        SignUpLogin,
+        Movies,
+        Competitions,
+        //Settings,
+        Accounts,
+    }
+
+    protected override void OnNewIntent(Intent intent)
+    {
+        base.OnNewIntent(intent);
+
+        SwitchByNotification();
+    }
+
+    private void SwitchByNotification()         //Redirects to page on notification interaction     
+    {
+        if (Preferences.ContainsKey("NavigationID"))
+        {
+            string id = Preferences.Get("NavigationID", "");
+            if (Enum.TryParse(id, out Pages page))
+            {
+                NavigateToPage(page);
+            }
+            else
+            {
+                Debug.WriteLine("*******************************");
+                Debug.WriteLine("No matching ID");
+                Debug.WriteLine("*******************************");
+
+                NavigateToPage(Pages.MainPage);
+            }
+            Preferences.Remove("NavigationID");
+        }
+        else
+        {
+            Debug.WriteLine("*******************************");
+            Debug.WriteLine("Key does not exist");
+            Debug.WriteLine("*******************************");
+        }
+
+    }
+
+    //WOKRING
+    private void NavigateToPage(Pages page)
+    {
+        if (Enum.IsDefined(typeof(Pages), page))
+        {
+            AppShell.Current.GoToAsync(page.ToString());
+            Debug.WriteLine("*******************************");
+            Debug.WriteLine($"Navigate to page {page}");
+            Debug.WriteLine("*******************************");
+        }
+        else
+        {
+            AppShell.Current.GoToAsync(Pages.MainPage.ToString());
+            Debug.WriteLine("*******************************");
+            Debug.WriteLine($"Page does not exist");
+            Debug.WriteLine("*******************************");
+        }
+
+    }
+
+
+
+
+
     protected override void OnCreate(Bundle savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
 
         bool channelCreated = Preferences.Get("NotificationChannel", false);
-        if (!channelCreated)
+        if (channelCreated)
         {
             CreateNotificationChannel();
             Preferences.Default.Set("NotificationChannel", true);
@@ -85,11 +158,12 @@ public class MainActivity : MauiAppCompatActivity
             var notificationManager = (NotificationManager)GetSystemService(Android.Content.Context.NotificationService);
             return notificationManager.NotificationChannels.ToList();
         }
-
-        return new List<NotificationChannel>();
+        else
+        {
+            throw new NotSupportedException();
+        }
+        
     }
-
-
 
 
     private void CreateNotificationChannel()        //Need to create first on app start, not on button press. This is due to android 8
@@ -98,7 +172,6 @@ public class MainActivity : MauiAppCompatActivity
         {
             var notificationManager = (NotificationManager)GetSystemService(Android.Content.Context.NotificationService);
             notificationManager.CreateNotificationChannels(Channels);
-            
         }
     }
 }

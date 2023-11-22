@@ -22,7 +22,6 @@ namespace AccessReelApp.Platforms.Android.Services
     {
         public override void OnNewToken(string token)
         {
-            
             base.OnNewToken(token);
             if(Preferences.ContainsKey("DeviceToken"))
             {
@@ -30,7 +29,6 @@ namespace AccessReelApp.Platforms.Android.Services
             }
             Preferences.Set("DeviceToken", token);
         }
-
 
         public override void OnMessageReceived(RemoteMessage message)
         {
@@ -43,26 +41,42 @@ namespace AccessReelApp.Platforms.Android.Services
             SendNotification(message.Data, notification.Title, notification.Body);
         }
 
+        
         //Sort Content here
         private void SendNotification(IDictionary<string, string> data, string title, string messageBody) 
         {
             var intent = new Intent(this,typeof(MainActivity));
             intent.AddFlags(ActivityFlags.ClearTop);
-            //intent.AddFlags(ActivityFlags.NewTask);
 
-            foreach(var key in data.Keys)
+            string page = string.Empty;
+            foreach (var key in data.Keys)           //Use to Navigate Pages by dictionary entry value
             {
                 string value = data[key];
-                intent.PutExtra(key, value);
+                var tmp = MainActivity.Channels.SingleOrDefault(x => x.Id == value);
+                if(tmp != null) 
+                {
+                    page = tmp.Id.ToString();  //Default to first index if not found
+                                           //Check if key in dictionay channel
+                    intent.PutExtra(key, page);
+                }
+                else
+                {
+                    intent.PutExtra(key, value);
+                }
+                
                 Debug.WriteLine("*******************************");
-                Debug.WriteLine($"Key = {key}\tValue = {value}");
+                Debug.WriteLine($"Key = {key}\tValue = {value}\tChannel ID = {page}");
                 Debug.WriteLine("*******************************");
             }
 
-            string channelID = MainActivity.Channels.FirstOrDefault(x => x.Id == "General").Id; //WIP
-            Debug.WriteLine("*******************************");
-            Debug.WriteLine($"Channel ID = {channelID}");
-            Debug.WriteLine("*******************************");
+            
+            //Obtain specific dict entry value from the intent so that can select channel. If nothing, send to general
+
+
+            //string channelID = MainActivity.Channels.FirstOrDefault(x => x.Id == "News").Id; //WIP  //This should match 
+            //Debug.WriteLine("*******************************");
+            //Debug.WriteLine($"Channel ID = {channelID}");
+            //Debug.WriteLine("*******************************");
 
 
             int notificationID = GenerateNotificationID();
@@ -71,39 +85,24 @@ namespace AccessReelApp.Platforms.Android.Services
             Debug.WriteLine("*******************************");
 
 
-            var pendingIntent = PendingIntent.GetActivity(this, notificationID, intent, PendingIntentFlags.Mutable); //Make a mutable one
+            var pendingIntent = PendingIntent.GetActivity(this, notificationID, intent, PendingIntentFlags.Mutable | PendingIntentFlags.UpdateCurrent); //Make a mutable one
             Debug.WriteLine("*******************************");
             Debug.WriteLine($"Intent = {pendingIntent}");
             Debug.WriteLine("*******************************");
 
-            var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.Channel_ID)
+            var notificationBuilder = new NotificationCompat.Builder(this, page)
                 .SetContentTitle(title)
                 .SetSmallIcon(Resource.Mipmap.appicon)
                 .SetContentText(messageBody)
                 //.SetChannelId(MainActivity.Channel_ID)
-                .SetChannelId(channelID)
+                .SetChannelId(page)
                 .SetContentIntent(pendingIntent)
                 .SetPriority(NotificationCompat.PriorityDefault)
-                
                 .SetAutoCancel(true);
 
             var notificationManager = NotificationManagerCompat.From(this);
             notificationManager.Notify(notificationID, notificationBuilder.Build());
-            
-            /*
-            var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NotificationID, intent, PendingIntentFlags.Mutable); //Make a mutable one
 
-            var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.Channel_ID)
-                .SetContentTitle(title)
-                .SetSmallIcon(Resource.Mipmap.appicon)
-                .SetContentText(messageBody)
-                .SetChannelId(MainActivity.Channel_ID)
-                .SetContentIntent(pendingIntent)
-                .SetPriority(NotificationCompat.PriorityDefault);
-
-            var notificationManager = NotificationManagerCompat.From(this);
-            notificationManager.Notify(MainActivity.NotificationID, notificationBuilder.Build());
-            */
         }
 
         public static int GenerateNotificationID()
@@ -112,5 +111,7 @@ namespace AccessReelApp.Platforms.Android.Services
             return int.Parse(time);
         }
 
+
+        
     }
 }

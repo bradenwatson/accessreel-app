@@ -33,20 +33,21 @@ using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace AccessReelApp.Notifications
 {
     public enum Pages       //Turn into dictionary
     {
         MainPage,
-        Page1,
-        Page2,
-        //NewsPage,
-        //ReviewsPage,
-        //InterviewPage,
-        //SignUpLogin,
-        //Movies,
-        //Competitions,
+        //Page1,
+        //Page2,
+        NewsPage,
+        ReviewsPage,
+        InterviewPage,
+        SignUpLogin,
+        Movies,
+        Competitions,
         //Settings,
         //Accounts,
     }
@@ -59,25 +60,28 @@ namespace AccessReelApp.Notifications
         // Private fields can be declared here
         private string deviceToken;
         private List<Message> messages;
-        internal static readonly Dictionary<string, string> PageRoute = new Dictionary<string, string>
-        {
-            {"General", "MainPage" },
-            //{"General", "Page1" },
-            //{"General", "Page2" },
-            //{"General", "NewsPage" },
-            //{"General", "ReviewsPage" },
-            //{"General", "InterviewPage" },
-            //{"General", "SignUpLogin" },
-            //{"General", "Movies" },
-            //{"General", "Competitions" },
-            //{"General", "Settings" },
-            //{"General", "Accounts" },
-        };
+        //internal static readonly Dictionary<string, string> PageRoute = new Dictionary<string, string>
+        //{
+        //    {"General", "MainPage" },
+        //    //{"Page1", "Page1" },
+        //    //{"Page2", "Page2" },
+        //    //{"News", "NewsPage" },
+        //    //{"Reviews", "ReviewsPage" },
+        //    //{"Interviews", "InterviewPage" },
+        //    //{"SignUpLogin", "SignUpLogin" },
+        //    //{"Movies", "Movies" },
+        //    //{"Compeitions", "Competitions" },
+        //    //{"Settings", "Settings" },
+        //    //{"Accounts", "Accounts" },
+        //};
+        //private Dictionary<string, string> Pages;   //Based 
 
         // Constructor can be used to initialize class-level variables
         public NotificationManager()
         {
             messages = new List<Message>();
+
+
             if(Preferences.ContainsKey("DeviceToken"))
             {
                 deviceToken = Preferences.Get("DeviceToken", "");
@@ -170,6 +174,12 @@ namespace AccessReelApp.Notifications
 
         }
 
+
+        private void SwitchToPage()
+        {
+
+        }
+
         // Method to handle button click event
         /*
         public async void HandleButtonClick()
@@ -211,11 +221,7 @@ namespace AccessReelApp.Notifications
         //WIP
         public void CreateMessageContainer() { messages = new List<Message>(); }
 
-
-        private void SendToChannel()
-        { }
-
-        public void CreateMessage(string title, string body, string topic = "MainPage")
+        public void CreateMessage(string title, string body, string topic = "News")
         {
             var androidNotificationObject = new Dictionary<string, string>();
             androidNotificationObject.Add("NavigationID", topic);
