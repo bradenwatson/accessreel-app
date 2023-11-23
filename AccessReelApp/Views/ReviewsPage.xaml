@@ -24,10 +24,10 @@
             <ScrollView>
 
             </ScrollView>
-            <ListView ItemsSource="{Binding MovieReviewsList}">
+            <ListView RowHeight="450" ItemsSource="{Binding MovieReviewsList}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
+                        <ViewCell Height="150">
                             <StackLayout Orientation="Vertical">
                                 <!-- Main cell content -->
                                 <Grid Padding="10">
@@ -41,15 +41,15 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Row="0" Grid.ColumnSpan="1" Text="{Binding MovieTitle}" FontSize="16" FontFamily="OxygenBold" HorizontalOptions="Start" />
-                                    <Image Grid.Row="1" Grid.Column="0" Source="{Binding PosterUrl}" Aspect="AspectFill" HeightRequest="350" WidthRequest="250" HorizontalOptions="Start" />
-                                    <Label Grid.Row="2" Grid.Column="0" Text="{Binding MovieDescription}" FontSize="14" FontFamily="OxygenRegular" HorizontalOptions="Start" />
+                                    <Image Grid.Row="1" Grid.Column="0" Source="{Binding PosterUrl}" Aspect="AspectFill" HeightRequest="300" WidthRequest="210" HorizontalOptions="Start" />
+                                    <Label Grid.Row="2" Grid.Column="0" Text="{Binding MovieDescription}" LineBreakMode="TailTruncation" FontSize="14" FontFamily="OxygenRegular" HorizontalOptions="Start" />
 
                                     <!-- Bubble for score/rating (positioned in the middle-right) -->
                                     <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center">
-                                        <BoxView WidthRequest="30" Color="Transparent" />
-                                        <Frame WidthRequest="90" BackgroundColor="#b30839" CornerRadius="90" Padding="5">
+                                        <BoxView WidthRequest="1" Color="Transparent" />
+                                        <Frame WidthRequest="80" HeightRequest="80" BackgroundColor="#b30839" CornerRadius="90" Padding="5">
                                             <Frame BackgroundColor="#f61e5b" CornerRadius="90">
-                                                <Label Text="{Binding MovieRating}" FontSize="26" FontAttributes="Bold" FontFamily="OxygenRegular" HorizontalOptions="Center" VerticalOptions="Center" TextColor="GhostWhite" />
+                                                <Label Text="{Binding MovieRating}" FontSize="13" FontAttributes="Bold" FontFamily="OxygenRegular" HorizontalOptions="Center" VerticalOptions="Center" TextColor="GhostWhite" />
                                             </Frame>
                                         </Frame>
                                     </StackLayout>

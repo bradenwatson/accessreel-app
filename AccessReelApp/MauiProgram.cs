@@ -36,7 +36,6 @@ public static class MauiProgram
         builder.Services.AddTransient<InterviewsViewModel>();
 		builder.Services.AddSingleton<SignUpLogin>();
 		builder.Services.AddTransient<SignUpLoginViewModel>();
-		// here
 		builder.Services.AddSingleton<AccountsPage>();
 		builder.Services.AddTransient<AccountsPageViewModel>();
         builder.Services.AddSingleton<MapsPage>();

@@ -12,10 +12,10 @@ namespace AccessReelApp.ViewModels
     public partial class NewsViewModel : ObservableObject
     {
         [ObservableProperty] ObservableCollection<ImageButton> buttonCollection;
-
+        [ObservableProperty] ObservableCollection<NewsItem> newsCollection;
+        [ObservableProperty] ObservableCollection<TrailerItem> trailersCollection;
         void Initialise()
         {
-            // if null -> use compound assign
             ButtonCollection ??= new ObservableCollection<ImageButton>();
         }
 
@@ -30,6 +30,46 @@ namespace AccessReelApp.ViewModels
         public NewsViewModel()
         {
             AddImageButton("turtles.jpg");
+
+            NewsCollection = new ObservableCollection<NewsItem>
+            {
+                new NewsItem
+                {
+                    ImageSource = "turtles.jpg",
+                    Title = "Sample News Title 1",
+                    Description = "Sample news description...",
+                    Author = "Authors",
+                    Date = DateTime.Now.ToString("dd MMMM, yyyy")
+                },
+                // Add more news items as needed...
+            };
+
+            TrailersCollection = new ObservableCollection<TrailerItem>
+            {
+                new TrailerItem
+                {
+                    ImageSource = "barbie.png",
+                    Title = "New Barbie Movie"
+                },
+                // Add more trailer items as needed...
+            };
         }
+
+
+    }
+
+    public class NewsItem
+    {
+        public string ImageSource { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Author { get; set; }
+        public string Date { get; set; }
+    }
+
+    public class TrailerItem
+    {
+        public string ImageSource { get; set; }
+        public string Title { get; set; }
     }
 }
