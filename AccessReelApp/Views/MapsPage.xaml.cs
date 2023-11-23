@@ -12,9 +12,8 @@ public partial class MapsPage : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = vm;
+        
 
-        // Move the map to the initial location specified in the ViewModel
-        map.MoveToRegion(vm.InitialMapLocation);
     }
 
     // methods

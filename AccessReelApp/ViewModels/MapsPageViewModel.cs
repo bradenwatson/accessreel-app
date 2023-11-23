@@ -7,21 +7,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Plugin.LocalNotification.NotificationRequestGeofence;
+using System.Collections.ObjectModel;
 
 namespace AccessReelApp.ViewModels
 {
     public partial class MapsPageViewModel : ObservableObject
     {
-        // Define an initial location for the map
-        [ObservableProperty]
-        public MapSpan initialMapLocation;
+        [ObservableProperty] ObservableCollection<Event> events;
 
         public MapsPageViewModel()
         {
-            // Set an initial location for the map when the ViewModel is created
-            InitialMapLocation = MapSpan.FromCenterAndRadius(
-                new Location(-33.8688, 151.2093), 
-                Distance.FromKilometers(50));    // Zoom level 
+            // Initialize Events collection with sample data
+            Events = new ObservableCollection<Event>
+            {
+                new Event
+                {
+                    Title = "Event 1",
+                    Description = "Description of Event 1",
+                    StartTime = DateTime.Now.AddHours(1), // Example start time (1 hour from now)
+                    Location = "Location 1"
+                },
+                new Event
+                {
+                    Title = "Event 2",
+                    Description = "Description of Event 2",
+                    StartTime = DateTime.Now.AddHours(2), // Example start time (2 hours from now)
+                    Location = "Location 2"
+                },
+                // Add more events as needed
+            };
         }
+    }
+
+    public class Event
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public DateTime StartTime { get; set; }
+        public string Location { get; set; }
     }
 }

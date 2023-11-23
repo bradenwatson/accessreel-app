@@ -3,17 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
-             x:DataType="viewmodel:MapsPageViewModel"
              x:Class="AccessReelApp.Views.MapsPage">
 
     <VerticalStackLayout Spacing="25">
-        <maps:Map x:Name="map"
-                  MapType="Street"
-                  HeightRequest="300"
-                  WidthRequest="400"
-                  HorizontalOptions="FillAndExpand"
-                  VerticalOptions="FillAndExpand">
-            <!-- Map Pins and other map elements go here -->
-        </maps:Map>
+        <!-- Header for Upcoming/Now Showing Events -->
+        <Label HorizontalOptions="CenterAndExpand" Text="Events" FontAttributes="Bold" FontSize="Title" />
+
+        <!-- Orange separator line -->
+        <BoxView HeightRequest="2" Color="Orange" BackgroundColor="Orange" />
+
+        <!-- Date template for displaying event details -->
+        <ListView RowHeight="200" ItemsSource="{Binding Events}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Spacing="10" Padding="10">
+                            <Label Text="{Binding Title}" FontAttributes="Bold" />
+                            <Label Text="{Binding Description}" />
+                            <Label Text="{Binding StartTime}" />
+                            <Label Text="{Binding Location}" />
+                            <!-- Add more labels or views for other event details -->
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </VerticalStackLayout>
 </ContentPage>
