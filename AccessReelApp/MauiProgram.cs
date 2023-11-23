@@ -3,6 +3,10 @@ using AccessReelApp.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Plugin.LocalNotification;
+using Microsoft.Maui.Maps;
+using Microsoft.Maui.Controls.Maps;
+
+
 
 namespace AccessReelApp;
 
@@ -15,6 +19,7 @@ public static class MauiProgram
 			.UseMauiApp<App>()
 			//.UseLocalNotification()		//ADDED FOR LOCAL NOTIFICATIONS
             .UseMauiCommunityToolkit()
+			.UseMauiMaps()
 			.UseLocalNotification()
             .ConfigureFonts(fonts =>
 			{

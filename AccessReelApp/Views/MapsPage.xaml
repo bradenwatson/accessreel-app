@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
              x:DataType="viewmodel:MapsPageViewModel"
              x:Class="AccessReelApp.Views.MapsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="{Binding Example}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+
+    <VerticalStackLayout Spacing="25">
+        <maps:Map x:Name="map"
+                  MapType="Street"
+                  HeightRequest="300"
+                  WidthRequest="400"
+                  HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand">
+            <!-- Map Pins and other map elements go here -->
+        </maps:Map>
     </VerticalStackLayout>
 </ContentPage>
