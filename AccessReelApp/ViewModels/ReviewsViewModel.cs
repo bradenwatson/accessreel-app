@@ -15,8 +15,6 @@ namespace AccessReelApp.ViewModels
     {
         // Implement view model properties and funcs
 
-        // Implement view model properties and funcs
-
         [ObservableProperty]
         ObservableCollection<string> filterList = new()
         {

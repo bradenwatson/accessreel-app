@@ -13,6 +13,9 @@ namespace AccessReelApp.ViewModels
 {
     public partial class SignUpLoginViewModel : ObservableObject
     {
+        const string DEFAULT_USERNAME = "test";
+        const string DEFAULT_PASSWORD = "test";
+
         [ObservableProperty] bool isSignedUp;
         [ObservableProperty] bool isSignedIn;
 
@@ -38,11 +41,16 @@ namespace AccessReelApp.ViewModels
         {
             if(Username == null | Password == null)
             {
-                WeakReferenceMessenger.Default.Send(new OpenPageMessage("Invalid Details"));
-                return Task.CompletedTask;
+                WeakReferenceMessenger.Default.Send(new OpenPageMessage("Please enter both username and password"));
+            } 
+            else
+            {
+                if (Username == DEFAULT_USERNAME && Password == DEFAULT_PASSWORD)
+                {
+                    IsSignedIn = true;
+                }
             }
             return Task.CompletedTask;
         }
     }
 }
-

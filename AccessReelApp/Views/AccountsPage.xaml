@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
+             x:DataType="viewmodel:AccountsPageViewModel"
              x:Class="AccessReelApp.Views.AccountsPage"
              Title="AccountsPage"
              BackgroundColor="#FFFFFF">
@@ -13,7 +14,6 @@
 
         <!-- accessreel.com logo-->
         <Image Source="accessreel_logo.png"
-               WidthRequest="250"
                HeightRequest="150"
                Scale="0.8"
                Aspect="Center"/>
@@ -30,7 +30,7 @@
         <!--firstname input-->
         <Entry
             Placeholder="First Name"
-            Text="{Binding Firstname}"
+            Text="{Binding FirstName}"
             TextColor="#69CCDE"
             Keyboard="Default"
             WidthRequest="250"
@@ -48,7 +48,7 @@
         <!--lastname input-->
         <Entry
             Placeholder="Last Name"
-            Text="{Binding Lastname}"
+            Text="{Binding LastName}"
             TextColor="#69CCDE"
             Keyboard="Default"
             WidthRequest="250"

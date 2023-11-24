@@ -3,6 +3,10 @@ using AccessReelApp.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Plugin.LocalNotification;
+using Microsoft.Maui.Maps;
+using Microsoft.Maui.Controls.Maps;
+
+
 
 namespace AccessReelApp;
 
@@ -15,6 +19,7 @@ public static class MauiProgram
 			.UseMauiApp<App>()
 			//.UseLocalNotification()		//ADDED FOR LOCAL NOTIFICATIONS
             .UseMauiCommunityToolkit()
+			.UseMauiMaps()
 			.UseLocalNotification()
             .ConfigureFonts(fonts =>
 			{
@@ -36,6 +41,11 @@ public static class MauiProgram
         builder.Services.AddTransient<InterviewsViewModel>();
 		builder.Services.AddSingleton<SignUpLogin>();
 		builder.Services.AddTransient<SignUpLoginViewModel>();
+		builder.Services.AddSingleton<AccountsPage>();
+		builder.Services.AddTransient<AccountsPageViewModel>();
+        builder.Services.AddSingleton<MapsPage>();
+        builder.Services.AddTransient<MapsPageViewModel>();
+
 
 #if DEBUG
         builder.Logging.AddDebug();

@@ -4,7 +4,6 @@
              xmlns:viewModel="clr-namespace:AccessReelApp.ViewModels"
              x:Class="AccessReelApp.Views.NewsPage"
              xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
-             x:DataType="viewmodel:NewsViewModel"
              Title="NewsPage"
              BackgroundColor="#FFFFFF">
 
@@ -38,78 +37,42 @@
                 <Image Source="latest_news.png"/>
             </VerticalStackLayout>
 
-            <!-- 1st Image for layout make as a templaet for all news feed items -->
-            <StackLayout>
-                <VerticalStackLayout Padding="30,10">
-                    <ImageButton Source="turtles.jpg" HorizontalOptions="StartAndExpand"/>
-                    <Label
-                        Text="Daisy Ridley set to star in Zak Hilditch’s new film We Bury the Dead in WA"
-                        Padding="5,5"
-                        FontAttributes="Bold">
-                    </Label>
-                    <Label Text="Screenwest and Screen Australia are pleased to announce Daisy Ridley (Star Wars sequel trilogy) is set to star in Zak Hilditch’s new survival-thriller film, We ..."
-                           Padding="5,5"/>
-                    <HorizontalStackLayout>
-                        <Label
-                            Text="AccessReel"
-                            TextColor="DarkGrey"
-                            Padding="10,0,10,0">
-                        </Label>
-                        <Label
-                            Text="1 November, 2023"
-                            TextColor="DarkGrey"
-                            Padding="10,0,10,0">
-                        </Label>
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
+            <ListView RowHeight="250" x:Name="newsListView" ItemsSource="{Binding NewsCollection}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="150">
+                            <StackLayout Padding="30,10">
+                                <ImageButton Source="{Binding ImageSource}" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="{Binding Title}" Padding="5,5" FontAttributes="Bold"/>
+                                <Label Text="{Binding Description}" Padding="5,5"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Author}" TextColor="DarkGrey" Padding="20,0,20,0"/>
+                                    <Label Text="{Binding Date}" TextColor="DarkGrey" Padding="20,0,20,0"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-                <!-- 2nd News Image for Layout only will be removed when feeds populate the scrollview-->
-                <VerticalStackLayout Padding="30,10">
-                    <ImageButton Source="turtles.jpg"/>
-                    <Label
-                        Text="Healing Doc About To Drop"
-                        Padding="5,5"
-                        FontAttributes="Bold">
-                    </Label>
-                    <Label Text="THE HEALING is a documentary about to make its way around Australia.It tells an inspiring tale of recovery from two very different worlds. Set against the bac..."
-                           Padding="5,5"
-                           HorizontalTextAlignment="Start"
-                           HorizontalOptions="Fill"/>
-                    <HorizontalStackLayout>
-                        <Label
-                            Text="AccessReel"
-                            TextColor="DarkGrey"
-                            Padding="10,0,10,0">
-                        </Label>
-                        <Label
-                            Text="1 November, 2023"
-                            TextColor="DarkGrey"
-                            Padding="10,0,10,0">
-                        </Label>
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
+            <!-- Latest News Header Banner-->
+            <VerticalStackLayout Padding="30,20,30,0">
+                <Image Source="new_trailers.png"/>
+            </VerticalStackLayout>
 
-            </StackLayout>
-            <StackLayout>
-
-                <!-- Latest Trailers Header Banner-->
-                <VerticalStackLayout Padding="30,20,30,0">
-                    <Image Source="new_trailers.png"/>
-                </VerticalStackLayout>
-
-                <!-- 1st Image for trailers for layout only -->
-                <HorizontalStackLayout>
-                    <VerticalStackLayout Padding="30,10">
-                        <ImageButton Source="turtles.jpg" HorizontalOptions="StartAndExpand"/>
-                        <Label
-                        Text="Teenage Mutant Ninja Turtles"
-                        Padding="5,5"
-                        FontAttributes="Bold">
-                        </Label>
-                    </VerticalStackLayout>
-
-                </HorizontalStackLayout>
-            </StackLayout>
+            <!-- ListView for Trailers -->
+            <ListView RowHeight="250" x:Name="trailersListView" ItemsSource="{Binding TrailersCollection}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="30,10">
+                                <ImageButton Source="{Binding ImageSource}" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="{Binding Title}" Padding="5,5" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ScrollView>
 </ContentPage>

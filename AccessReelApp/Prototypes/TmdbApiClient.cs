@@ -365,11 +365,13 @@ namespace AccessReelApp.Prototypes
                     string json = await response.Content.ReadAsStringAsync();
                     var posts = JsonConvert.DeserializeObject<List<Post>>(json);
 
+                    int movieIndex = 0; // Initialize movie index
                     foreach (var post in posts)
                     {
-                        Debug.WriteLine($"Post ID: {post.ID}");
-                        Debug.WriteLine($"Post Title: {post.post_title}");
-                        Debug.WriteLine($"Post Date: {post.post_date}");
+
+                        //Debug.WriteLine($"Post ID: {post.ID}");
+                        //Debug.WriteLine($"Post Title: {post.post_title}");
+                        //Debug.WriteLine($"Post Date: {post.post_date}");
                         string cleanedDescription = MyRegex().Replace(post.post_content, ""); // clean out html tags
                         var reviewCell = new ReviewCell
                         {
@@ -380,37 +382,39 @@ namespace AccessReelApp.Prototypes
                             PostDate = DateTime.Parse(post.post_date),
                         };
 
+                        //CarouselModel.AddMovieToDictionaries(reviewCell, movieIndex);
+                        movieIndex++;
                         ReviewFetched?.Invoke(reviewCell);
 
-                        if (post.review_info != null)
-                        {
-                            foreach (var review in post.review_info)
-                            {
-                                Debug.WriteLine($"Review ID: {review.ID}");
-                                Debug.WriteLine($"Review Title: {review.post_title}");
-                                Debug.WriteLine($"Review Date: {review.post_date}");
+                        //if (post.review_info != null)
+                        //{
+                        //    foreach (var review in post.review_info)
+                        //    {
+                        //        Debug.WriteLine($"Review ID: {review.ID}");
+                        //        Debug.WriteLine($"Review Title: {review.post_title}");
+                        //        Debug.WriteLine($"Review Date: {review.post_date}");
 
-                            }
-                        }
+                        //    }
+                        //}
 
-                        if(post.film_info != null)
-                        {
-                            // Trim out HTML tags from post.post_content
-                            cleanedDescription = MyRegex().Replace(post.post_content, ""); // clean out html tags
-                            Debug.WriteLine($"Film ID: {post.film_info.film_id}");
-                            Debug.WriteLine($"Film Description: {cleanedDescription}");
-                            Debug.WriteLine($"Avg Vote: {post.film_info.imdb_vote_avg}");
-                            Debug.WriteLine($"AU Release Date: {post.film_info.au_release_date}");
-                            Debug.WriteLine($"US Release Date: {post.film_info.us_release_date}");
-                        }
+                        //if(post.film_info != null)
+                        //{
+                        //    // Trim out HTML tags from post.post_content
+                        //    cleanedDescription = MyRegex().Replace(post.post_content, ""); // clean out html tags
+                        //    Debug.WriteLine($"Film ID: {post.film_info.film_id}");
+                        //    Debug.WriteLine($"Film Description: {cleanedDescription}");
+                        //    Debug.WriteLine($"Avg Vote: {post.film_info.imdb_vote_avg}");
+                        //    Debug.WriteLine($"AU Release Date: {post.film_info.au_release_date}");
+                        //    Debug.WriteLine($"US Release Date: {post.film_info.us_release_date}");
+                        //}
 
-                        if (post.img != null)
-                        {
-                            Debug.WriteLine($"Thumbnail Link: {post.img.thumbnail}");
-                        }
+                        //if (post.img != null)
+                        //{
+                        //    Debug.WriteLine($"Thumbnail Link: {post.img.thumbnail}");
+                        //}
 
-                        // Add a separator line for better readability
-                        Debug.WriteLine(new string('-', 50));
+                        //// Add a separator line for better readability
+                        //Debug.WriteLine(new string('-', 50));
                     }
                 }
                 else
