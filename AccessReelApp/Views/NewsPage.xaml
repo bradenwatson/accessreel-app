@@ -7,18 +7,22 @@
              Title="NewsPage"
              BackgroundColor="#FFFFFF">
 
+    <!-- Declare your ContentPage resources -->
+    <ContentPage.Resources>
+        <viewmodel:NewsViewModel x:Key="NewsViewModel" />
+    </ContentPage.Resources>
 
     <ScrollView>
         <StackLayout>
             <Label x:Name="topBanner"/>
-            <CarouselView ItemsSource="{Binding ButtonCollection}" IndicatorView="indicatorView">
+            <CarouselView ItemsSource="{Binding Source={StaticResource NewsViewModel}, Path=MovieImageCollection}">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <ImageButton Source="turtles.jpg" />
+                        <ImageButton Source="{Binding Value}" />
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
-
+            
             <IndicatorView x:Name="indicatorView" 
                            IndicatorColor="Gray"
                            SelectedIndicatorColor="Black"
