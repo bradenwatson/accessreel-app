@@ -40,6 +40,9 @@
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+		<MauiImage Update="Resources\Images\eventlocationmap_image1.jpg">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</MauiImage>
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -53,6 +56,7 @@
 	  <None Remove="Resources\Fonts\Oxygen-Light.ttf" />
 	  <None Remove="Resources\Fonts\Oxygen-Regular.ttf" />
 	  <None Remove="Resources\Images\accessreel_logo.png" />
+	  <None Remove="Resources\Images\EventLocationMap_Image1.jpg" />
 	  <None Remove="Resources\Images\facebook_logo.png" />
 	  <None Remove="Resources\Images\google_logo.png" />
 	  <None Remove="Resources\Images\NewTrailers.png" />

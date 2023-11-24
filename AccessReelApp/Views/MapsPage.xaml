@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
-             x:Class="AccessReelApp.Views.MapsPage">
+             x:Class="AccessReelApp.Views.MapsPage"
+             x:Name="ParentPage">
 
     <VerticalStackLayout Spacing="25">
         <!-- Header for Upcoming/Now Showing Events -->
@@ -12,21 +13,25 @@
         <!-- Orange separator line -->
         <BoxView HeightRequest="2" Color="Orange" BackgroundColor="Orange" />
 
-        <!-- Date template for displaying event details -->
-        <ListView RowHeight="200" ItemsSource="{Binding Events}">
-            <ListView.ItemTemplate>
+        <CollectionView x:Name="EventsCollectionView" ItemsSource="{Binding Events}">
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Spacing="10" Padding="10">
-                            <Label Text="{Binding Title}" FontAttributes="Bold" />
-                            <Label Text="{Binding Description}" />
-                            <Label Text="{Binding StartTime}" />
-                            <Label Text="{Binding Location}" />
-                            <!-- Add more labels or views for other event details -->
-                        </StackLayout>
-                    </ViewCell>
+                    <StackLayout Spacing="10" Padding="10">
+                        <Label Text="{Binding Title}" FontAttributes="Bold" />
+                        <Label Text="{Binding Description}" />
+                        <Label Text="{Binding StartTime}" />
+                        <Label Text="{Binding Location}" />
+
+                        <Button Text="View Map"
+                            Command="{Binding Path=BindingContext.EventSelectedCommand, Source={x:Reference Name=ParentPage}}"
+                            CommandParameter="{Binding .}" />
+                        <Image Source="eventlocationmap_image1"
+                           IsVisible="{Binding IsImageVisible}" 
+                           Aspect="AspectFit" 
+                           HeightRequest="200" />
+                    </StackLayout>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
