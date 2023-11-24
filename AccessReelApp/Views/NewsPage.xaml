@@ -7,18 +7,28 @@
              Title="NewsPage"
              BackgroundColor="#FFFFFF">
 
+    <!-- Declare your ContentPage resources -->
+    <ContentPage.Resources>
+        <viewmodel:NewsViewModel x:Key="NewsViewModel" />
+    </ContentPage.Resources>
 
     <ScrollView>
         <StackLayout>
             <Label x:Name="topBanner"/>
-            <CarouselView ItemsSource="{Binding ButtonCollection}" IndicatorView="indicatorView">
+            <CarouselView ItemsSource="{Binding NewsInfo}">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <ImageButton Source="turtles.jpg" />
+                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                            <!-- Display the Poster Image -->
+                            <Image Source="{Binding PosterUrl}" Aspect="AspectFill" HeightRequest="200"/>
+
+                            <!-- Display the Movie Title -->
+                            <Label Text="{Binding MovieTitle}" HorizontalOptions="Center" VerticalOptions="StartAndExpand" FontAttributes="Bold" />
+                        </StackLayout>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
-
+            
             <IndicatorView x:Name="indicatorView" 
                            IndicatorColor="Gray"
                            SelectedIndicatorColor="Black"

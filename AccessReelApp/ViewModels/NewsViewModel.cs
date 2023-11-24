@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AccessReelApp.Models;
+using AccessReelApp.Prototypes;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,22 +16,28 @@ namespace AccessReelApp.ViewModels
         [ObservableProperty] ObservableCollection<ImageButton> buttonCollection;
         [ObservableProperty] ObservableCollection<NewsItem> newsCollection;
         [ObservableProperty] ObservableCollection<TrailerItem> trailersCollection;
+        [ObservableProperty] ObservableCollection<ReviewCell> newsInfo;
+
+        public TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
         void Initialise()
         {
             ButtonCollection ??= new ObservableCollection<ImageButton>();
         }
 
-        void AddImageButton(string source)
-        {
-            Initialise();
-            CarouselModel.SetImageSource(source);
-            ButtonCollection.Add(CarouselModel.ButtonCollection[0]); // wasn't public 
-            // Careful not to get confused as you have a ButtonCollection here as well
-        }
 
         public NewsViewModel()
         {
-            AddImageButton("turtles.jpg");
+            Initialise();
+
+
+            movieClient.ReviewFetched += (review) =>
+            {
+                Application.Current.Dispatcher.Dispatch(() =>
+                {
+                    NewsInfo.Add(review);
+                });
+            };
+
 
             NewsCollection = new ObservableCollection<NewsItem>
             {
