@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AccessReelApp.Models;
+using AccessReelApp.Prototypes;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,28 +13,31 @@ namespace AccessReelApp.ViewModels
 {
     public partial class NewsViewModel : ObservableObject
     {
-        public ObservableCollection<KeyValuePair<string, string>> MovieImageCollection { get; } = new ObservableCollection<KeyValuePair<string, string>>();
         [ObservableProperty] ObservableCollection<ImageButton> buttonCollection;
         [ObservableProperty] ObservableCollection<NewsItem> newsCollection;
         [ObservableProperty] ObservableCollection<TrailerItem> trailersCollection;
+        [ObservableProperty] ObservableCollection<ReviewCell> newsInfo;
+
+        public TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
         void Initialise()
         {
             ButtonCollection ??= new ObservableCollection<ImageButton>();
         }
 
-        public void UpdateButtonCollection(ImageButton imageButton)
-        {
-            ButtonCollection.Add(imageButton);
-        }
-
-        public void UpdateMovieImageCollection(KeyValuePair<string, string> item)
-        {
-            MovieImageCollection.Add(item);
-        }
 
         public NewsViewModel()
         {
             Initialise();
+
+
+            movieClient.ReviewFetched += (review) =>
+            {
+                Application.Current.Dispatcher.Dispatch(() =>
+                {
+                    NewsInfo.Add(review);
+                });
+            };
+
 
             NewsCollection = new ObservableCollection<NewsItem>
             {

@@ -15,10 +15,16 @@
     <ScrollView>
         <StackLayout>
             <Label x:Name="topBanner"/>
-            <CarouselView ItemsSource="{Binding Source={StaticResource NewsViewModel}, Path=MovieImageCollection}">
+            <CarouselView ItemsSource="{Binding NewsInfo}">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <ImageButton Source="{Binding Value}" />
+                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                            <!-- Display the Poster Image -->
+                            <Image Source="{Binding PosterUrl}" Aspect="AspectFill" HeightRequest="200"/>
+
+                            <!-- Display the Movie Title -->
+                            <Label Text="{Binding MovieTitle}" HorizontalOptions="Center" VerticalOptions="StartAndExpand" FontAttributes="Bold" />
+                        </StackLayout>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>

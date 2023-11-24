@@ -94,7 +94,7 @@ namespace AccessReelApp
             MovieImageDictionary[key] = reviewCell.PosterUrl;
 
             // Notify NewsViewModel about the changes using ViewModelLocator
-            ViewModelLocator.NewsViewModelInstance?.UpdateMovieImageCollection(new KeyValuePair<string, string>(key, reviewCell.PosterUrl));
+            //ViewModelLocator.NewsViewModelInstance?.UpdateMovieImageCollection(new KeyValuePair<string, string>(key, reviewCell.PosterUrl));
         }
 
         public static void AddToViewModelButtonCollection(ReviewCell reviewCell, NewsViewModel viewModel)
@@ -102,7 +102,7 @@ namespace AccessReelApp
             ImageButton imageButton = CreateImageButton(reviewCell.PosterUrl);
 
             // Update the buttonCollection in the ViewModel
-            viewModel.UpdateButtonCollection(imageButton);
+            //viewModel.UpdateButtonCollection(imageButton);
         }
 
         static Dictionary<string, string> CreateDictionary(string key, string value) => new() { { key, value } };
