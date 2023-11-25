@@ -63,10 +63,10 @@
 
     <TabBar>
 
-        <Tab Title="Home">
+        <!--<Tab Title="Home">
             <ShellContent Route="home" 
               ContentTemplate="{DataTemplate local:MainPage}" />
-        </Tab>
+        </Tab>-->
 
         <Tab Title="News">
             <ShellContent ContentTemplate="{DataTemplate view:NewsPage}" />
