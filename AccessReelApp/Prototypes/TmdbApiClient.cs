@@ -353,38 +353,46 @@ namespace AccessReelApp.Prototypes
 
         public async Task PullAccessReelData()
         {
-            using (HttpClient client = new HttpClient())
+            try
             {
-                // access the JSON content
-                var response = await client.GetAsync("https://accessreel.com/wp-json/api/v1/trailers?posts_per_page=-1&exclude_hidden=1");
-
-                if (response.IsSuccessStatusCode)
+                using (HttpClient client = new HttpClient())
                 {
-                    // grab the content from the link and store in json string
-                    string json = await response.Content.ReadAsStringAsync();
-                    var posts = JsonConvert.DeserializeObject<List<Post>>(json);
+                    var response = await client.GetAsync("https://accessreel.com/wp-json/api/v1/trailers?posts_per_page=-1&exclude_hidden=1");
 
-                    int movieIndex = 0; // Initialize movie index
-                    foreach (var post in posts)
+                    if (response.IsSuccessStatusCode)
                     {
-                        string cleanedDescription = MyRegex().Replace(post.post_content, ""); // clean out html tags
-                        var reviewCell = new ReviewCell
+                        string json = await response.Content.ReadAsStringAsync();
+
+                        // Deserialize JSON content
+                        var posts = JsonConvert.DeserializeObject<List<Post>>(json);
+
+                        foreach (var post in posts)
                         {
-                            MovieTitle = post.post_title ?? "DefaultTitle",
-                            MovieDescription = cleanedDescription ?? "DefaultDescription",
-                            PosterUrl = post.img?.thumbnail ?? "DefaultPosterUrl",
-                            MovieRating = float.TryParse(post.film_info?.imdb_vote_avg, out var rating) ? rating : 0.0f,
-                        };
+                            string cleanedDescription = MyRegex().Replace(post.post_content, ""); // Clean out HTML tags
+                            var reviewCell = new ReviewCell
+                            {
+                                MovieTitle = post.post_title ?? "DefaultTitle",
+                                MovieDescription = cleanedDescription ?? "DefaultDescription",
+                                PosterUrl = post.img?.thumbnail ?? "DefaultPosterUrl",
+                                MovieRating = float.TryParse(post.film_info?.imdb_vote_avg, out var rating) ? rating : 0.0f,
+                            };
 
-
-                        movieIndex++;
-                        ReviewFetched?.Invoke(reviewCell);
+                            // Dispatch asynchronously
+                            Application.Current.Dispatcher.Dispatch(() =>
+                            {
+                                ReviewFetched?.Invoke(reviewCell);
+                            });
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Error: {response.StatusCode}");
                     }
                 }
-                else
-                {
-                    Console.WriteLine($"Error: {response.StatusCode}");
-                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
 

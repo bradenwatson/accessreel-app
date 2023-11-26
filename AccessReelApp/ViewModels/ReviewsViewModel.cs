@@ -46,10 +46,14 @@ namespace AccessReelApp.ViewModels
         {
             movieClient.ReviewFetched += (review) =>
             {
-                Application.Current.Dispatcher.Dispatch(() =>
+                // Throttling by introducing a delay between each update
+                Task.Delay(TimeSpan.FromMilliseconds(50)).ContinueWith(_ =>
                 {
-                    MovieReviewsList.Add(review);
-                });
+                    Application.Current.Dispatcher.Dispatch(() =>
+                    {
+                        MovieReviewsList.Add(review);
+                    });
+                }, TaskScheduler.Default);
             };
         }
     }

@@ -43,16 +43,17 @@
 
             <!-- Latest News Header Banner-->
             <VerticalStackLayout Padding="30,20,30,0">
-                <Image Source="latest_news.png"/>
+                <Image Source="latest_interviews.png"/>
             </VerticalStackLayout>
 
             <ListView RowHeight="250" x:Name="interviewsListView" ItemsSource="{Binding InterviewsCollection}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Height="150">
+                        <ViewCell Height="350">
                             <StackLayout Padding="30,10">
                                 <ImageButton Source="{Binding ImageSource}" HorizontalOptions="StartAndExpand"/>
                                 <!--<Label Text="{Binding Title}" Padding="5,5" FontAttributes="Bold"/>-->
+                                <Label Text="{Binding Tester}"></Label>
                                 <Label>
                                     <Label.FormattedText>
                                         <FormattedString>

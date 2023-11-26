@@ -1,7 +1,7 @@
 ﻿using AccessReelApp.Models;
 using AccessReelApp.Prototypes;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Maui.Controls.Compatibility.Platform.Android.AppCompat;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +18,8 @@ namespace AccessReelApp.ViewModels
         [ObservableProperty] ObservableCollection<InterviewsCell> newsInfo;
         //[ObservableProperty] ObservableCollection<TrailerItem> trailersCollection;
 
+        [ObservableProperty] string tester = string.Empty;
+
         public TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
         void Initialise()
         {
@@ -29,16 +31,6 @@ namespace AccessReelApp.ViewModels
         public InterviewsViewModel()
         {
             Initialise();
-
-
-            movieClient.ReviewFetched += (review) =>
-            {
-                Application.Current.Dispatcher.Dispatch(() =>
-                {
-                    //NewsInfo.Add(review);
-                });
-            };
-
 
             InterviewsCollection = new ObservableCollection<InterviewsItem>
             {
@@ -75,6 +67,17 @@ namespace AccessReelApp.ViewModels
                 // Add more interviews items as needed...
 
             };
+        }
+
+        [RelayCommand]
+        public async Task Tap(object parameter)
+        {
+            if(parameter is string)
+            {
+                Tester = $"{parameter}";
+            }
+
+            await Task.CompletedTask;
         }
     }
 
