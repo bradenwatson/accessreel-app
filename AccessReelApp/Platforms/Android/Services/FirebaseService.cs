@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using AccessReelApp.Notifications;
+using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Runtime;
@@ -38,12 +39,28 @@ namespace AccessReelApp.Platforms.Android.Services
             Debug.WriteLine($"Notification = {notification}");
             Debug.WriteLine($"Message = {message.Data}");
             Debug.WriteLine("*******************************");
-            SendNotification(message.Data, notification.Title, notification.Body);
+
+
+            //Messages 
+            if(NotificationSettings.CheckNotificationEnabled())
+            {
+                SendNotification(message.Data, notification.Title, notification.Body);
+            }
+            else
+            {
+                Debug.WriteLine("*******************************");
+                Debug.WriteLine($"User has disabled notifications");
+                Debug.WriteLine("*******************************");
+            }
+            
         }
 
-        
-        //Sort Content here
 
+        public static int GenerateNotificationID()
+        {
+            string time = DateTime.Now.ToLocalTime().ToString("MMddHHmmss");
+            return int.Parse(time);
+        }
 
         private void SendNotification(IDictionary<string, string> data, string title, string messageBody) 
         {
@@ -54,10 +71,10 @@ namespace AccessReelApp.Platforms.Android.Services
             foreach(var key in data.Keys)
             {
                 string value = data[key];
-                var tmp = MainActivity.Channels.SingleOrDefault(x => x.Id == value);
-                if(tmp != null) 
+                var selectedChannel = MainActivity.Channels.SingleOrDefault(x => x.Id == value);
+                if(selectedChannel != null) 
                 {
-                    page = tmp.Id.ToString();  //Default to first index if not found
+                    page = selectedChannel.Id.ToString();  //Default to first index if not found
                                            //Check if key in dictionay channel
                     intent.PutExtra(key, page);
                 }
@@ -96,14 +113,6 @@ namespace AccessReelApp.Platforms.Android.Services
             var notificationManager = NotificationManagerCompat.From(this);
             notificationManager.Notify(notificationID, notificationBuilder.Build());
         }
-
-        public static int GenerateNotificationID()
-        {
-            string time = DateTime.Now.ToLocalTime().ToString("MMddHHmmss");
-            return int.Parse(time);
-        }
-
-
         
     }
 }

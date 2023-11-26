@@ -18,11 +18,9 @@ namespace AccessReelApp;
             LaunchMode = LaunchMode.SingleTop)]
 public class MainActivity : MauiAppCompatActivity
 {
-    public enum Pages       //Turn into dictionary
+    public enum Pages       
     {
         MainPage,
-        //Page1,
-        //Page2,
         NewsPage,
         ReviewsPage,
         InterviewsPage,
@@ -30,7 +28,7 @@ public class MainActivity : MauiAppCompatActivity
         Movies,
         Competitions,
         //Settings,
-        Accounts,
+        //Accounts,
     }
 
 
@@ -45,7 +43,7 @@ public class MainActivity : MauiAppCompatActivity
         new NotificationChannel(Pages.Movies.ToString(), "Movies", NotificationImportance.Default),
         new NotificationChannel(Pages.Competitions.ToString(), "Competitions", NotificationImportance.Default),
         //new NotificationChannel(Pages.Settings.ToString(), "Settings", NotificationImportance.Default),
-        new NotificationChannel(Pages.Accounts.ToString(), "Accounts", NotificationImportance.Default),
+        //new NotificationChannel(Pages.Accounts.ToString(), "Accounts", NotificationImportance.Default),
     };
 #pragma warning restore CA1416 // Validate platform compatibility
 
@@ -59,10 +57,10 @@ public class MainActivity : MauiAppCompatActivity
             string key = (string)extras.Get("NavigationID");
             SwitchByNotification(key);
         }
-        else
-        {
-            SwitchByNotification();
-        }
+        //else
+        //{
+        //    SwitchByNotification();
+        //}
     }
 
     private void SwitchByNotification(string key = "")         //Redirects to page on notification interaction     //Leave empty in case needs other uses.
@@ -112,39 +110,10 @@ public class MainActivity : MauiAppCompatActivity
     protected override void OnCreate(Bundle savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
-        /*
-        //if (Intent.Extras != null)
-        //{
-        //    foreach (var key in Intent.Extras.KeySet())
-        //    {
-        //        if (key == "NavigationID")
-        //        {
-        //            string idValue = Intent.Extras.GetString(key);
-        //            Debug.WriteLine("*******************************");
-        //            Debug.WriteLine($"ID on create = {idValue}");
-        //            Debug.WriteLine("*******************************");
-        //            if (Preferences.ContainsKey("NavigationID"))
-        //            {
-        //                Preferences.Remove("NavigationID");
-        //                Debug.WriteLine("*******************************");
-        //                Debug.WriteLine($"Removed NavigatinID preference");
-        //                Debug.WriteLine("*******************************");
-        //            }
-        //            Preferences.Set("NavigationID", idValue);
-        //            Debug.WriteLine("*****************************");
-        //            Debug.WriteLine($"ID create = {Preferences.Get("NavigationID", "")}");
-        //            Debug.WriteLine("*****************************");
-        //        }
-        //    }
-        //}
-        */
 
-        //bool channelCreated = Preferences.Get("NotificationChannel", false);
-        //if (!channelCreated)
         if(GetAllNotificationChannels() != Channels)        //If current channels do not match compiled channels
         {
             CreateNotificationChannel();
-            //Preferences.Default.Set("NotificationChannel", true);
         }
         else
         {
@@ -156,7 +125,6 @@ public class MainActivity : MauiAppCompatActivity
                 Debug.WriteLine("*****************************");
             }
         }
-        //CreateNotificationChannel();
     }
 
     private IList<NotificationChannel> GetAllNotificationChannels()

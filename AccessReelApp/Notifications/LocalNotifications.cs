@@ -23,6 +23,7 @@
     * Requires "Plugin.LocalNotification" package
 */
 
+using Microsoft.Maui.Controls.PlatformConfiguration;
 using Plugin.LocalNotification;
 using System.Diagnostics;
 
@@ -38,17 +39,40 @@ namespace AccessReelApp.Notifications
             return time;
         }
 
-        public static async void CheckNotificationPermission()
+        /*
+        //May not need since using preferences
+        public static async Task CheckNotificationPermission()
         {
+            NotificationPermission notificationPermission = null;
             bool check = await LocalNotificationCenter.Current.AreNotificationsEnabled();
             if (!check)
             {
-                //Create warning to enable notification
-                //Switch to settings page or ask permissions
-                var permission = new NotificationPermission();
-                permission.AskPermission = true;
+                //Create permissions if not made yet
+                notificationPermission = new NotificationPermission();
+                if(NotificationSettings.CheckNotificationEnabled())
+                {
+                    notificationPermission.AskPermission = true;
+                }
+                else
+                {
+                    notificationPermission.AskPermission = false;
+                }
             }
+            //else
+            //{
+            //    notificationPermission.AskPermission = NotificationSettings.CheckNotificationEnabled();
+            //}
+
+            await DebugPermissiions();
+
         }
+
+        private static async Task DebugPermissiions()
+        {
+            bool check = await LocalNotificationCenter.Current.AreNotificationsEnabled();
+            Debug.WriteLine($"Local Notifications enabled = {check}");
+        }
+        */
 
         //Create an object manager that controls the flow, retrieval, cancellation and deletion of messages
         public static async Task<NotificationRequest> CreateReminder(int notificationID, DateTime airing, string title, string body, string subtitle = "")      //date ending
@@ -102,7 +126,6 @@ namespace AccessReelApp.Notifications
                         var sending = await LocalNotificationCenter.Current.Show(request);
                         if (sending)
                         {
-                            //CancelNotification(sender, e);
                             LocalNotificationCenter.Current.Cancel(buttonID);
                         }
                         else if (LocalNotificationCenter.Current.Cancel(buttonID)) // If cancelled re-enable message
@@ -122,6 +145,8 @@ namespace AccessReelApp.Notifications
 
         public static async void SendNotification(object sender, EventArgs e)
         {
+            //await CheckNotificationPermission();
+
             if (int.TryParse(((Button)sender).AutomationId, out int buttonID))
             {
                 var pendingRequests = await LocalNotificationCenter.Current.GetPendingNotificationList();
@@ -131,7 +156,18 @@ namespace AccessReelApp.Notifications
                 {
                     request = await CreateReminder(buttonID, DateTime.Now.ToLocalTime(), "Hello", "Working"); 
                 }
-                await LocalNotificationCenter.Current.Show(request);
+
+                if(NotificationSettings.CheckNotificationEnabled())
+                {
+                    await LocalNotificationCenter.Current.Show(request);
+                }
+                else 
+                {
+                    Debug.WriteLine("*******************************");
+                    Debug.WriteLine($"User has disabled notifications");
+                    Debug.WriteLine("*******************************");
+                }
+                
             }
             else
             {
@@ -140,77 +176,17 @@ namespace AccessReelApp.Notifications
         }
 
 
-        //Delete notification when movie expires
-        public static void DeleteButton()
-        {
-            if (LocalNotificationCenter.Current.Clear(0))
-            {
-                Debug.WriteLine($"Deleted Notification ()");
-            }
-            else
-            {
-                Debug.WriteLine($"Failed to delete Notification ()");
-            }
-        }
-        //Cancel notification
-        //public static void CancelNotification(object sender, EventArgs e)
+        ////Delete notification when movie expires
+        //public static void DeleteButton()
         //{
-
-        //    //Input notifiicationID
-        //    if (int.TryParse(((Button)sender).AutomationId, out int buttonID))
+        //    if (LocalNotificationCenter.Current.Clear(0))
         //    {
-        //        if (LocalNotificationCenter.Current.Cancel(buttonID))
-        //        {
-        //            Debug.WriteLine($"Canceled Notification ()");
-        //        }
-        //        else
-        //        {
-        //            Debug.WriteLine($"Failed to cancel Notification ()");
-        //        }
+        //        Debug.WriteLine($"Deleted Notification ()");
         //    }
         //    else
         //    {
-        //        Debug.WriteLine("Failed to parse notification ID.");
+        //        Debug.WriteLine($"Failed to delete Notification ()");
         //    }
-
-        //}
-
-
-
-
-
-
-        //For general notifications do the following
-        /*
-         * repeatType to notif9icationrepeat.yes
-         * notifytime begining at 7am
-         * Notifyrepeat interval on the frequency in terms of timespan
-         */
-
-        //Can get range interval of notifications if setting is not immedate
-
-
-
-
-
-
-
-
-        //Delete notification when movie expires (timespan of local movie data downloaded)
-
-
-
-
-
-
-
-
-        // Method to handle push notification received
-        //public void HandlePushNotificationReceived(PushNotificationReceived message)
-        //{
-        //    // Handle the push notification received event
-        //    string msg = message.Value;
-        //    // Add your implementation here
         //}
     }
 }

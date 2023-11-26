@@ -100,7 +100,7 @@ namespace AccessReelApp.Notifications
             };
             messages.Add(obj);
 
-            await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
+            await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);     //Notifications should still be send and received regardless of preferrence. You can only deny popup only.
         }
 
        

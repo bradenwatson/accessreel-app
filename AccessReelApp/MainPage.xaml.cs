@@ -8,6 +8,7 @@ using System.Diagnostics;
 using AccessReelApp.Prototypes;
 using AccessReelApp.Notifications;
 using Newtonsoft.Json.Linq;
+using System.ComponentModel;
 
 namespace AccessReelApp
 {
@@ -24,8 +25,6 @@ namespace AccessReelApp
         {
             InitializeComponent();
             BindingContext = vm;
-
-
             /**************************************************************/
             //IMPORTANT: HOW TO BIND DATA TO UI ELEMENTS
             vm.NotificationEnabled = notificationSettings.NotificationEnabled;
@@ -41,14 +40,10 @@ namespace AccessReelApp
 
             NotificationSwitch.IsToggled = vm.NotificationEnabled;
             /**************************************************************/
+
+
             NotificationManager.ReadFireBaseAdminSDK();
-
-            Debug.WriteLine("*************************************");
-            Debug.WriteLine($"{Preferences.Default}\t NotificationSwitch = {vm.NotificationEnabled}");
-            Debug.WriteLine("*************************************");
         }
-
-
 
         protected override void OnAppearing()
         {

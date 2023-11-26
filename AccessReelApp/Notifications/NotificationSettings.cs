@@ -64,18 +64,18 @@ namespace AccessReelApp.Notifications
     public partial class NotificationSettings : ObservableObject
     {
         bool notificationEnabled;
-
         public bool NotificationEnabled
         {
             get
             {
-                if(!Preferences.Default.ContainsKey(PreferenceKeys.NotificationEnabledKey))
+                if (!Preferences.Default.ContainsKey(PreferenceKeys.NotificationEnabledKey))
                 {
+                    Preferences.Default.Set(PreferenceKeys.NotificationEnabledKey, true);
                     Debug.WriteLine("*************************************");
                     Debug.WriteLine($"Entry ({PreferenceKeys.NotificationEnabledKey} = {Preferences.Default.ContainsKey(PreferenceKeys.NotificationEnabledKey)})");
                     Debug.WriteLine("*************************************");
                 }
-                
+
                 notificationEnabled = Preferences.Default.Get(PreferenceKeys.NotificationEnabledKey, true);
                 return notificationEnabled;
             }
@@ -87,50 +87,16 @@ namespace AccessReelApp.Notifications
             }
         }
 
+        public static bool CheckNotificationEnabled()
+        {
+            bool enabled = false;
+            if (!Preferences.Default.ContainsKey(PreferenceKeys.NotificationEnabledKey))
+            {
+                Preferences.Default.Set(PreferenceKeys.NotificationEnabledKey, true);
+            }
+            enabled = Preferences.Default.Get(PreferenceKeys.NotificationEnabledKey, true);
+            return enabled;
+        }
     }
-
-    //public partial class NotificationSettings : INotifyPropertyChanged
-    //{
-    //    public event PropertyChangedEventHandler PropertyChanged;
-
-    //    protected virtual void OnPropertyChanged(string propertyName)
-    //    {
-    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    //    }
-
-
-    //    bool enabledNotifications;
-    //    public bool EnableNotifications
-    //    {
-    //        get
-    //        {
-    //            if(!Preferences.ContainsKey(PreferenceKeys.NotificationEnabledKey))
-    //            {
-    //                Preferences.Set(PreferenceKeys.NotificationEnabledKey, true);
-    //            }
-
-    //            enabledNotifications = Preferences.Default.Get(PreferenceKeys.NotificationEnabledKey, true);
-    //            //Preferences.Get(PreferenceKeys.NotificationEnabledKey, true);
-    //            Debug.WriteLine("*************************************");
-    //            Debug.WriteLine($"Preferences = {enabledNotifications}");
-    //            //Debug.WriteLine($"Preferences = {Preferences.Get(PreferenceKeys.NotificationEnabledKey, true)}");
-    //            Debug.WriteLine("*************************************");
-    //            return enabledNotifications;
-    //            //return Preferences.Get(PreferenceKeys.NotificationEnabledKey, true);
-    //        }
-    //        set
-    //        {
-    //            enabledNotifications = value;
-    //            Preferences.Default.Set(PreferenceKeys.NotificationEnabledKey, enabledNotifications);
-    //            //Preferences.Set(PreferenceKeys.NotificationEnabledKey, value);
-    //            Debug.WriteLine("*************************************");
-    //            Debug.WriteLine($"New Value = {value}");
-    //            Debug.WriteLine("*************************************");
-    //            OnPropertyChanged(nameof(EnableNotifications));
-    //            //OnPropertyChanged();
-    //            //SetProperty(ref enabledNotifications, enabledNotifications);
-    //        }
-    //    }
-    //}
 }
 

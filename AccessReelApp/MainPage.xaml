@@ -18,6 +18,7 @@
             <Frame>
                 <HorizontalStackLayout BackgroundColor="Grey">
                     <Label Text="Notifications" TextColor="White"/>
+                    <!--Must have binding to ViewModel and initialise on the ViewPage-->
                     <Switch x:Name="NotificationSwitch"
                             IsToggled="{Binding NotificationEnabled}"/>
                 </HorizontalStackLayout>

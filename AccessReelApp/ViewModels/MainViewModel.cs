@@ -12,7 +12,7 @@ namespace AccessReelApp.ViewModels
     {
         [ObservableProperty] string text = "Initial!"; // the text value binded to the XAML.
 
+        //TEMPORARY -> NEED TO MOVE INTO OWN VIEWMODEL
         [ObservableProperty] bool notificationEnabled;
-
     }
 }
