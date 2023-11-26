@@ -2,14 +2,26 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
+             xmlns:local="clr-namespace:AccessReelApp.Notifications"
              x:DataType="viewmodel:MainViewModel"
              x:Class="AccessReelApp.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:NotificationSettings/>
+    </ContentPage.BindingContext>
+    
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center" BackgroundColor="Black">
-
+            <Frame>
+                <HorizontalStackLayout BackgroundColor="Grey">
+                    <Label Text="Notifications" TextColor="White"/>
+                    <Switch x:Name="NotificationSwitch"
+                            IsToggled="{Binding NotificationEnabled}"/>
+                </HorizontalStackLayout>
+            </Frame>
             <!--Remove when creating home page-->
             <Label Text="{Binding Text}"></Label>
             <Button

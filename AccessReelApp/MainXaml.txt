@@ -1,0 +1,46 @@
+﻿<ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center" BackgroundColor="Black">
+            <!--Remove when creating home page-->
+            <Label Text="{Binding Text}"></Label>
+            <Button
+                Text="Bell Button"
+                TextColor="White"
+                BackgroundColor="Gray"
+                Clicked="Button_Clicked"/>
+            <Button
+                Text="Send Notification"
+                TextColor="White"
+                BackgroundColor="Gray"
+                Clicked="Button_Clicked_1"/>
+        </VerticalStackLayout>
+    </ScrollView>
+
+
+
+    <Frame>
+                <VerticalStackLayout VerticalOptions="FillAndExpand"
+                                     BackgroundColor="Gray">
+                    <RadioButton x:Name="s1" GroupName="1" Content="All" IsChecked="{Binding Interests[All], Mode=TwoWay}"/>
+                    <RadioButton x:Name="s2" GroupName="2" Content="News" IsChecked="{Binding Interests[News], Mode=TwoWay}"/>
+                    <RadioButton x:Name="s3" GroupName="3" Content="Reviews" IsChecked="{Binding Interests[Reviews], Mode=TwoWay}"/>
+                    <RadioButton x:Name="s4" GroupName="4" Content="Interviews" IsChecked="{Binding Interests[Interviews], Mode=TwoWay}"/>
+                    <RadioButton x:Name="s5" GroupName="5" Content="Movies" IsChecked="{Binding Interests[Movies], Mode=TwoWay}"/>
+                    <RadioButton x:Name="s6" GroupName="6" Content="Competitions" IsChecked="{Binding Interests[Competitions], Mode=TwoWay}"/>
+                </VerticalStackLayout>
+            </Frame>
+
+
+<Frame>
+                <VerticalStackLayout VerticalOptions="FillAndExpand"
+                         BackgroundColor="Gray">
+                    <RadioButton  Content="Immediate" IsChecked="{Binding frequency, Mode=TwoWay}"/>
+                    <RadioButton  Content="Hourly" IsChecked="{Binding frequency, Mode=TwoWay}"/>
+                    <RadioButton  Content="Daily" IsChecked="{Binding frequency, Mode=TwoWay}"/>
+                    <RadioButton  Content="Weekly" IsChecked="{Binding frequency, Mode=TwoWay}"/>
+                    <RadioButton  Content="Fornightly" IsChecked="{Binding frequency, Mode=TwoWay}"/>
+                    <RadioButton  Content="Monthly" IsChecked="{Binding frequency, Mode=TwoWay}"/>
+                </VerticalStackLayout>
+            </Frame>

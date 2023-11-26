@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Diagnostics;
+using Microsoft.Maui.Storage;
+using System.ComponentModel;
 
 /*
  * LOCAL:
@@ -52,68 +53,84 @@ namespace AccessReelApp.Notifications
         One_Week
     }
 
-    public static class NotificationSettings
+    public class PreferenceKeys
     {
-        private const string NotificationEnabledKey = "Notification Enabled";       //This is to check globally
-        private const string FrequencyKey = "Frequency";
-        private const string RemindMeInKey = "RemindMeIn";
-        private const string InterestsKey = "Interest";
-
-        
-
-        public static bool EnableNotification
-        {
-            get => Preferences.Default.Get(NotificationEnabledKey, true);
-            set => Preferences.Default.Set(NotificationEnabledKey, value);
-        }
-
-        public static Frequency SelectedFrequency
-        {
-            get => Preferences.Default.Get(FrequencyKey, Frequency.Immediate);
-            set => Preferences.Default.Set(FrequencyKey, value);
-        }
-
-        public static RemindMeIn SelectedRemindMeIn     //Should this be a global setting or should user define for each movie? Should also be used for compeititons
-        {
-            get => Preferences.Default.Get(RemindMeInKey, RemindMeIn.One_Hour);
-            set => Preferences.Default.Set(RemindMeInKey, value);
-        }
-
-        public static Dictionary<string, bool> Interests
-        {
-            get 
-            {
-                Dictionary<string, bool> tmp = null;
-                var result = Preferences.Default.Get(InterestsKey, tmp);
-                if (result != null) 
-                {
-                    result = new Dictionary<string, bool>
-                    {
-                        {"All", true},
-                        {"News", true},
-                        {"Reviews", true},
-                        {"Interviews", true},
-                        {"Movies", true},
-                        {"Competitions", true},
-                    };
-                }
-                
-                if (result["All"])
-                {
-                    foreach(var entry in result)
-                    {
-                        if (!entry.Value)
-                        {
-                            result[entry.Key] = true;
-                        }
-                    }
-                }
-                return result;
-            }
-
-            set => Preferences.Default.Set(InterestsKey, value);
-        }
+        public const string NotificationEnabledKey = "Notification Enabled";       //This is to check globally
+        public const string FrequencyKey = "Frequency";
+        public const string RemindMeInKey = "RemindMeIn";
+        public const string InterestsKey = "Interest";
     }
 
+    public partial class NotificationSettings : ObservableObject
+    {
+        bool notificationEnabled;
 
+        public bool NotificationEnabled
+        {
+            get
+            {
+                if(!Preferences.Default.ContainsKey(PreferenceKeys.NotificationEnabledKey))
+                {
+                    Debug.WriteLine("*************************************");
+                    Debug.WriteLine($"Entry ({PreferenceKeys.NotificationEnabledKey} = {Preferences.Default.ContainsKey(PreferenceKeys.NotificationEnabledKey)})");
+                    Debug.WriteLine("*************************************");
+                }
+                
+                notificationEnabled = Preferences.Default.Get(PreferenceKeys.NotificationEnabledKey, true);
+                return notificationEnabled;
+            }
+            set
+            {
+                notificationEnabled = value;
+                Preferences.Default.Set(PreferenceKeys.NotificationEnabledKey, notificationEnabled);
+                SetProperty(ref notificationEnabled, notificationEnabled);
+            }
+        }
+
+    }
+
+    //public partial class NotificationSettings : INotifyPropertyChanged
+    //{
+    //    public event PropertyChangedEventHandler PropertyChanged;
+
+    //    protected virtual void OnPropertyChanged(string propertyName)
+    //    {
+    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    //    }
+
+
+    //    bool enabledNotifications;
+    //    public bool EnableNotifications
+    //    {
+    //        get
+    //        {
+    //            if(!Preferences.ContainsKey(PreferenceKeys.NotificationEnabledKey))
+    //            {
+    //                Preferences.Set(PreferenceKeys.NotificationEnabledKey, true);
+    //            }
+
+    //            enabledNotifications = Preferences.Default.Get(PreferenceKeys.NotificationEnabledKey, true);
+    //            //Preferences.Get(PreferenceKeys.NotificationEnabledKey, true);
+    //            Debug.WriteLine("*************************************");
+    //            Debug.WriteLine($"Preferences = {enabledNotifications}");
+    //            //Debug.WriteLine($"Preferences = {Preferences.Get(PreferenceKeys.NotificationEnabledKey, true)}");
+    //            Debug.WriteLine("*************************************");
+    //            return enabledNotifications;
+    //            //return Preferences.Get(PreferenceKeys.NotificationEnabledKey, true);
+    //        }
+    //        set
+    //        {
+    //            enabledNotifications = value;
+    //            Preferences.Default.Set(PreferenceKeys.NotificationEnabledKey, enabledNotifications);
+    //            //Preferences.Set(PreferenceKeys.NotificationEnabledKey, value);
+    //            Debug.WriteLine("*************************************");
+    //            Debug.WriteLine($"New Value = {value}");
+    //            Debug.WriteLine("*************************************");
+    //            OnPropertyChanged(nameof(EnableNotifications));
+    //            //OnPropertyChanged();
+    //            //SetProperty(ref enabledNotifications, enabledNotifications);
+    //        }
+    //    }
+    //}
 }
+

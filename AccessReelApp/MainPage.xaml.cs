@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using System.Diagnostics;
 using AccessReelApp.Prototypes;
 using AccessReelApp.Notifications;
+using Newtonsoft.Json.Linq;
 
 namespace AccessReelApp
 {
@@ -17,25 +18,43 @@ namespace AccessReelApp
         public TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
         DatabaseControl databaseControl = new DatabaseControl();
         NotificationManager notificationManager = new NotificationManager();
-        
+        NotificationSettings notificationSettings = new NotificationSettings();
 
         public MainPage(MainViewModel vm)
         {
             InitializeComponent();
             BindingContext = vm;
 
-            //DeviceToken();
+
+            /**************************************************************/
+            //IMPORTANT: HOW TO BIND DATA TO UI ELEMENTS
+            vm.NotificationEnabled = notificationSettings.NotificationEnabled;
+            NotificationSwitch.IsToggled = vm.NotificationEnabled;
+
+            vm.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(vm.NotificationEnabled))
+                {
+                    notificationSettings.NotificationEnabled = vm.NotificationEnabled;
+                }
+            };
+
+            NotificationSwitch.IsToggled = vm.NotificationEnabled;
+            /**************************************************************/
             NotificationManager.ReadFireBaseAdminSDK();
 
-            //Preferences.Clear("NavigationID");
+            Debug.WriteLine("*************************************");
+            Debug.WriteLine($"{Preferences.Default}\t NotificationSwitch = {vm.NotificationEnabled}");
+            Debug.WriteLine("*************************************");
         }
+
 
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            if (BindingContext is MainViewModel vm)
+            if (BindingContext is MainViewModel vm && vm.Text != "Changed!")
             {
                 vm.Text = "Changed!";
             }

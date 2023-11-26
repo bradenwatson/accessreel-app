@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AccessReelApp.Notifications;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace AccessReelApp.ViewModels
     {
         [ObservableProperty] string text = "Initial!"; // the text value binded to the XAML.
 
+        [ObservableProperty] bool notificationEnabled;
 
     }
 }

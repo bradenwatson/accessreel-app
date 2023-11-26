@@ -1,4 +1,5 @@
-﻿using AccessReelApp.ViewModels;
+﻿using AccessReelApp.Notifications;
+using AccessReelApp.ViewModels;
 using AccessReelApp.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
@@ -23,6 +24,8 @@ public static class MauiProgram
 				fonts.AddFont("Oxygen-Regular.ttf", "OxygenRegular");
 				fonts.AddFont("Oxygen-Bold.ttf", "OxygenBold");
 			});
+
+
 
 		// Setup for pages *required for both the page and the view models*
 		builder.Services.AddSingleton<MainPage>();
