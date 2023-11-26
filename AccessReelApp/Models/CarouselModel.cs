@@ -10,6 +10,7 @@ namespace AccessReelApp
 {
     public static class CarouselModel
     {
+        // e
         const int NUMBER_MOVIES = 10;
         const string TRAILER = "Trailer";
         public static Dictionary<string, string> MovieImageDictionary { get; } = new Dictionary<string, string>();

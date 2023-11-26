@@ -8,6 +8,7 @@ namespace AccessReelApp.Models
 {
     public class ReviewCell
     {
+        // e
         public string MovieTitle { get; set; }
         public string MovieDescription { get; set; }
         public string PosterUrl { get; set; }

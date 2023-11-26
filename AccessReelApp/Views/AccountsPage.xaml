@@ -72,7 +72,7 @@
             WidthRequest="250"
             Padding="5,20,5,1"/>
 
-        <!--password input-->
+        <!--password inputs-->
         <Entry
             Placeholder="Password"
             Text="{Binding Password}"

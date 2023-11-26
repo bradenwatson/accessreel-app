@@ -24,6 +24,7 @@ namespace AccessReelApp.ViewModels
         [RelayCommand]
         public async Task OpenUrl(object paramater)
         {
+            Debug.WriteLine(paramater);
             if (paramater == null || !(paramater is string url))
             {
                 return;

@@ -12,7 +12,7 @@ namespace AccessReelApp.ViewModels
 {
     public partial class ReviewsViewModel : ObservableObject
     {
-        // Implement view model properties and funcs
+        // Implement view model properties and funcse
 
         [ObservableProperty]
         ObservableCollection<string> filterList = new()

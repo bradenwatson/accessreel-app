@@ -11,6 +11,6 @@ namespace AccessReelApp.ViewModels
     {
         [ObservableProperty] string text = "Initial!"; // the text value binded to the XAML.
 
-
+        // e
     }
 }

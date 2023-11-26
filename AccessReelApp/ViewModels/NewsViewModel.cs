@@ -13,6 +13,7 @@ namespace AccessReelApp.ViewModels
 {
     public partial class NewsViewModel : ObservableObject
     {
+        // e
         [ObservableProperty] ObservableCollection<ImageButton> buttonCollection;
         [ObservableProperty] ObservableCollection<NewsItem> newsCollection;
         [ObservableProperty] ObservableCollection<TrailerItem> trailersCollection;
