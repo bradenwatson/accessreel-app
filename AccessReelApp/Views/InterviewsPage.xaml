@@ -3,26 +3,79 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:AccessReelApp.ViewModels"
              x:Class="AccessReelApp.Views.InterviewsPage"
-             Title="InterviewsPage">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
+             Title="InterviewsPage"
+             BackgroundColor="#FFFFFF">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        
-        <Button Grid.Row="0" Grid.Column="0" 
-            BackgroundColor="Black"
-            Clicked="Load_Clicked" Text="load"/>
+    <!-- Declare your ContentPage resources -->
+    <ContentPage.Resources>
+        <viewmodel:InterviewsViewModel x:Key="InterviewsViewModel" />
+    </ContentPage.Resources>
 
-        <Button Grid.Row="0" Grid.Column="1" 
-            BackgroundColor="Black"
-            Clicked="Saved_Clicked" Text="save"/>
+    <ScrollView>
+        <StackLayout>
+            <Label x:Name="topBanner"/>
+            <CarouselView ItemsSource="{Binding InterviewsInfo}">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                            <!-- Display the Poster Image -->
+                            <Image Source="{Binding PosterUrl}" Aspect="AspectFill" HeightRequest="200"/>
 
-    </Grid>
-    
+                            <!-- Display the Movie Title -->
+                            <Label Text="{Binding InterviewsTitle}" HorizontalOptions="Center" VerticalOptions="StartAndExpand" FontAttributes="Bold" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+            <IndicatorView x:Name="indicatorView" 
+                           IndicatorColor="Gray"
+                           SelectedIndicatorColor="Black"
+                           MaximumVisible="10"
+                           IndicatorsShape="Circle"/>
+
+            <!--<HorizontalStackLayout
+                Spacing="25"
+                Padding="30,0">
+                <Label x:Name="movieTitle" Text="text"/>
+                <Border x:Name="critic" Style="{x:StaticResource compositeBorderCritic}"/>
+            </HorizontalStackLayout>-->
+
+            <!-- Latest News Header Banner-->
+            <VerticalStackLayout Padding="30,20,30,0">
+                <Image Source="latest_news.png"/>
+            </VerticalStackLayout>
+
+            <ListView RowHeight="250" x:Name="interviewsListView" ItemsSource="{Binding InterviewsCollection}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="150">
+                            <StackLayout Padding="30,10">
+                                <ImageButton Source="{Binding ImageSource}" HorizontalOptions="StartAndExpand"/>
+                                <!--<Label Text="{Binding Title}" Padding="5,5" FontAttributes="Bold"/>-->
+                                <Label>
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Title}"
+                                                 FontAttributes="Bold">
+                                                <Span.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding TapCommand}"
+                                                     CommandParameter="{Binding InterviewsUrl}" />
+                                                </Span.GestureRecognizers>
+                                            </Span>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Text="{Binding Description}" Padding="5,5"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Author}" TextColor="DarkGrey" Padding="20,0,20,0"/>
+                                    <Label Text="{Binding Date}" TextColor="DarkGrey" Padding="20,0,20,0"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

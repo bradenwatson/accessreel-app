@@ -24,7 +24,7 @@
             <ScrollView>
 
             </ScrollView>
-            <ListView RowHeight="450" ItemsSource="{Binding MovieReviewsList}">
+            <ListView RowHeight="500" ItemsSource="{Binding MovieReviewsList}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell Height="150">

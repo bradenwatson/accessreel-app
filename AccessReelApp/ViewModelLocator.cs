@@ -10,5 +10,6 @@ namespace AccessReelApp
     public static class ViewModelLocator
     {
         public static NewsViewModel NewsViewModelInstance { get; set; }
+        public static InterviewsViewModel InterviewsViewModelInstance { get; set; }
     }
 }
