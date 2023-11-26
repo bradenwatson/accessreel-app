@@ -23,6 +23,24 @@
                             IsToggled="{Binding NotificationEnabled}"/>
                 </HorizontalStackLayout>
             </Frame>
+
+            <Frame>
+                <VerticalStackLayout BackgroundColor="Gray">
+                    <Picker x:Name="PickFrequency"
+                            Title="Select Frequency" 
+                            SelectedIndexChanged="OnPickerSelectedIndexChanged">
+                        <Picker.Items>
+                            <x:String>Immediate</x:String>
+                            <x:String>Hourly</x:String>
+                            <x:String>Daily</x:String>
+                            <x:String>Weekly</x:String>
+                            <x:String>Fortnightly</x:String>
+                            <x:String>Monthly</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
+            </Frame>
+            
             <!--Remove when creating home page-->
             <Label Text="{Binding Text}"></Label>
             <Button

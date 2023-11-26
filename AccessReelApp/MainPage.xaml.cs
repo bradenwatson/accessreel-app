@@ -30,20 +30,48 @@ namespace AccessReelApp
             vm.NotificationEnabled = notificationSettings.NotificationEnabled;
             NotificationSwitch.IsToggled = vm.NotificationEnabled;
 
+            
+
+            vm.Frequencies = notificationSettings.Frequency;
+            PickFrequency.SelectedItem = Frequencies.Hourly;
+
+
+
+
             vm.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == nameof(vm.NotificationEnabled))
+                //if (e.PropertyName == nameof(vm.NotificationEnabled))
+                //{
+                //    notificationSettings.NotificationEnabled = vm.NotificationEnabled;
+                //}
+                switch(e.PropertyName) 
                 {
-                    notificationSettings.NotificationEnabled = vm.NotificationEnabled;
+                    case nameof(vm.NotificationEnabled):
+                        notificationSettings.NotificationEnabled = vm.NotificationEnabled;
+                        break;
+                    case nameof(vm.Frequencies):
+                        notificationSettings.Frequency = vm.Frequencies;
+                        break;
                 }
             };
 
             NotificationSwitch.IsToggled = vm.NotificationEnabled;
+            PickFrequency.SelectedItem = Frequencies.Hourly;
             /**************************************************************/
-
 
             NotificationManager.ReadFireBaseAdminSDK();
         }
+
+        private void OnPickerSelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedFrequencyString = (string)((Picker)sender).SelectedItem;
+
+            if (Enum.TryParse<Frequencies>(selectedFrequencyString, out var selectedFrequency))
+            {
+                // Handle the selected frequency as needed
+            }
+        }
+
 
         protected override void OnAppearing()
         {
