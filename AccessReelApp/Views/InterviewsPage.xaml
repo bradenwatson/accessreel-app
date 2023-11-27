@@ -46,7 +46,7 @@
                 <Image Source="latest_interviews.png" />
             </VerticalStackLayout>
 
-            <ListView RowHeight="400" x:Name="interviewsListView" ItemsSource="{Binding InterviewsCollection}">
+            <ListView SelectedItem="{Binding SelectedItem, Mode=TwoWay}" RowHeight="400" x:Name="interviewsListView" ItemsSource="{Binding InterviewsCollection}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell Height="350">

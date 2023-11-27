@@ -5,13 +5,14 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AccessReelApp.ViewModels
 {
-    public partial class InterviewsViewModel : ObservableObject
+    public partial class InterviewsViewModel : ObservableObject, INotifyPropertyChanged
     {
         [ObservableProperty] ObservableCollection<ImageButton> buttonCollection;
         [ObservableProperty] ObservableCollection<InterviewsItem> interviewsCollection;
@@ -25,6 +26,36 @@ namespace AccessReelApp.ViewModels
         {
             ButtonCollection ??= new ObservableCollection<ImageButton>();
 
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private InterviewsItem _selectedItem;
+        public InterviewsItem SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                if (_selectedItem != value)
+                {
+                    _selectedItem = value;
+                    OnPropertyChanged(nameof(SelectedItem));
+                    // Perform actions when SelectedItem changes
+                    HandleSelectedItemChange(value);
+                }
+            }
+        }
+
+        // Your other properties, methods, and commands go here
+
+        private void HandleSelectedItemChange(InterviewsItem selectedItem)
+        {
+            InterviewsCollection.Clear();
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
 
