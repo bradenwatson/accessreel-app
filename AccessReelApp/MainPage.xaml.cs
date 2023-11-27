@@ -32,21 +32,16 @@ namespace AccessReelApp
             vm.NotificationEnabled = notificationSettings.NotificationEnabled;
             NotificationSwitch.IsToggled = vm.NotificationEnabled;
 
-            
-
             vm.Frequencies = notificationSettings.Frequency;
-            //PickFrequency.SelectedItem = Frequencies.Hourly.ToString();
             PickFrequency.SelectedItem = vm.Frequencies;
 
+            vm.Reminder = notificationSettings.Reminder;
+            PickReminder.SelectedItem = vm.Reminder;
 
 
 
             vm.PropertyChanged += (sender, e) =>
             {
-                //if (e.PropertyName == nameof(vm.NotificationEnabled))
-                //{
-                //    notificationSettings.NotificationEnabled = vm.NotificationEnabled;
-                //}
                 switch(e.PropertyName) 
                 {
                     case nameof(vm.NotificationEnabled):
@@ -55,12 +50,12 @@ namespace AccessReelApp
                     case nameof(vm.Frequencies):
                         notificationSettings.Frequency = vm.Frequencies;
                         break;
+                    case nameof(vm.Reminder):
+                        notificationSettings.Reminder = vm.Reminder;
+                        break;
                 }
             };
 
-            NotificationSwitch.IsToggled = vm.NotificationEnabled;
-            //PickFrequency.SelectedItem = Frequencies.Hourly.ToString();
-            //PickFrequency.SelectedItem = vm.Frequencies;
             /**************************************************************/
 
             NotificationManager.ReadFireBaseAdminSDK();
@@ -88,6 +83,34 @@ namespace AccessReelApp
                 Debug.WriteLine("*************************************");
             }
         }
+
+        private void OnReminderSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (((Picker)sender).SelectedItem != null)
+            {
+                Debug.WriteLine("*************************************");
+                Debug.WriteLine($"Frequency = {((Picker)sender).SelectedItem}");
+                Debug.WriteLine("*************************************");
+                string selectedFrequencyString = ((Picker)sender).SelectedItem.ToString();
+
+                if (Enum.TryParse(selectedFrequencyString, out Frequencies selectedFrequency)) //Check if its in the enum
+                {
+                    //Set new preference
+                    notificationSettings.Frequency = selectedFrequency.ToString();
+                }
+            }
+            else
+            {
+                Debug.WriteLine("*************************************");
+                Debug.WriteLine($"Frequency not selected.");
+                Debug.WriteLine("*************************************");
+            }
+        }
+
+
+
+
+
 
 
         protected override void OnAppearing()

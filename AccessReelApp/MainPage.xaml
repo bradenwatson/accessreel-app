@@ -41,7 +41,16 @@
                     </Picker>
                 </VerticalStackLayout>
             </Frame>
-            
+            <Frame>
+                <VerticalStackLayout BackgroundColor="Gray">
+                    <Picker x:Name="PickReminder"
+                            Title="Remind me in:" 
+                            ItemsSource="{Binding ReminderOptions}"
+                            SelectedItem="{Binding Reminder}">
+                    </Picker>
+                </VerticalStackLayout>
+            </Frame>
+
             <!--Remove when creating home page-->
             <Label Text="{Binding Text}"></Label>
             <Button

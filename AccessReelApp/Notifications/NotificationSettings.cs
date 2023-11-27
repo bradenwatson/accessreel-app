@@ -41,23 +41,25 @@ namespace AccessReelApp.Notifications
         Monthly
     }
 
-    public enum RemindTimer
-    {
-        Fifteen,
-        Thirty,
-        One_Hour,
-        Six_Hours,
-        Twelve_Hours,
-        One_Day,
-        Two_Days,
-        One_Week
-    }
+    //public enum RemindTimer //Not useful
+    //{
+    //Fifteen,
+    //    Thirty,
+    //    One_Hour,
+    //    Six_Hours,
+    //    Twelve_Hours,
+    //    One_Day,
+    //    Two_Days,
+    //    One_Week
+    //}
+
+
 
     public class PreferenceKeys
     {
         public const string NotificationEnabledKey = "Notification Enabled";       //This is to check globally
         public const string FrequencyKey = "Frequency";
-        public const string RemindTimerKey = "RemindTimer";
+        public const string ReminderOptionKey = "ReminderOption";
         public const string InterestsKey = "Interest";
     }
 
@@ -66,6 +68,22 @@ namespace AccessReelApp.Notifications
         bool notificationEnabled;
         string frequency;
         string reminder;
+
+
+    
+        public static readonly string[] ReminderOptions = new string[]
+        { 
+            "15 mins",
+            "30 mins",
+            "1 hr",
+            "6 hrs",
+            "12 hrs",
+            "1 day",
+            "2 days",
+            "1 week",
+        };
+
+
         public bool NotificationEnabled
         {
             get
@@ -89,7 +107,7 @@ namespace AccessReelApp.Notifications
             }
         }
 
-        public string Frequency 
+        public string Frequency //For general news only
         {
             get
             {
@@ -111,40 +129,58 @@ namespace AccessReelApp.Notifications
                 frequency = Frequencies.Immediate.ToString();
                 return frequency;
             }
+
             set
             {
-                frequency = value;
-                Preferences.Default.Set(PreferenceKeys.FrequencyKey, frequency);
+                if (Enum.IsDefined(typeof(Frequencies), value))
+                {
+                    frequency = value;
+                    Preferences.Default.Set(PreferenceKeys.FrequencyKey, frequency);
+                }
+                else
+                {
+                    //Otherwise
+                    frequency = Frequencies.Immediate.ToString();
+                }
                 SetProperty(ref frequency, frequency);
             }
         }
 
-        public string Reminder
+        public string Reminder //For Bell reminders only
         {
             get
             {
-                if (!Preferences.Default.ContainsKey(PreferenceKeys.RemindTimerKey))
+                if (!Preferences.Default.ContainsKey(PreferenceKeys.ReminderOptionKey))
                 {
-                    Preferences.Default.Set(PreferenceKeys.RemindTimerKey, RemindTimer.One_Hour.ToString());
+                    Preferences.Default.Set(PreferenceKeys.ReminderOptionKey, ReminderOptions[2]);
                     Debug.WriteLine("*************************************");
-                    Debug.WriteLine($"Entry ({PreferenceKeys.RemindTimerKey} = {Preferences.Default.ContainsKey(PreferenceKeys.RemindTimerKey)})");
+                    Debug.WriteLine($"Entry ({PreferenceKeys.ReminderOptionKey} = {Preferences.Default.ContainsKey(PreferenceKeys.ReminderOptionKey)})");
                     Debug.WriteLine("*************************************");
                 }
 
-                reminder = Preferences.Default.Get(PreferenceKeys.RemindTimerKey, RemindTimer.One_Hour.ToString());
-                if (Enum.IsDefined(typeof(RemindTimer), reminder))
+                reminder = Preferences.Default.Get(PreferenceKeys.ReminderOptionKey, ReminderOptions[2]);
+                if(ReminderOptions.Contains(reminder))
                 {
                     return reminder;
                 }
 
                 //Otherwise
-                reminder = RemindTimer.One_Hour.ToString();
+                reminder = ReminderOptions[2];
                 return reminder;
             }
+
             set
             {
-                reminder = value;
-                Preferences.Default.Set(PreferenceKeys.RemindTimerKey, reminder);
+                if(ReminderOptions.Contains(value))
+                {
+                    reminder = value;
+                    Preferences.Default.Set(PreferenceKeys.ReminderOptionKey, reminder);
+                }
+                else
+                {
+                    //Otherwise
+                    reminder = ReminderOptions[2];
+                }
                 SetProperty(ref reminder, reminder);
             }
         }

@@ -18,5 +18,7 @@ namespace AccessReelApp.ViewModels
         [ObservableProperty] string frequencies;
 
         [ObservableProperty] string reminder;
+
+        [ObservableProperty] string[] reminderOptions = NotificationSettings.ReminderOptions;
     }
 }

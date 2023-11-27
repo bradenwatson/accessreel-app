@@ -44,3 +44,24 @@
                     <RadioButton  Content="Monthly" IsChecked="{Binding frequency, Mode=TwoWay}"/>
                 </VerticalStackLayout>
             </Frame>
+
+
+
+
+
+
+
+            SelectedIndexChanged="OnReminderSelectedIndexChanged"
+                            SelectedItem="{Binding Reminder}">
+
+                            <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>{Binding test}</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+            <x:String>15 mins</x:String>
+                            <x:String>30 minsy</x:String>
+                            <x:String>1 hr</x:String>
+                            <x:String>6 hrs</x:String>
+                            <x:String>12 hrs</x:String>
+                            <x:String>Daily</x:String>
