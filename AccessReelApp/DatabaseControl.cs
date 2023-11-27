@@ -17,7 +17,7 @@ namespace AccessReelApp
     /// everything that is registered and saved to the database needs a get method (don't know if needs a set). the pathway the database uses should be printed via debug.writeline().
     /// you will also need a primary key that isn't null. you can autoincrement
     /// </summary>
-    public class DatabaseControl
+    public class DatabaseControl    // created by George Dinnison
     {
         const string fileName = "TestDatabaseAccessReel1.db3";
         SQLiteAsyncConnection database;
