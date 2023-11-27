@@ -1,4 +1,15 @@
-﻿using Android.App;
+﻿
+/*
+  Author: Tony Bui
+  Last Updated: 27/11/23
+  Purpose: 
+    Setup the FCM customisation and functionality.
+
+  Notes:
+    * 
+*/
+
+using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;

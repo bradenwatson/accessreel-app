@@ -20,5 +20,7 @@ namespace AccessReelApp.ViewModels
         [ObservableProperty] string reminder;
 
         [ObservableProperty] string[] reminderOptions = NotificationSettings.ReminderOptions;
+
+        public NotificationManager notificationManager = new NotificationManager();
     }
 }

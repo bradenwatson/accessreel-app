@@ -27,6 +27,11 @@
         * Xamarin.AndroidX.AppCompat
         * Xamarin.AndroidX.Media
         * Xamarin.ANdroidX.Preference
+    * Compulsory files from Firebase Console
+    * and store with the correct labelling 
+    * within the Platforms/Android:
+        *  google-services.json
+        *  admin_sdk.json
 */
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using FirebaseAdmin;
@@ -43,6 +48,7 @@ namespace AccessReelApp.Notifications
         // Private fields can be declared here
         private string deviceToken;
         //private List<Message> messages;
+        
 
         // Constructor can be used to initialize class-level variables
         public NotificationManager()
@@ -99,6 +105,10 @@ namespace AccessReelApp.Notifications
                 Data = androidNotificationObject,
             };
             messages.Add(obj);
+
+
+
+            //Set timelapse preferrence and if exceeded fire all.
 
             await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);     //Notifications should still be send and received regardless of preferrence. You can only deny popup only.
         }

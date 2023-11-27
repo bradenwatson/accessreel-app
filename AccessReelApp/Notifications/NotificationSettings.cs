@@ -1,33 +1,25 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿/**************************************************************
+ *                      NOTIFICATION SETTINGS                   *
+ **************************************************************/
+
+/*
+  Author: Tony Bui
+  Last Updated: 27/11/23
+  Class Name: Notifications Settings
+  Purpose: 
+    Create and store notification preference settings to the device
+
+  Notes:
+    * Setting frequency does not do anything and is incomplete.
+*/
+
+using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using Microsoft.Maui.Storage;
 using System.ComponentModel;
 
-/*
- * LOCAL:
-    * A bell button for users to opt: 
-        * for 'upcoming' movies
-        * for live interviews
-        * expiring movies, competitions in their local time
-    * A tab view of all previous notifications
-    * An indicator for all tab views, pages that are new
-        * Mark all settings 
-    * Settings:
-        * tableview:
-            * "Enable notifications"
-            * "Enable reminders (for outside functionality)"
-        * picker:
-            *  "Frequency"
-                * Daily
-                * Weekly
-                * Fortnightly
-            * "Remind me every"
-                * x minutes
-                * in x days
-                * x days before event ends
- */
 
 namespace AccessReelApp.Notifications
 {
@@ -40,20 +32,6 @@ namespace AccessReelApp.Notifications
         Fortnightly,
         Monthly
     }
-
-    //public enum RemindTimer //Not useful
-    //{
-    //Fifteen,
-    //    Thirty,
-    //    One_Hour,
-    //    Six_Hours,
-    //    Twelve_Hours,
-    //    One_Day,
-    //    Two_Days,
-    //    One_Week
-    //}
-
-
 
     public class PreferenceKeys
     {
@@ -68,11 +46,11 @@ namespace AccessReelApp.Notifications
         bool notificationEnabled;
         string frequency;
         string reminder;
-
-
     
         public static readonly string[] ReminderOptions = new string[]
         { 
+            "5 mins",
+            "10 mins",
             "15 mins",
             "30 mins",
             "1 hr",
@@ -195,6 +173,88 @@ namespace AccessReelApp.Notifications
             enabled = Preferences.Default.Get(PreferenceKeys.NotificationEnabledKey, true);
             return enabled;
         }
+
+
+        public static TimeSpan TimeToDeduct()
+        {
+            TimeSpan timeToDeduct = TimeSpan.Zero;
+            if (!Preferences.Default.ContainsKey(PreferenceKeys.ReminderOptionKey))
+            {
+                Preferences.Default.Set(PreferenceKeys.ReminderOptionKey, ReminderOptions[2]);
+            }
+            string value = Preferences.Default.Get(PreferenceKeys.ReminderOptionKey, ReminderOptions[2]);
+            switch(value)
+            {
+                case "5 mins":
+                    timeToDeduct = timeToDeduct.Add(new TimeSpan(0,5,0));
+                    break;
+                case "10 mins":
+                    timeToDeduct = timeToDeduct.Add(new TimeSpan(0, 10, 0));
+                    break;
+                case "15 mins":
+                    timeToDeduct = timeToDeduct.Add(new TimeSpan(0, 15, 0));
+                    break;
+                case "30 mins":
+                    timeToDeduct = timeToDeduct.Add(new TimeSpan(0, 30, 0));
+                    break;
+                case "1 hr":
+                    timeToDeduct = timeToDeduct.Add(new TimeSpan(1, 0, 0));
+                    break;
+                case "6 hrs":
+                    timeToDeduct = timeToDeduct.Add(new TimeSpan(6, 0, 0));
+                    break;
+                case "12 hrs":
+                    timeToDeduct = timeToDeduct.Add(new TimeSpan(12, 0, 0));
+                    break;
+                case "1 day":
+                    timeToDeduct = timeToDeduct.Add(new TimeSpan(24, 0, 0));
+                    break;
+                case "2 days":
+                    timeToDeduct = timeToDeduct.Add(new TimeSpan(2*24, 0, 0));
+                    break;
+                case "1 week":
+                    timeToDeduct = timeToDeduct.Add(new TimeSpan(7*24, 0, 0));
+                    break;
+            }
+            return timeToDeduct;
+        }
+
+        public static long SetTimeToDisplay()
+        {
+            if (!Preferences.Default.ContainsKey(PreferenceKeys.FrequencyKey))
+            {
+                Preferences.Default.Set(PreferenceKeys.FrequencyKey, Frequencies.Immediate.ToString());
+            }
+            string value = Preferences.Default.Get(PreferenceKeys.FrequencyKey, Frequencies.Immediate.ToString());
+
+            DateTime clock = DateTime.Now;
+            long scheduledTime = 0;
+            switch(Enum.Parse(typeof(Frequencies), value))
+            {
+                case Frequencies.Immediate:
+                    scheduledTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                    break;
+                case Frequencies.Hourly:
+                    //DateTime roundedDate = 
+                    break;
+                case Frequencies.Daily:
+                    break;
+                case Frequencies.Weekly:
+                    break;
+                case Frequencies.Fortnightly:
+                    break;
+                case Frequencies.Monthly:
+                    break;
+            }
+            return 0;
+        }
+
+        private static DateTime roundtoHr(DateTime time)
+        {
+            return new DateTime(time.Year, time.Month, time.Day, time.Hour, 0, 0);
+        }
+
+
     }
 }
 

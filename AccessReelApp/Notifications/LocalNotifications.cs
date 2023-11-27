@@ -35,44 +35,9 @@ namespace AccessReelApp.Notifications
         public static string GenerateNotificationID()
         {
             string time = DateTime.Now.ToLocalTime().ToString("MMddHHmmss");
-            //return int.Parse(time);
             return time;
         }
 
-        /*
-        //May not need since using preferences
-        public static async Task CheckNotificationPermission()
-        {
-            NotificationPermission notificationPermission = null;
-            bool check = await LocalNotificationCenter.Current.AreNotificationsEnabled();
-            if (!check)
-            {
-                //Create permissions if not made yet
-                notificationPermission = new NotificationPermission();
-                if(NotificationSettings.CheckNotificationEnabled())
-                {
-                    notificationPermission.AskPermission = true;
-                }
-                else
-                {
-                    notificationPermission.AskPermission = false;
-                }
-            }
-            //else
-            //{
-            //    notificationPermission.AskPermission = NotificationSettings.CheckNotificationEnabled();
-            //}
-
-            await DebugPermissiions();
-
-        }
-
-        private static async Task DebugPermissiions()
-        {
-            bool check = await LocalNotificationCenter.Current.AreNotificationsEnabled();
-            Debug.WriteLine($"Local Notifications enabled = {check}");
-        }
-        */
 
         //Create an object manager that controls the flow, retrieval, cancellation and deletion of messages
         public static async Task<NotificationRequest> CreateReminder(int notificationID, DateTime airing, string title, string body, string subtitle = "")      //date ending
@@ -88,7 +53,7 @@ namespace AccessReelApp.Notifications
                 BadgeNumber = currBadges.Count,
                 Schedule = new NotificationRequestSchedule
                 {
-                    NotifyTime = airing,      //Make function -get movie date and time then set
+                    NotifyTime = airing.Subtract(NotificationSettings.TimeToDeduct()),      //Make function -get movie date and time then set
                     //NotifyRepeatInterval = TimeSpan.FromDays(1),     //Useful for already updated movie list   //Timespan as method to based on setting
                 }
             };
@@ -100,11 +65,10 @@ namespace AccessReelApp.Notifications
 
             return request;
             
-            //await LocalNotificationCenter.Current.Show(request);
         }
 
 
-        //Create a toggle for bell button WORKING!
+        //Should be bound at the movie page and disabled if notificaiton prefs disabled when page is loaded up
         public static async void BellButton(object sender, EventArgs e)
         {
             //Generate ID on button press or on movie update
@@ -143,9 +107,9 @@ namespace AccessReelApp.Notifications
         }
 
 
+        //NOTE IT MAY NOT BE A BUTTON BUT DO TEMPRARILIY
         public static async void SendNotification(object sender, EventArgs e)
         {
-            //await CheckNotificationPermission();
 
             if (int.TryParse(((Button)sender).AutomationId, out int buttonID))
             {
@@ -154,39 +118,36 @@ namespace AccessReelApp.Notifications
                 //Check if notification ID exists otherwise create one
                 if (request == null)
                 {
-                    request = await CreateReminder(buttonID, DateTime.Now.ToLocalTime(), "Hello", "Working"); 
+                    request = await CreateReminder(buttonID, DateTime.Now.ToLocalTime(), "Hello", "Working");
                 }
 
-                if(NotificationSettings.CheckNotificationEnabled())
+
+                /*
+                    * Cases:
+                    * 1. Created reminder, turned off notification => wont fire
+                    * 2. Notifcation off, deny button
+                    * 3. Button on, notification on
+                    */
+
+                if (NotificationSettings.CheckNotificationEnabled())
                 {
                     await LocalNotificationCenter.Current.Show(request);
                 }
-                else 
+                else
                 {
                     Debug.WriteLine("*******************************");
                     Debug.WriteLine($"User has disabled notifications");
                     Debug.WriteLine("*******************************");
                 }
-                
+
             }
             else
             {
                 Debug.WriteLine("Failed to generate notification ID.");
             }
+            
+        
         }
 
-
-        ////Delete notification when movie expires
-        //public static void DeleteButton()
-        //{
-        //    if (LocalNotificationCenter.Current.Clear(0))
-        //    {
-        //        Debug.WriteLine($"Deleted Notification ()");
-        //    }
-        //    else
-        //    {
-        //        Debug.WriteLine($"Failed to delete Notification ()");
-        //    }
-        //}
     }
 }

@@ -1,4 +1,21 @@
-﻿using AccessReelApp.Notifications;
+﻿/**************************************************************
+ *                      FIREBASE SERVICE                   *
+ **************************************************************/
+
+/*
+  Author: Tony Bui
+  Last Updated: 27/11/23
+  Class Name: Firebase Service
+  Purpose: 
+    Controls how the notifications are sent to the FCM server
+    to the device.
+
+  Notes:
+    * 
+*/
+
+using AccessReelApp.Notifications;
+using AccessReelApp.ViewModels;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -41,18 +58,22 @@ namespace AccessReelApp.Platforms.Android.Services
             Debug.WriteLine("*******************************");
 
 
+            
+
             //Messages 
-            if(NotificationSettings.CheckNotificationEnabled())
+            if (NotificationSettings.CheckNotificationEnabled())
             {
                 SendNotification(message.Data, notification.Title, notification.Body);
+                
             }
             else
             {
+                //Notifications will not be stored and will miss out
                 Debug.WriteLine("*******************************");
                 Debug.WriteLine($"User has disabled notifications");
                 Debug.WriteLine("*******************************");
             }
-            
+
         }
 
 
@@ -108,6 +129,7 @@ namespace AccessReelApp.Platforms.Android.Services
                 .SetChannelId(page)
                 .SetContentIntent(pendingIntent)
                 .SetPriority(NotificationCompat.PriorityDefault)
+                //.SetWhen()        //Should be set by current time plus the frequency
                 .SetAutoCancel(true);
 
             var notificationManager = NotificationManagerCompat.From(this);
