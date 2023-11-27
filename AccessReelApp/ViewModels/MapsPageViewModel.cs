@@ -15,7 +15,6 @@ namespace AccessReelApp.ViewModels
 {
     public partial class MapsPageViewModel : ObservableObject
     {
-        // e
         [ObservableProperty] ObservableCollection<Event> events;
         [ObservableProperty] bool isImageVisible;
         public ICommand EventSelectedCommand { get; }
