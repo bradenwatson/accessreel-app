@@ -55,6 +55,7 @@ namespace AccessReelApp.ViewModels
 
                     NewsViewModel nvm = new();
                     Application.Current.MainPage.Navigation.PushAsync(new NewsPage(vm: nvm));
+                    Application.Current.MainPage.Navigation.PopAsync();
                 }
             }
 
