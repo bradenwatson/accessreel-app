@@ -46,37 +46,39 @@
                 <Image Source="latest_interviews.png" />
             </VerticalStackLayout>
 
-            <ListView SelectedItem="{Binding SelectedItem, Mode=TwoWay}" RowHeight="400" x:Name="interviewsListView" ItemsSource="{Binding InterviewsCollection}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell Height="350">
-                            <StackLayout Padding="30,10">
-                                <ImageButton Source="{Binding ImageSource}" HorizontalOptions="CenterAndExpand" WidthRequest="280" HeightRequest="200" Aspect="AspectFill"/>
-                                <!--<Label Text="{Binding Title}" Padding="5,5" FontAttributes="Bold"/>-->
-                                <Label Text="{Binding Tester}"></Label>
+            <ListView SelectedItem="{Binding SelectedItem, Mode=TwoWay}" RowHeight="400" x:Name="interviewsListView" ItemsSource="{Binding InterviewsCollection}" ItemTapped="OninterviewsItemTapped"/>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell Height="350">
+                        <StackLayout Padding="30,10">
+                            <Image Source="{Binding ImageSource}" HorizontalOptions="CenterAndExpand" WidthRequest="280" HeightRequest="200" Aspect="AspectFill"/>
+                            <Label Text="{Binding Title}" Padding="5,5" FontAttributes="Bold"/>
+                            <!--<Label Text="{Binding Tester}"></Label>
                                 <Label WidthRequest="300">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="{Binding Title}"
                                                  FontAttributes="Bold">
-                                                <Span.GestureRecognizers>
+                                                -->
+                            <!--<Span.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding TapCommand}"
                                                      CommandParameter="{Binding InterviewsUrl}" />
-                                                </Span.GestureRecognizers>
+                                                </Span.GestureRecognizers>-->
+                            <!--
                                             </Span>
                                         </FormattedString>
                                     </Label.FormattedText>
-                                </Label>
-                                <Label Text="{Binding Description}" Padding="5,5" WidthRequest="300"/>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Author}" TextColor="DarkGrey" Padding="20,0,20,0"/>
-                                    <Label Text="{Binding Date}" TextColor="DarkGrey" Padding="20,0,20,0"/>
-                                </StackLayout>
+                                </Label>-->
+                            <Label Text="{Binding Description}" Padding="5,5" WidthRequest="300"/>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Author}" TextColor="DarkGrey" Padding="20,0,20,0"/>
+                                <Label Text="{Binding Date}" TextColor="DarkGrey" Padding="20,0,20,0"/>
                             </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
         </StackLayout>
     </ScrollView>
 </ContentPage>

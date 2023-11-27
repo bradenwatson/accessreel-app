@@ -45,6 +45,7 @@ namespace AccessReelApp.ViewModels
             };
 
 
+
             NewsCollection = new ObservableCollection<NewsItem>
             {
                 new NewsItem
@@ -99,8 +100,10 @@ namespace AccessReelApp.ViewModels
                 },
                 // Add more trailer items as needed...
             };
-        }
 
+
+
+        }
 
     }
 

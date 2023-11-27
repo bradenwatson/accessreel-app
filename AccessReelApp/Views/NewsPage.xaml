@@ -47,12 +47,12 @@
                 <Image Source="latest_news.png"/>
             </VerticalStackLayout>
 
-            <ListView RowHeight="400" x:Name="newsListView" ItemsSource="{Binding NewsCollection}">
+            <ListView RowHeight="400" x:Name="newsListView" ItemsSource="{Binding NewsCollection}" ItemTapped="OnNewsItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell Height="150">
                             <StackLayout Padding="30,10">
-                                <ImageButton Source="{Binding ImageSource}" HorizontalOptions="CenterAndExpand" Aspect="AspectFit" WidthRequest="280" HeightRequest="200"/>
+                                <Image Source="{Binding ImageSource}" HorizontalOptions="CenterAndExpand" Aspect="AspectFit" WidthRequest="280" HeightRequest="200" />
                                 <Label Text="{Binding Title}" Padding="5,5" FontAttributes="Bold" WidthRequest="300"/>
                                 <Label Text="{Binding Description}" Padding="5,5" WidthRequest="300"/>
                                 <StackLayout Orientation="Horizontal">
@@ -71,7 +71,7 @@
             </VerticalStackLayout>
 
             <!-- ListView for Trailers -->
-            <ListView RowHeight="250" x:Name="trailersListView" ItemsSource="{Binding TrailersCollection}">
+            <ListView RowHeight="250" x:Name="trailersListView" ItemsSource="{Binding TrailersCollection}" ItemTapped="OnTrailerItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
