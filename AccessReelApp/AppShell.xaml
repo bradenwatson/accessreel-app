@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:AccessReelApp"
     xmlns:view="clr-namespace:AccessReelApp.Views"
-    FlyoutWidth="300"
+    FlyoutWidth="275"
     FlyoutHeaderBehavior="CollapseOnScroll"
     Shell.FlyoutBehavior="Flyout"
     Shell.ForegroundColor="#171516"
@@ -15,7 +15,6 @@
     <Shell.Resources>
         <ResourceDictionary>
             
-            <!-- set background coloour of shell-->
             <Color x:Key="ShellBackgroundColor">#FFFFFF</Color>
 
         </ResourceDictionary>
@@ -29,7 +28,7 @@
                 <Grid ColumnDefinitions="100,*"
                       Padding="10">
 
-                    <Label Margin="-10, 0, 0, -5"
+                    <Label Margin="-10, 0, -15, -5"
                            Text="{Binding Title}"
                            FontAttributes="Bold"
                            FontSize="20" />
@@ -49,7 +48,6 @@
 
         <Grid HeightRequest="50">
 
-            <!-- accessreel.com logo-->
             <Image Source="accessreel_logo.png"
                    WidthRequest="125"
                    HeightRequest="75"
@@ -63,12 +61,7 @@
 
     <TabBar>
 
-        <!--<Tab Title="Home">
-            <ShellContent Route="home" 
-              ContentTemplate="{DataTemplate local:MainPage}" />
-        </Tab>-->
-
-        <Tab Title="News">
+        <Tab Title="Home">
             <ShellContent ContentTemplate="{DataTemplate view:NewsPage}" />
         </Tab>
 
@@ -79,10 +72,6 @@
     </TabBar>
 
     <FlyoutItem Title="Home">
-        <ShellContent ContentTemplate="{DataTemplate view:ReviewsPage}" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="News">
         <ShellContent ContentTemplate="{DataTemplate view:NewsPage}" />
     </FlyoutItem>
 
@@ -94,14 +83,13 @@
         <ShellContent ContentTemplate="{DataTemplate view:InterviewsPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Map">
+    <FlyoutItem Title="Events">
         <ShellContent ContentTemplate="{DataTemplate view:MapsPage}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Log In">
         <ShellContent ContentTemplate="{DataTemplate view:SignUpLogin}" />
     </FlyoutItem>
-
 
     <FlyoutItem Title="Accounts">
         <ShellContent ContentTemplate="{DataTemplate view:AccountsPage}" />
