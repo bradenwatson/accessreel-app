@@ -64,6 +64,26 @@ namespace AccessReelApp.ViewModels
                     Author = "Darran",
                     Date = DateTime.Now.ToString("dd MMMM, yyyy")
                 },
+                new InterviewsItem
+                {
+                    ImageSource = "https://accessreel.com/app/uploads/2022/12/PIB2_DARRANPRICE_JCSH_CAMA0473-e1671508598997-250x130.jpg",
+                    Title = "Salma Hayek & Joel Crawford – Puss in Boots: The Last Wish",
+                    InterviewsUrl = new Uri("https://accessreel.com/article/salma-hayek-joel-crawford-puss-in-boots-the-last-wish/"),
+                    Description = "Mexico’s Salma Hayek needs little introduction, she has been a presence on international screens now, " +
+                    "for three decades.  She recalls seeing the...",
+                    Author = "Darran",
+                    Date = DateTime.Now.ToString("dd MMMM, yyyy")
+                },
+                new InterviewsItem
+                {
+                    ImageSource = "https://accessreel.com/app/uploads/2022/12/10E43_D001_00863Rv2-1-250x130.jpg",
+                    Title = "Harvey Guillén – Puss in Boots: The Last Wish",
+                    InterviewsUrl = new Uri("https://accessreel.com/article/harvey-guillen-puss-in-boots-the-last-wish/"),
+                    Description = "Harvey Guillén is an American actor who is best known for his role as the human familiar " +
+                    "Guillermo de la Cruz in the 2019 television series What We Do...",
+                    Author = "Darran",
+                    Date = DateTime.Now.ToString("dd MMMM, yyyy")
+                },
                 // Add more interviews items as needed...
 
             };
