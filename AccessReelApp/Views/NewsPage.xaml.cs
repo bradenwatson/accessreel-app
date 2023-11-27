@@ -12,8 +12,8 @@ public partial class NewsPage : ContentPage
 
 
         // Add ItemTapped event handlers for both ListView MSR
-       // newsListView.ItemTapped += OnNewsItemTapped;
-       // trailersListView.ItemTapped += OnTrailerItemTapped;
+        newsListView.ItemTapped += OnNewsItemTapped;
+        trailersListView.ItemTapped += OnTrailerItemTapped;
 
     }
 
