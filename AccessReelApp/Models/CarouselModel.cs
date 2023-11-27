@@ -28,79 +28,56 @@ namespace AccessReelApp
         static void Initialise()
         {
             List<string> keys = ListKeys();
-            PopulateDictionaries(keys, TRAILER, trailersDictionary, trailerImageButtons);
-            PopulateDictionaries(keys, string.Empty, otherDictionary, otherImageButtons);
+            PopulateEntities(keys, TRAILER, trailersDictionary, trailerImageButtons);
+            PopulateEntities(keys, string.Empty, otherDictionary, otherImageButtons);
         }
 
         // Gets a list of keys from the movieImageDictionary
-        static List<string> ListKeys()
-        {
-            return new List<string>(movieImageDictionary.Keys);
-        }
+        static List<string> ListKeys() => new (movieImageDictionary.Keys);
+
 
         // Populates dictionaries and ImageButtons based on a filter (TRAILER or other)
-        static void PopulateDictionaries(List<string> keys, string filter, Dictionary<string, string>[] dictionaries, ImageButton[] buttons)
+        static void PopulateEntities(List<string> keys, string filter, Dictionary<string, string>[] dictionaries, ImageButton[] buttons)
         {
-            // Selects keys based on the filter
             List<string> selectedKeys = (filter == TRAILER) ? FindKeys(TRAILER, keys) : keys.Except(FindKeys(TRAILER, keys)).Take(NUMBER_MOVIES).ToList();
 
-            // Populates dictionaries and image buttons based on selected keys
             for (int i = 0; i < NUMBER_MOVIES; i++)
             {
                 string key = selectedKeys.ElementAtOrDefault(i);
-                string value = movieImageDictionary[key];
-                dictionaries[i] = CreateDictionary(key, value);
-                buttons[i] = CreateImageButton(key);
+                PopulateEntity(key, dictionaries, buttons, i);
             }
         }
 
         // Finds keys in the list containing the specified key and returns a sublist.
-        static List<string> FindKeys(string key, List<string> keys)
-        {
-            return keys.FindAll(item => item.Contains(key)).Take(NUMBER_MOVIES).ToList();
-        }
+        static List<string> FindKeys(string key, List<string> keys) => keys.FindAll(item => item.Contains(key)).Take(NUMBER_MOVIES).ToList();
 
-        // Creates an array of dictionaries for a filtered subset of keys.
-        static Dictionary<string, string>[] CreateDictionaryArray(List<string> keys, string filter)
+        // Populates a dictionary and an ImageButton at the specified index
+        static void PopulateEntity(string key, Dictionary<string, string>[] dictionaries, ImageButton[] buttons, int index)
         {
-            return FindKeys(filter, keys).Select(key => CreateDictionary(key, movieImageDictionary[key])).ToArray();
-        }
-
-        // Creates an array of image buttons based on the list's elements.
-        static ImageButton[] CreateImageButtonArray(List<string> keys)
-        {
-            return keys.Select(CreateImageButton).ToArray();
-        }
-
-        // Returns an array of dictionaries based on the parameter's value.
-        static Dictionary<string, string>[] GetSelectedDict(string filter)
-        {
-            return filter == TRAILER ? trailersDictionary : otherDictionary;
-        }
-
-        // Returns an array of image buttons based on the parameter's value.
-        static ImageButton[] GetSelectedImageButtons(string filter)
-        {
-            return filter == TRAILER ? trailerImageButtons : otherImageButtons;
+            string value = movieImageDictionary[key];
+            dictionaries[index] = CreateDictionary(key, value);
+            buttons[index] = CreateImageButton(key);
         }
 
         public static void AddMovieToDictionaries(ReviewCell reviewCell, int index)
         {
-            // Concatenates "Movie_" with the value of variable "index" 
             string key = $"Movie_{index}";
-
-            // Associates a movie poster's URL with a key in the movieImageDictionary
             movieImageDictionary[key] = reviewCell.PosterUrl;
 
-            // Gets the selected dictionaries and ImageButtons based on the reviewCell.MovieTitle
-            Dictionary<string, string>[] selectedDictionary = GetSelectedDict(reviewCell.MovieTitle);
-            selectedDictionary[index] = CreateDictionary(reviewCell.MovieTitle, reviewCell.PosterUrl);
-
-            GetSelectedImageButtons(reviewCell.MovieTitle)[index] = CreateImageButton(reviewCell.PosterUrl);
+            Dictionary<string, string>[] selectedDictionary = GetSelectedDictAndButtons(reviewCell.MovieTitle);
+            PopulateEntities(new List<string> { key }, selectedDictionary, GetSelectedImageButtons(reviewCell.MovieTitle));
         }
 
-        static Dictionary<string, string> CreateDictionary(string key, string value) => new () { { key, value } };
+        static Dictionary<string, string>[] CreateDictionaryArray(List<string> keys, string filter) => FindKeys(filter, keys).Select(key => CreateDictionary(key, movieImageDictionary[key])).ToArray();
 
-        static ImageButton CreateImageButton(string key) => new () { Source = movieImageDictionary[key] };
+        static ImageButton[] CreateImageButtonArray(List<string> keys) => keys.Select(CreateImageButton).ToArray();
+
+        static Dictionary<string, string>[] GetSelectedDictAndButtons(string filter) => filter == TRAILER ? trailersDictionary : otherDictionary;
+
+        static ImageButton[] GetSelectedImageButtons(string filter) => filter == TRAILER ? trailerImageButtons : otherImageButtons;
+
+        static Dictionary<string, string> CreateDictionary(string key, string value) => new() { { key, value } };
+
+        static ImageButton CreateImageButton(string key) => new() { Source = movieImageDictionary[key] };
     }
 }
