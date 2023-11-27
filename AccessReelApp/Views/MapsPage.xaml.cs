@@ -1,7 +1,5 @@
 using AccessReelApp.ViewModels;
-using Microsoft.Maui.Maps;
 using static Plugin.LocalNotification.NotificationRequestGeofence;
-using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Controls;
 
 namespace AccessReelApp.Views;
