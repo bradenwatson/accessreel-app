@@ -43,18 +43,18 @@
 
             <!-- Latest News Header Banner-->
             <VerticalStackLayout Padding="30,20,30,0">
-                <Image Source="latest_interviews.png"/>
+                <Image Source="latest_interviews.png" />
             </VerticalStackLayout>
 
-            <ListView RowHeight="250" x:Name="interviewsListView" ItemsSource="{Binding InterviewsCollection}">
+            <ListView RowHeight="400" x:Name="interviewsListView" ItemsSource="{Binding InterviewsCollection}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell Height="350">
                             <StackLayout Padding="30,10">
-                                <ImageButton Source="{Binding ImageSource}" HorizontalOptions="StartAndExpand"/>
+                                <ImageButton Source="{Binding ImageSource}" HorizontalOptions="CenterAndExpand" WidthRequest="280" HeightRequest="200" Aspect="AspectFill"/>
                                 <!--<Label Text="{Binding Title}" Padding="5,5" FontAttributes="Bold"/>-->
                                 <Label Text="{Binding Tester}"></Label>
-                                <Label>
+                                <Label WidthRequest="300">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="{Binding Title}"
@@ -67,7 +67,7 @@
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                                <Label Text="{Binding Description}" Padding="5,5"/>
+                                <Label Text="{Binding Description}" Padding="5,5" WidthRequest="300"/>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="{Binding Author}" TextColor="DarkGrey" Padding="20,0,20,0"/>
                                     <Label Text="{Binding Date}" TextColor="DarkGrey" Padding="20,0,20,0"/>

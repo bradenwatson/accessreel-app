@@ -27,7 +27,7 @@
             <ListView RowHeight="500" ItemsSource="{Binding MovieReviewsList}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Height="150">
+                        <ViewCell Height="250">
                             <StackLayout Orientation="Vertical">
                                 <!-- Main cell content -->
                                 <Grid Padding="10">
