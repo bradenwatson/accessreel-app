@@ -111,18 +111,22 @@
 
     <MenuFlyoutItem x:Name="facebookIcon"
                     IconImageSource="Icons/facebook_icon.png"
-                    Text="Facebook" />
+                    Text="Facebook"
+                    Clicked="FacebookIcon_Clicked" />
 
     <MenuFlyoutItem x:Name="instagramIcon"
                     IconImageSource="Icons/instagram_icon.png"
-                    Text="Instagram" />
+                    Text="Instagram"
+                    Clicked="InstagramIcon_Clicked" />
 
     <MenuFlyoutItem x:Name="xIcon"
                     IconImageSource="Icons/x_icon.png"
-                    Text="X" />
+                    Text="X"
+                    Clicked="XIcon_Clicked" />
 
     <MenuFlyoutItem x:Name="youtubeIcon"
                     IconImageSource="Icons/youtube_icon.png"
-                    Text="YouTube" />
+                    Text="YouTube"
+                    Clicked="YoutubeIcon_Clicked" />
 
 </Shell>
