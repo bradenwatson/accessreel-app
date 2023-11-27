@@ -13,6 +13,7 @@ namespace AccessReelApp.ViewModels
     public partial class ReviewsViewModel : ObservableObject
     {
         // Implement view model properties and funcse
+        int numberOfMoviesToAddToReviewPage = 10;
 
         [ObservableProperty]
         ObservableCollection<string> filterList = new()
@@ -51,7 +52,10 @@ namespace AccessReelApp.ViewModels
                 {
                     Application.Current.Dispatcher.Dispatch(() =>
                     {
-                        MovieReviewsList.Add(review);
+                        if (movieReviewsList.Count < numberOfMoviesToAddToReviewPage)
+                        {
+                            MovieReviewsList.Add(review);
+                        }
                     });
                 }, TaskScheduler.Default);
             };
