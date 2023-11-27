@@ -59,6 +59,10 @@ namespace AccessReelApp
             /**************************************************************/
 
             NotificationManager.ReadFireBaseAdminSDK();
+
+            // making a notification on launch to prove it works
+            NotificationManager nm = new();            
+            nm.CreateMessage("AccessReel", "On Start Notification");
         }
 
         private void OnPickerSelectedIndexChanged(object sender, EventArgs e)
