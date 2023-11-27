@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.Messaging;
 using AccessReelApp.Messages;
+using AccessReelApp.Views;
 
 namespace AccessReelApp.ViewModels
 {
@@ -49,8 +51,13 @@ namespace AccessReelApp.ViewModels
                 if (Username == DEFAULT_USERNAME && Password == DEFAULT_PASSWORD)
                 {
                     IsSignedIn = true;
+                    Debug.WriteLine(IsSignedIn);
+
+                    NewsViewModel nvm = new();
+                    Application.Current.MainPage.Navigation.PushAsync(new NewsPage(vm: nvm));
                 }
             }
+
             return Task.CompletedTask;
         }
     }
