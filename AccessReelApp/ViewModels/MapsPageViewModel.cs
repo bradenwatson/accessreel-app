@@ -66,7 +66,7 @@ namespace AccessReelApp.ViewModels
             public string Description { get; set; }
             public DateTime StartTime { get; set; }
             public string Location { get; set; }
-            public double Latitude { get; set; }
+            public double Latitude { get; set; } // Used for when receiving Latitude and Longitude data
             public double Longitude { get; set; }
 
             private bool _isImageVisible;
