@@ -28,7 +28,8 @@
                 <VerticalStackLayout BackgroundColor="Gray">
                     <Picker x:Name="PickFrequency"
                             Title="Select Frequency" 
-                            SelectedIndexChanged="OnPickerSelectedIndexChanged">
+                            SelectedIndexChanged="OnPickerSelectedIndexChanged"
+                            SelectedItem="{Binding Frequencies}">
                         <Picker.Items>
                             <x:String>Immediate</x:String>
                             <x:String>Hourly</x:String>

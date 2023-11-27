@@ -25,6 +25,8 @@ namespace AccessReelApp
         {
             InitializeComponent();
             BindingContext = vm;
+
+            
             /**************************************************************/
             //IMPORTANT: HOW TO BIND DATA TO UI ELEMENTS
             vm.NotificationEnabled = notificationSettings.NotificationEnabled;
@@ -33,7 +35,8 @@ namespace AccessReelApp
             
 
             vm.Frequencies = notificationSettings.Frequency;
-            PickFrequency.SelectedItem = Frequencies.Hourly;
+            //PickFrequency.SelectedItem = Frequencies.Hourly.ToString();
+            PickFrequency.SelectedItem = vm.Frequencies;
 
 
 
@@ -56,7 +59,8 @@ namespace AccessReelApp
             };
 
             NotificationSwitch.IsToggled = vm.NotificationEnabled;
-            PickFrequency.SelectedItem = Frequencies.Hourly;
+            //PickFrequency.SelectedItem = Frequencies.Hourly.ToString();
+            //PickFrequency.SelectedItem = vm.Frequencies;
             /**************************************************************/
 
             NotificationManager.ReadFireBaseAdminSDK();
@@ -64,11 +68,24 @@ namespace AccessReelApp
 
         private void OnPickerSelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedFrequencyString = (string)((Picker)sender).SelectedItem;
-
-            if (Enum.TryParse<Frequencies>(selectedFrequencyString, out var selectedFrequency))
+            if (((Picker)sender).SelectedItem != null)
             {
-                // Handle the selected frequency as needed
+                Debug.WriteLine("*************************************");
+                Debug.WriteLine($"Frequency = {((Picker)sender).SelectedItem}");
+                Debug.WriteLine("*************************************");
+                string selectedFrequencyString = ((Picker)sender).SelectedItem.ToString();
+
+                if (Enum.TryParse(selectedFrequencyString, out Frequencies selectedFrequency)) //Check if its in the enum
+                {
+                    //Set new preference
+                    notificationSettings.Frequency = selectedFrequency.ToString();
+                }
+            }
+            else
+            {
+                Debug.WriteLine("*************************************");
+                Debug.WriteLine($"Frequency not selected.");
+                Debug.WriteLine("*************************************");
             }
         }
 

@@ -15,8 +15,8 @@ namespace AccessReelApp.ViewModels
         //TEMPORARY -> NEED TO MOVE INTO OWN VIEWMODEL
         [ObservableProperty] bool notificationEnabled;
 
-        [ObservableProperty] Frequencies frequencies;
+        [ObservableProperty] string frequencies;
 
-        [ObservableProperty] RemindTimer reminder;
+        [ObservableProperty] string reminder;
     }
 }
