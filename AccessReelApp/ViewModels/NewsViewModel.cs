@@ -1,5 +1,6 @@
 ﻿using AccessReelApp.Models;
 using AccessReelApp.Prototypes;
+using AccessReelApp.Notifications;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,8 @@ namespace AccessReelApp.ViewModels
 {
     public partial class NewsViewModel : ObservableObject
     {
-        // e
+        NotificationManager notificationManager = new NotificationManager();
+
         [ObservableProperty] ObservableCollection<ImageButton> buttonCollection;
         [ObservableProperty] ObservableCollection<NewsItem> newsCollection;
         [ObservableProperty] ObservableCollection<TrailerItem> trailersCollection;
@@ -25,11 +27,14 @@ namespace AccessReelApp.ViewModels
             ButtonCollection ??= new ObservableCollection<ImageButton>();
         }
 
-
         public NewsViewModel()
         {
             Initialise();
 
+            NotificationManager.ReadFireBaseAdminSDK();
+
+            NotificationManager notificationManager = new();
+            notificationManager.CreateMessage("Welcome!", "This is an on start notification.");
 
             movieClient.ReviewFetched += (review) =>
             {

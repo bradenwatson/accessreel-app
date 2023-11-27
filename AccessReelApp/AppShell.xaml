@@ -91,10 +91,6 @@
         <ShellContent ContentTemplate="{DataTemplate view:SignUpLogin}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Accounts">
-        <ShellContent ContentTemplate="{DataTemplate view:AccountsPage}" />
-    </FlyoutItem>
-
     <MenuFlyoutSeparator />
 
     <MenuFlyoutItem x:Name="facebookIcon"

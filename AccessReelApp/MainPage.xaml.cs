@@ -52,25 +52,6 @@ namespace AccessReelApp
             BindingContext = vm;
 
             //DeviceToken();
-            NotificationManager.ReadFireBaseAdminSDK();
-            SwitchByNotification();
-
-
-        }
-
-
-        private void SwitchByNotification()
-        {
-            if (Preferences.ContainsKey("NavigationID"))
-            {
-                string id = Preferences.Get("NavigationID", "");
-                if (id == "1")
-                {
-                    AppShell.Current.GoToAsync(nameof(NewPage1));
-                }
-                //ADD MORE PAGES
-            }
-            Preferences.Remove("NavigationID");
         }
 
 
@@ -146,26 +127,5 @@ namespace AccessReelApp
         {
             await movieClient.GetReviewsForPopularMovies(1);
         }
-
-
-
-
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            NotificationHandler.HandleButtonClick();
-        }
-
-        // Button click event for the second notification (using NotificationHandler)
-        private void Button_Clicked_1(object sender, EventArgs e)
-        {
-            notificationManager.HandleButtonClick();
-        }
-
-
-
-
-
     } 
 }
-

@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Maps;
-using Microsoft.Maui.Controls.Maps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
