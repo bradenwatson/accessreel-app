@@ -67,21 +67,23 @@
 
         <HorizontalStackLayout
             Padding="5,1,5,10">
-            <!--Facebook Image Button-->
-            <ImageButton 
-                Source="facebook_logo.png"
-                Aspect="Fill"
-                WidthRequest="30"
-                HeightRequest="30"
-                Padding="5,0,0,5"/>
 
-            <!--Google Image Button-->
-            <ImageButton 
-                Source="google_logo.png"
-                Aspect="Fill"
-                WidthRequest="30"
-                HeightRequest="30"
-                Padding="5,0,0,5"/>
+            <ImageButton x:Name="facebookImageButton"
+                         Source="facebook_logo.png"
+                         Aspect="Fill"
+                         WidthRequest="30"
+                         HeightRequest="30"
+                         Padding="5,0,0,5"
+                         Clicked="FacebookImageButton_Clicked" />
+            
+            <ImageButton x:Name="googleImageButton"
+                         Source="google_logo.png"
+                         Aspect="Fill"
+                         WidthRequest="30"
+                         HeightRequest="30"
+                         Padding="5,0,0,5"
+                         Clicked="GoogleImageButton_Clicked" />
+            
         </HorizontalStackLayout>
 
         <!--remember me checkbox-->
@@ -135,66 +137,53 @@
             HorizontalOptions="Center"
             HorizontalTextAlignment="Center"
             WidthRequest="250"
-            Padding="5,20,5,1">
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span 
-                        Text="Register"
-                        TextColor="#171516"
-                        FontSize="12"
-                        TextDecorations="Underline">
-                        <Span.GestureRecognizers>
-                            <TapGestureRecognizer
-                                    Command="{Binding OpenUrlCommand}"
-                                    CommandParameter="https://https://accessreel.com/wp/wp-login.php?action=register"/>
-                        </Span.GestureRecognizers>
-                    </Span>
-                    <Span
-                        Text=" | "
-                        TextColor="#171516"
-                        FontSize="12"/>
-                    <Span 
-                        Text="Forgotten my Password"
-                        TextColor="#171516"
-                        FontSize="12"
-                        TextDecorations="Underline">
-                        <Span.GestureRecognizers>
-                            <TapGestureRecognizer
-                                    Command="{Binding OpenUrlCommand}"
-                                    CommandParameter="https://https://accessreel.com/my-account/lost-password/"/>
-                        </Span.GestureRecognizers>
-                    </Span>
-                </FormattedString>
-            </Label.FormattedText>
+            Padding="5,20,5,1"
+            Text="Register"
+            TextColor="#171516"
+            FontSize="12"
+            TextDecorations="Underline">
+
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding OpenUrlCommand}"
+                    CommandParameter="https://accessreel.com/wp/wp-login.php?action=register"/>
+            </Label.GestureRecognizers>
         </Label>
 
         <Label
-        VerticalOptions="Center"
-        HorizontalOptions="Center"
-        HorizontalTextAlignment="Center"
-        WidthRequest="250"
-        Padding="5,20,5,1">
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span
-                        Text=" &lt; "
-                        TextColor="#171516"
-                        FontSize="12">
-                    </Span>
-                    <Span 
-                    Text="Go to Accessreel.com"
-                    TextColor="#171516"
-                    FontSize="12"
-                    TextDecorations="Underline">
-                        <Span.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding OpenUrlCommand}"
-                                CommandParameter="https://https://accessreel.com/wp/wp-login.php?action=register"/>
-                        </Span.GestureRecognizers>
-                    </Span>
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            WidthRequest="250"
+            Padding="5,20,5,1"
+            Text="Forgotten my Password"
+            TextColor="#171516"
+            FontSize="12"
+            TextDecorations="Underline">
 
-                </FormattedString>
-            </Label.FormattedText>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding OpenUrlCommand}"
+                    CommandParameter="https://accessreel.com/my-account/lost-password/"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            WidthRequest="250"
+            Padding="5,20,5,1"
+            Text="Go to Accessreel.com"
+            TextColor="#171516"
+            FontSize="12"
+            TextDecorations="Underline">
+
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding OpenUrlCommand}"
+                    CommandParameter="https://accessreel.com"/>
+            </Label.GestureRecognizers>
         </Label>
 
     </VerticalStackLayout>
