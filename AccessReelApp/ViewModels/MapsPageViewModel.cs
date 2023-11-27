@@ -35,10 +35,10 @@ namespace AccessReelApp.ViewModels
                 },
                 new Event
                 {
-                    Title = "Event 2",
-                    Description = "Description of Event 2",
+                    Title = "Event: The Marvels",
+                    Description = "Carol Danvers gets her powers entangled with those of Kamala Khan and Monica Rambeau, forcing them to work together to save the universe.",
                     StartTime = DateTime.Now.AddHours(2), // Example start time (2 hours from now)
-                    Location = "Location: Location 2",
+                    Location = "Location: Luna Cinemas",
                 },
             };
             EventSelectedCommand = new RelayCommand<Event>(OnEventSelected);
