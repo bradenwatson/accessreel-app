@@ -10,4 +10,5 @@ public partial class NewsPage : ContentPage
         ViewModelLocator.NewsViewModelInstance = vm;
         BindingContext = vm;
 	}
+
 }

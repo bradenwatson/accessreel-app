@@ -40,9 +40,9 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <Label Grid.Row="0" Grid.ColumnSpan="1" Text="{Binding MovieTitle}" FontSize="16" FontFamily="OxygenBold" HorizontalOptions="Start" />
-                                    <Image Grid.Row="1" Grid.Column="0" Source="{Binding PosterUrl}" Aspect="AspectFill" HeightRequest="300" WidthRequest="210" HorizontalOptions="Start" />
-                                    <Label Grid.Row="2" Grid.Column="0" Text="{Binding MovieDescription}" LineBreakMode="TailTruncation" FontSize="14" FontFamily="OxygenRegular" HorizontalOptions="Start" />
+                                    <Label Grid.Row="0" Grid.ColumnSpan="1" Text="{Binding MovieTitle}" FontSize="18" FontFamily="OxygenBold" HorizontalOptions="Start" WidthRequest="300"/>
+                                    <Image Grid.Row="1" Grid.Column="0" Source="{Binding PosterUrl}" Aspect="AspectFill" HeightRequest="300" WidthRequest="280" HorizontalOptions="Start" />
+                                    <Label Grid.Row="2" Grid.Column="0" Text="{Binding MovieDescription}" LineBreakMode="TailTruncation" FontSize="16" FontFamily="OxygenRegular" HorizontalOptions="Start" WidthRequest="300"/>
 
                                     <!-- Bubble for score/rating (positioned in the middle-right) -->
                                     <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center">

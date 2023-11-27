@@ -50,6 +50,7 @@ namespace AccessReelApp.ViewModels
                 new NewsItem
                 {
                     ImageSource = "https://accessreel.com/app/uploads/2023/11/324931425_2145663592287699_1477355275060355012_n-250x130.jpg",
+                    NewsUrl ="https://accessreel.com/article/nominees-revealed-for-the-2023-wa-screen-culture-awards/",
                     Title = "Nominees Revealed for the 2023 WA Screen Culture Awards",
                     Description = "Celebrating the achievement, innovation and ambition of our local industry, " +
                     "the WA Screen Culture Awards (WASCAs) embrace all forms from new, establis...",
@@ -59,6 +60,7 @@ namespace AccessReelApp.ViewModels
                  new NewsItem
                 {
                     ImageSource = "https://accessreel.com/app/uploads/2023/11/unnamed-1-250x130.jpg",
+                    NewsUrl ="https://accessreel.com/article/daisy-ridley-set-to-star-in-zak-hilditchs-new-film-we-bury-the-dead-in-wa/",
                     Title = "Daisy Ridley set to star in Zak Hilditch’s new film We Bury the Dead in WA",
                     Description = "Screenwest and Screen Australia are pleased to announce Daisy Ridley (Star Wars sequel trilogy) " +
                     "is set to star in Zak Hilditch’s new survival-thriller...",
@@ -68,6 +70,7 @@ namespace AccessReelApp.ViewModels
                   new NewsItem
                 {
                     ImageSource = "https://accessreel.com/app/uploads/2023/10/The-Healing-News_03-e1698526962618-250x130.jpg",
+                    NewsUrl ="https://accessreel.com/article/healing-doc-about-to-drop/",
                     Title = "Healing Doc About To Drop",
                     Description = "THE HEALING is a documentary about to make its way around Australia.  " +
                     "It tells an inspiring tale of recovery from two very different worlds. Set again...",
@@ -77,6 +80,7 @@ namespace AccessReelApp.ViewModels
                   new NewsItem
                 {
                     ImageSource = "https://accessreel.com/app/uploads/2023/10/Jai-Courtney-to-play-Bryan-Shearer-Celeste-Barber-to-play-Susie-Shearer-in-Perth-preparing-to-shoot-RUNT-_-photo-credit-Finlay-MacKay-3-250x130.jpg",
+                    NewsUrl ="https://accessreel.com/article/craig-silveys-best-selling-novel-runt-kicks-off-production-in-wa-with-jai-courtney-leading-the-cast/",
                     Title = "Craig Silvey’s best-selling novel RUNT kicks off production in WA with Jai Courtney Leading the Cast",
                     Description = "Craig Silvey’s best-selling novel RUNT is being made into a feature film in Western Australia with an incredible " +
                     "all-star Australian cast including Ja...",
@@ -103,6 +107,7 @@ namespace AccessReelApp.ViewModels
     public class NewsItem
     {
         public string ImageSource { get; set; }
+        public string NewsUrl {  get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Author { get; set; }
