@@ -34,51 +34,28 @@
                            MaximumVisible="10"
                            IndicatorsShape="Circle"/>
 
-            <!--<HorizontalStackLayout
-                Spacing="25"
-                Padding="30,0">
-                <Label x:Name="movieTitle" Text="text"/>
-                <Border x:Name="critic" Style="{x:StaticResource compositeBorderCritic}"/>
-            </HorizontalStackLayout>-->
-
             <!-- Latest News Header Banner-->
             <VerticalStackLayout Padding="30,20,30,0">
                 <Image Source="latest_interviews.png" />
             </VerticalStackLayout>
 
-            <ListView SelectedItem="{Binding SelectedItem, Mode=TwoWay}" RowHeight="400" x:Name="interviewsListView" ItemsSource="{Binding InterviewsCollection}"/>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell Height="350">
-                        <StackLayout Padding="30,10">
-                            <Image Source="{Binding ImageSource}" HorizontalOptions="CenterAndExpand" WidthRequest="280" HeightRequest="200" Aspect="AspectFill"/>
-                            <Label Text="{Binding Title}" Padding="5,5" FontAttributes="Bold"/>
-                            <!--<Label Text="{Binding Tester}"></Label>
-                                <Label WidthRequest="300">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="{Binding Title}"
-                                                 FontAttributes="Bold">
-                                                -->
-                            <!--<Span.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding TapCommand}"
-                                                     CommandParameter="{Binding InterviewsUrl}" />
-                                                </Span.GestureRecognizers>-->
-                            <!--
-                                            </Span>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>-->
-                            <Label Text="{Binding Description}" Padding="5,5" WidthRequest="300"/>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Author}" TextColor="DarkGrey" Padding="20,0,20,0"/>
-                                <Label Text="{Binding Date}" TextColor="DarkGrey" Padding="20,0,20,0"/>
+            <ListView RowHeight="400" x:Name="interviewsListView" ItemsSource="{Binding InterviewsCollection}" ItemTapped="interviewsListView_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="350">
+                            <StackLayout Padding="30,10">
+                                <Image Source="{Binding ImageSource}" HorizontalOptions="CenterAndExpand" WidthRequest="280" HeightRequest="200" Aspect="AspectFill"/>
+                                <Label Text="{Binding Title}" Padding="5,5" FontAttributes="Bold"/>
+                                <Label Text="{Binding Description}" Padding="5,5" WidthRequest="300"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Author}" TextColor="DarkGrey" Padding="20,0,20,0"/>
+                                    <Label Text="{Binding Date}" TextColor="DarkGrey" Padding="20,0,20,0"/>
+                                </StackLayout>
                             </StackLayout>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ScrollView>
 </ContentPage>

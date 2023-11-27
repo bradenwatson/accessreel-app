@@ -95,13 +95,26 @@ namespace AccessReelApp.ViewModels
             {
                 new TrailerItem
                 {
-                    ImageSource = "barbie.png",
-                    Title = "New Barbie Movie"
+                    ImageSource = "https://accessreel.com/app/uploads/2023/09/EXT_INTL_ONE_SHEET_CHURCH_SAFE_AUS-Digital_HiRes-1-1-200x297.jpg",
+                    TrailerUrl = "https://accessreel.com/article/the-exorcist-believer-trailer/",
+                    Title = "The Exorcist: Believer Trailer"
+                },
+                new TrailerItem
+                {
+                    ImageSource = "https://accessreel.com/app/uploads/2023/10/NapoleonPoster2-1-200x297.jpg",
+                    TrailerUrl = "https://accessreel.com/article/napoleon-trailer/",
+                    Title = "Napolean Trailer"
+                },
+                new TrailerItem
+                {
+                    ImageSource = "https://accessreel.com/app/uploads/2023/09/FNF_crt.InFeed_crn.Payoff_siz.1080x1350_cta.ReleaseDate_cou.AU-en-1-200x297.jpg",
+                    TrailerUrl = "https://accessreel.com/article/five-nights-at-freddys-trailer/",
+                    Title = "Five Nights at Freddy’s Trailer"
                 },
                 // Add more trailer items as needed...
             };
 
-
+        
 
         }
 
@@ -120,6 +133,7 @@ namespace AccessReelApp.ViewModels
     public class TrailerItem
     {
         public string ImageSource { get; set; }
+        public string TrailerUrl { get; set; }
         public string Title { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using AccessReelApp.ViewModels;
+using System;
 
 namespace AccessReelApp.Views;
 
@@ -40,15 +41,15 @@ public partial class NewsPage : ContentPage
 
     private async void OnTrailerItemTapped(object sender, ItemTappedEventArgs e)
     {
-        if (e.Item is NewsItem selecteTrailerItem)
+        if (e.Item is TrailerItem selecteTrailerItem)
         {
             try
             {
-                //Uri uri = new Uri(selectedTrailerItem.TrailerUrl);  // Trailer itmes need to be updated with a url for this to work
-                //await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+                Uri uri = new Uri(selecteTrailerItem.TrailerUrl);
+                await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
 
                 // Deselect the item to remove the highlight
-                newsListView.SelectedItem = null;
+                trailersListView.SelectedItem = null;
             }
             catch (Exception ex)
             {

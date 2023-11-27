@@ -19,7 +19,7 @@ namespace AccessReelApp.ViewModels
         [ObservableProperty] ObservableCollection<InterviewsCell> newsInfo;
         //[ObservableProperty] ObservableCollection<TrailerItem> trailersCollection;
 
-        //[ObservableProperty] string tester = string.Empty;
+        [ObservableProperty] string tester = string.Empty;
 
         public TmdbApiClient movieClient = new("aea36407a9c725c8f82390f7f30064a1");
         void Initialise()
@@ -28,35 +28,35 @@ namespace AccessReelApp.ViewModels
 
         }
 
-        //public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        //private InterviewsItem _selectedItem;
-        //public InterviewsItem SelectedItem
-        //{
-        //    get { return _selectedItem; }
-        //    set
-        //    {
-        //        if (_selectedItem != value)
-        //        {
-        //            _selectedItem = value;
-        //            OnPropertyChanged(nameof(SelectedItem));
-        //            // Perform actions when SelectedItem changes
-        //            HandleSelectedItemChange(value);
-        //        }
-        //    }
-        //}
+        private InterviewsItem _selectedItem;
+        public InterviewsItem SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                if (_selectedItem != value)
+                {
+                    _selectedItem = value;
+                    OnPropertyChanged(nameof(SelectedItem));
+                    // Perform actions when SelectedItem changes
+                    HandleSelectedItemChange(value);
+                }
+            }
+        }
 
-        //// Your other properties, methods, and commands go here
+        // Your other properties, methods, and commands go here
 
-        //private void HandleSelectedItemChange(InterviewsItem selectedItem)
-        //{
-        //    InterviewsCollection.Clear();
-        //}
+        private void HandleSelectedItemChange(InterviewsItem selectedItem)
+        {
+            InterviewsCollection.Clear();
+        }
 
-        //protected virtual void OnPropertyChanged(string propertyName)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
 
         public InterviewsViewModel()
@@ -120,16 +120,16 @@ namespace AccessReelApp.ViewModels
             };
         }
 
-        //[RelayCommand]
-        //public async Task Tap(object parameter)
-        //{
-        //    if(parameter is string)
-        //    {
-        //        Tester = $"{parameter}";
-        //    }
+        [RelayCommand]
+        public async Task Tap(object parameter)
+        {
+            if(parameter is string)
+            {
+                Tester = $"{parameter}";
+            }
 
-        //    await Task.CompletedTask;
-        //}
+            await Task.CompletedTask;
+        }
     }
 
     public class InterviewsItem

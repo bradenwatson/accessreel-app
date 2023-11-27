@@ -28,19 +28,12 @@
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
-            
+
             <IndicatorView x:Name="indicatorView" 
                            IndicatorColor="Gray"
                            SelectedIndicatorColor="Black"
                            MaximumVisible="10"
                            IndicatorsShape="Circle"/>
-
-            <!--<HorizontalStackLayout
-                Spacing="25"
-                Padding="30,0">
-                <Label x:Name="movieTitle" Text="text"/>
-                <Border x:Name="critic" Style="{x:StaticResource compositeBorderCritic}"/>
-            </HorizontalStackLayout>-->
 
             <!-- Latest News Header Banner-->
             <VerticalStackLayout Padding="30,20,30,0">
@@ -71,13 +64,13 @@
             </VerticalStackLayout>
 
             <!-- ListView for Trailers -->
-            <ListView RowHeight="250" x:Name="trailersListView" ItemsSource="{Binding TrailersCollection}" ItemTapped="OnTrailerItemTapped">
+            <ListView RowHeight="300" x:Name="trailersListView" ItemsSource="{Binding TrailersCollection}" ItemTapped="OnTrailerItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="30,10">
-                                <ImageButton Source="{Binding ImageSource}" HorizontalOptions="StartAndExpand" Aspect="AspectFit"/>
-                                <Label Text="{Binding Title}" Padding="5,5" FontAttributes="Bold"/>
+                                <Image Source="{Binding ImageSource}" HorizontalOptions="CenterAndExpand" Aspect="AspectFill" WidthRequest="200" HeightRequest="250"/>
+                                <Label Text="{Binding Title}" HorizontalOptions="CenterAndExpand" FontSize="18" Padding="5,5" FontAttributes="Bold"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
