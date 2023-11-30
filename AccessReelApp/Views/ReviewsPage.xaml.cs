@@ -1,8 +1,10 @@
+using AccessReelApp.Messages;
 using AccessReelApp.ViewModels;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace AccessReelApp.Views;
 
-public partial class ReviewsPage : ContentPage
+public partial class ReviewsPage : ContentPage, IRecipient<OpenPageMessage>
 {
     public enum MovieMode
     {
@@ -14,8 +16,8 @@ public partial class ReviewsPage : ContentPage
 	{
         InitializeComponent();
 		BindingContext = vm;
-
-		LoadARReviews();
+        WeakReferenceMessenger.Default.Register(this);
+        LoadARReviews();
     }
 
 	private async void LoadARReviews()
@@ -25,4 +27,12 @@ public partial class ReviewsPage : ContentPage
 			await vm.movieClient.PullAccessReelData();
 		}
 	}
+
+    public async void Receive(OpenPageMessage message)
+    {
+        if (message.Value == "Invalid Url")
+        {
+            await Shell.Current.DisplayAlert(message.Value, "The item's url seems to be invalid.", "OK");
+        }
+    }
 }

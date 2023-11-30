@@ -53,8 +53,6 @@ namespace AccessReelApp.ViewModels
                 });
             };
 
-
-
             NewsCollection = new ObservableCollection<NewsItem>
             {
                 new NewsItem
@@ -67,7 +65,7 @@ namespace AccessReelApp.ViewModels
                     Author = "AccessReel",
                     Date = DateTime.Now.ToString("dd MMMM, yyyy")
                 },
-                 new NewsItem
+                new NewsItem
                 {
                     ImageSource = "https://accessreel.com/app/uploads/2023/11/unnamed-1-250x130.jpg",
                     NewsUrl ="https://accessreel.com/article/daisy-ridley-set-to-star-in-zak-hilditchs-new-film-we-bury-the-dead-in-wa/",
@@ -77,7 +75,7 @@ namespace AccessReelApp.ViewModels
                     Author = "AccessReel",
                     Date = DateTime.Now.ToString("dd MMMM, yyyy")
                 },
-                  new NewsItem
+                new NewsItem
                 {
                     ImageSource = "https://accessreel.com/app/uploads/2023/10/The-Healing-News_03-e1698526962618-250x130.jpg",
                     NewsUrl ="https://accessreel.com/article/healing-doc-about-to-drop/",
@@ -87,7 +85,7 @@ namespace AccessReelApp.ViewModels
                     Author = "AccessReel",
                     Date = DateTime.Now.ToString("dd MMMM, yyyy")
                 },
-                  new NewsItem
+                new NewsItem
                 {
                     ImageSource = "https://accessreel.com/app/uploads/2023/10/Jai-Courtney-to-play-Bryan-Shearer-Celeste-Barber-to-play-Susie-Shearer-in-Perth-preparing-to-shoot-RUNT-_-photo-credit-Finlay-MacKay-3-250x130.jpg",
                     NewsUrl ="https://accessreel.com/article/craig-silveys-best-selling-novel-runt-kicks-off-production-in-wa-with-jai-courtney-leading-the-cast/",
@@ -96,7 +94,7 @@ namespace AccessReelApp.ViewModels
                     "all-star Australian cast including Ja...",
                     Author = "AccessReel",
                     Date = DateTime.Now.ToString("dd MMMM, yyyy")
-                  },
+                },
                 // Add more news items as needed...
             };
 
@@ -122,9 +120,6 @@ namespace AccessReelApp.ViewModels
                 },
                 // Add more trailer items as needed...
             };
-
-        
-
         }
 
     }

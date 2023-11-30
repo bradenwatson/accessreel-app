@@ -375,6 +375,7 @@ namespace AccessReelApp.Prototypes
                                 MovieDescription = cleanedDescription ?? "DefaultDescription",
                                 PosterUrl = post.img?.thumbnail ?? "DefaultPosterUrl",
                                 MovieRating = float.TryParse(post.film_info?.imdb_vote_avg, out var rating) ? rating : 0.0f,
+                                CriticUrl = post.guid ?? "DefaultUrl",
                             };
 
                             // Dispatch asynchronously

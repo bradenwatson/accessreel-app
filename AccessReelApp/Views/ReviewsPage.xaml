@@ -21,10 +21,10 @@
                 <Picker Grid.Column="1" ItemsSource="{Binding DateFilterList}" Title="Posted any date" />
             </Grid>
 
-            <ScrollView>
+    <ScrollView>
 
-            </ScrollView>
-            <ListView RowHeight="500" ItemsSource="{Binding MovieReviewsList}">
+    </ScrollView>
+            <ListView SelectedItem="{Binding SelectedItem, Mode=TwoWay}" RowHeight="500" ItemsSource="{Binding MovieReviewsList}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell Height="250">
@@ -41,11 +41,12 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Row="0" Grid.ColumnSpan="1" Text="{Binding MovieTitle}" FontSize="18" FontFamily="OxygenBold" HorizontalOptions="Start" WidthRequest="300"/>
-                                    <Image Grid.Row="1" Grid.Column="0" Source="{Binding PosterUrl}" Aspect="AspectFill" HeightRequest="300" WidthRequest="280" HorizontalOptions="Start" />
+                                    <Image Grid.Row="1" Grid.Column="0" Source="{Binding PosterUrl}" Aspect="AspectFill" HeightRequest="300" WidthRequest="200" HorizontalOptions="Start" />
                                     <Label Grid.Row="2" Grid.Column="0" Text="{Binding MovieDescription}" LineBreakMode="TailTruncation" FontSize="16" FontFamily="OxygenRegular" HorizontalOptions="Start" WidthRequest="300"/>
+                                    <Label IsVisible="False" Grid.Row="2" Grid.Column="0" Text="{Binding CriticUrl}" LineBreakMode="TailTruncation" FontSize="16" FontFamily="OxygenRegular" HorizontalOptions="Start" WidthRequest="300"/>
 
                                     <!-- Bubble for score/rating (positioned in the middle-right) -->
-                                    <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center">
+                                    <StackLayout Margin="-120,0,0,0" Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center">
                                         <BoxView WidthRequest="1" Color="Transparent" />
                                         <Frame WidthRequest="80" HeightRequest="80" BackgroundColor="#b30839" CornerRadius="90" Padding="5">
                                             <Frame BackgroundColor="#f61e5b" CornerRadius="90">
