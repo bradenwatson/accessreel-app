@@ -40,7 +40,7 @@ namespace AccessReelApp.ViewModels
         }
 
         [RelayCommand]
-        public Task Login()
+        public async Task Login()
         {
             if(Username == null | Password == null)
             {
@@ -53,13 +53,12 @@ namespace AccessReelApp.ViewModels
                     IsSignedIn = true;
                     Debug.WriteLine(IsSignedIn);
 
-                    NewsViewModel nvm = new();
-                    Application.Current.MainPage.Navigation.PushAsync(new NewsPage(vm: nvm));
-                    Application.Current.MainPage.Navigation.PopAsync();
+                    await Shell.Current.GoToAsync(nameof(NewsPage));
+
+                    //NewsViewModel nvm = new();
+                    //await Application.Current.MainPage.Navigation.PushAsync(new NewsPage(vm: nvm));
                 }
             }
-
-            return Task.CompletedTask;
         }
     }
 }
