@@ -63,7 +63,7 @@
 
     <TabBar>
 
-        <Tab Title="News">
+        <Tab Title="Home">
             <ShellContent ContentTemplate="{DataTemplate view:NewsPage}" />
         </Tab>
 
@@ -73,7 +73,7 @@
 
     </TabBar>
 
-    <FlyoutItem Title="News">
+    <FlyoutItem Title="Home">
         <ShellContent ContentTemplate="{DataTemplate view:NewsPage}" />
     </FlyoutItem>
 
