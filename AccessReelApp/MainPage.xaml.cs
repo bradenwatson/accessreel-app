@@ -147,10 +147,6 @@ namespace AccessReelApp
             await movieClient.GetReviewsForPopularMovies(1);
         }
 
-
-
-
-
         private void Button_Clicked(object sender, EventArgs e)
         {
             NotificationHandler.HandleButtonClick();
@@ -161,11 +157,6 @@ namespace AccessReelApp
         {
             notificationManager.HandleButtonClick();
         }
-
-
-
-
-
     } 
 }
 

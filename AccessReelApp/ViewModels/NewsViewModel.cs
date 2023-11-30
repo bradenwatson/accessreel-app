@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AccessReelApp.Models;
+using AccessReelApp.Prototypes;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,27 +13,37 @@ namespace AccessReelApp.ViewModels
 {
     public partial class NewsViewModel : ObservableObject
     {
-        [ObservableProperty] ObservableCollection<ImageButton> buttonCollection;
-        [ObservableProperty] ObservableCollection<ImageButton> trailers;
-
-        void Initialise()
+        ObservableCollection<ReviewCell> _reviewCells;
+        public ObservableCollection<ReviewCell> ReviewCells
         {
-            // if null -> use compound assign
-            ButtonCollection ??= new ObservableCollection<ImageButton>();
-            Trailers ??= new ObservableCollection<ImageButton>();
+            get { return _reviewCells; }
+            set
+            {
+                _reviewCells = value;
+                OnPropertyChanged();
+            }
         }
 
-        void AddImageButtons(string source)
+        public void ReviewFetchedHandler(string movieKey, string posterUrl, ReviewCell reviewCell)
         {
-            Initialise();
-            CarouselModel.SetImageSource(source);
-            ButtonCollection.Add(CarouselModel.ButtonCollection[0]); // wasn't public 
-            // Careful not to get confused as you have a ButtonCollection here as well
+            CarouselModel.SetImageSource(movieKey, posterUrl);
+            ReviewCells.Add(reviewCell);
         }
 
-        public NewsViewModel()
+        static NewsViewModel _instance;
+        public static NewsViewModel Instance
         {
-            AddImageButton("turtles.jpg");
+            get
+            {
+                _instance ??= new NewsViewModel();
+                return _instance;
+            }
+        }
+
+        ObservableCollection<ReviewCell> GetOrCreateReviewCellsCollection()
+        {
+            _reviewCells ??= new ObservableCollection<ReviewCell>();
+            return _reviewCells;
         }
     }
 }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net.Http;
+﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using AccessReelApp.Models;
-using Android.Graphics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -557,7 +552,3 @@ public class Post
     public IList<ReviewInfo> review_info { get; set; }
     public string hidden { get; set; }
 }
-
-
-
-
