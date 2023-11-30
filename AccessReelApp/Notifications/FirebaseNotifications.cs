@@ -28,6 +28,7 @@
         * Xamarin.AndroidX.Media
         * Xamarin.ANdroidX.Preference
 */
+using CommunityToolkit.Maui.Converters;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
@@ -57,7 +58,7 @@ namespace AccessReelApp.Notifications
         }
 
         // Method to read Firebase Admin SDK
-        public static async void ReadFireBaseAdminSDK()
+        public static async Task ReadFireBaseAdminSDK()
         {
             var stream = await FileSystem.OpenAppPackageFileAsync("Platforms\\Android\\admin_sdk.json");
             var reader = new StreamReader(stream);
@@ -87,20 +88,26 @@ namespace AccessReelApp.Notifications
             var androidNotificationObject = new Dictionary<string, string>();
             androidNotificationObject.Add("NavigationID", key);
 
-            var messages = new List<Message>();
-            var obj = new Message
+            if (!String.IsNullOrEmpty(deviceToken))
             {
-                Token = deviceToken,
-                Notification = new Notification
+                var messages = new List<Message>();
+                var obj = new Message
                 {
-                    Title = title,
-                    Body = body,
-                },
-                Data = androidNotificationObject,
-            };
-            messages.Add(obj);
+                    Token = deviceToken,
+                    Notification = new Notification
+                    {
+                        Title = title,
+                        Body = body,
+                    },
+                    Data = androidNotificationObject,
+                };
+                messages.Add(obj);
+                Debug.WriteLine(messages);
 
-            await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);     //Notifications should still be send and received regardless of preferrence. You can only deny popup only.
+                //Notifications should still be send and received regardless of preferrence.
+                //You can only deny popup only.
+                await FirebaseMessaging.DefaultInstance.SendAllAsync(messages);
+            }
         }
     }
 

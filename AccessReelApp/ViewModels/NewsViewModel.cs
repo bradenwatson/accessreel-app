@@ -9,13 +9,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace AccessReelApp.ViewModels
 {
     public partial class NewsViewModel : ObservableObject
     {
-        NotificationManager notificationManager = new NotificationManager();
-
         [ObservableProperty] ObservableCollection<ImageButton> buttonCollection;
         [ObservableProperty] ObservableCollection<NewsItem> newsCollection;
         [ObservableProperty] ObservableCollection<TrailerItem> trailersCollection;
@@ -27,14 +26,24 @@ namespace AccessReelApp.ViewModels
             ButtonCollection ??= new ObservableCollection<ImageButton>();
         }
 
+        async void SendStartNotification()
+        {
+            try
+            {
+                await NotificationManager.ReadFireBaseAdminSDK();
+                NotificationManager notificationManager = new();
+                notificationManager.CreateMessage("Welcome!", "This is an on start notification.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"ERROR: {ex.Message}");
+            }
+        }
+
         public NewsViewModel()
         {
             Initialise();
-
-            NotificationManager.ReadFireBaseAdminSDK();
-
-            NotificationManager notificationManager = new();
-            notificationManager.CreateMessage("Welcome!", "This is an on start notification.");
+            SendStartNotification();
 
             movieClient.ReviewFetched += (review) =>
             {
