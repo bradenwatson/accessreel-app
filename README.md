@@ -7,4 +7,20 @@ We created this app as part of our second group project in the live works class 
 contributions included developing the navigation bar and resolving front-end interfaces and notification issues.
 
 ## Screenshots
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+### Home Page
+![Home page screenshot](./Images/Home%20page%20screenshot.png)
+
+### Navigation Bar
+![Home page screenshot](./Images/Navigation%20bar%20screenshot.png)
+
+### Reviews Page
+![Home page screenshot](./Images/Reviews%20page%20screenshot.png)
+
+### Interviews Page
+![Home page screenshot](./Images/Interviews%20page%20screenshot.png)
+
+### Events Page
+![Home page screenshot](./Images/Events%20page%20screenshot.png)
+
+### Login Page
+![Home page screenshot](./Images/Login%20page%20screenshot.png)
